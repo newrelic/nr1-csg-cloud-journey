@@ -1,7 +1,7 @@
 {
     "schemaType": "LAUNCHER",
     "id": "nr1-csg-cloud-journey-launcher",
-    "description": "Describe me",
-    "displayName": "Nr1CsgCloudJourney",
+    "description": "Cloud Journey",
+    "displayName": "Cloud Journey",
     "rootNerdletId": "nr1-csg-cloud-journey-nerdlet"
 }

@@ -1,22 +1,14 @@
 /**
- * 
  *
- * @file 
+ *
+ * @file
  * @author
  */
 /** core */
 import React from 'react';
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 /** nr1 */
-import { Button } from 'nr1';
 import { navigation } from 'nr1';
-import { Grid } from 'nr1';
-import { GridItem } from 'nr1';
-import { EntityStorageQuery } from 'nr1'
-import { Spinner } from 'nr1';
-import { PlatformStateContext } from 'nr1'
-import { NerdletStateContext } from 'nr1';
 /** local */
 /** 3rd party */
 
@@ -27,27 +19,51 @@ import { NerdletStateContext } from 'nr1';
  * SRE: https://one.newrelic.com/launcher/dashboards.launcher?packages=local#launcher=eyJ0aW1lUmFuZ2UiOnsiYmVnaW5fdGltZSI6bnVsbCwiZW5kX3RpbWUiOm51bGwsImR1cmF0aW9uIjpudWxsfX0=&pane=eyJuZXJkbGV0SWQiOiJkYXNoYm9hcmRzLmRhc2hib2FyZCIsImVudGl0eUlkIjoiTVRZd05qZzJNbnhXU1ZwOFJFRlRTRUpQUVZKRWZEVXdORE14TlEiLCJpc1RlbXBsYXRlRW1wdHkiOmZhbHNlfQ==&state=IjU2RkU1MDhGLTAzREItMjIwRi0zMTMzLTEzRkU0NEE2NDlFRSI=
  * WAF: https://one.newrelic.com/launcher/dashboards.launcher?packages=local#launcher=eyJ0aW1lUmFuZ2UiOnsiYmVnaW5fdGltZSI6bnVsbCwiZW5kX3RpbWUiOm51bGwsImR1cmF0aW9uIjpudWxsfX0=&pane=eyJuZXJkbGV0SWQiOiJkYXNoYm9hcmRzLmRhc2hib2FyZCIsImVudGl0eUlkIjoiTVRZd05qZzJNbnhXU1ZwOFJFRlRTRUpQUVZKRWZERXdNVEkxTWprIiwiaXNUZW1wbGF0ZUVtcHR5IjpmYWxzZX0=&state=IjZFMTVDOERFLUUwNTktQ0IzNi02OUI4LTlCMzdBRTJGOTM4MSI=
  */
-export default class Foundation extends Component {
+export default class Foundation extends React.Component {
+  static propTypes = {}; //propTypes
 
-    static propTypes = {
-        nerdletUrlState: PropTypes.object,
-        launcherUrlState: PropTypes.object,
-        nerdlet_beginTS: PropTypes.any,
-        nerdlet_endTS: PropTypes.any,
-        nerdlet_duration: PropTypes.any
-      }; //propTypes
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentTab: 1,
+    };
 
-    constructor(props) {
-        super(props)
-    }; //constructor
+    this.switchTab = this.switchTab.bind(this);
+  }; //constructor
 
-    /** Lifecycle render */
-    render() {
+  switchTab(e, id) {
+    e.preventDefault();
 
-        return(
-            <div>
-                <p>Foundation</p>
-            </div>
-        );
-    } //render
+    this.setState({
+      currentTab: id,
+    });
+  }
+
+  /** Lifecycle render */
+  render() {
+    const { currentTab } = this.state;
+
+    return(
+      <div className="inside-container">
+        <div className="tabs-sub">
+          <ul className="tabs">
+            <li className={currentTab === 1 ? 'active' : ''}>
+              <a href="#sub-tab-1" className="u-unstyledLink" onClick={e => this.switchTab(e, 1)}>SRE</a>
+            </li>
+            <li className={currentTab === 2 ? 'active' : ''}>
+              <a href="#sub-tab-2" className="u-unstyledLink" onClick={e => this.switchTab(e, 2)}>WAF</a>
+            </li>
+          </ul>
+        </div>
+        <div className="content-main">
+          <div id="sub-tab-1" className={currentTab === 1 ? 'show' : ''}>
+            SRE dashboard goes here
+          </div>
+          <div id="sub-tab-2" className={currentTab === 2 ? 'show' : ''}>
+            WAF dashboard goes here
+          </div>
+        </div>
+      </div>
+    );
+  } //render
 }//Foundation

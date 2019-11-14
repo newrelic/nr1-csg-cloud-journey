@@ -3,7 +3,7 @@
  * Main entrypoint into Sea of Green funtionality
  *
  * @file This files defines the core sea of green entry nerdlet for launcher
- * @author 
+ * @author
  */
 /** core */
 import React from 'react';
@@ -18,22 +18,20 @@ import CloudJourney from './components/cloud-journey';
 // https://docs.newrelic.com/docs/new-relic-programmable-platform-introduction
 
 export default class Nr1CsgCloudJourney extends React.Component {
-    render() {
-        return (
-            <PlatformStateContext.Consumer>
-              {launcherUrlState => (
-                <NerdletStateContext.Consumer>
-                  {nerdletUrlState => (
-                      <CloudJourney
-                        launcherUrlState={launcherUrlState}
-                        nerdletUrlState={nerdletUrlState}
-                        nerdlet_beginTS={launcherUrlState.timeRange.begin_time}
-                        nerdlet_endTS={launcherUrlState.timeRange.end_time}
-                        nerdlet_duration={launcherUrlState.timeRange.duration}/>
-                  )}
-                </NerdletStateContext.Consumer>
-              )}
-            </PlatformStateContext.Consumer>
-          );
-    } //render
+  render() {
+    return (
+      <PlatformStateContext.Consumer>
+        {launcherUrlState => (
+          <NerdletStateContext.Consumer>
+            {nerdletUrlState => (
+              <CloudJourney
+                launcherUrlState={launcherUrlState}
+                nerdletUrlState={nerdletUrlState}
+              />
+            )}
+          </NerdletStateContext.Consumer>
+        )}
+      </PlatformStateContext.Consumer>
+    );
+  } //render
 } //Nr1CsgPivotalSeaOfGreen
