@@ -1,0 +1,51 @@
+.side-by-side {
+    float: left;
+    margin-left: 10px;
+}
+
+table {
+    margin-bottom:10px;
+    width:49%;
+}
+
+.three{
+    float: left;
+    margin-left: 10px;
+    width: calc(97% / 3);
+}
+
+.top-to-bottom {
+    margin: auto;
+    width: 99%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.center {
+  font-size: 18px;
+  margin: auto;
+  width: 50%;
+  padding: 20px;
+}
+
+.center-line {
+  margin: auto;
+}
+
+.main-text {
+  font-size: 14px;
+  margin: auto;
+  width: 85%;
+  padding: 10px;
+}
+
+.patterns {
+  font-size: 14px;
+  margin: auto;
+  width: 85%;
+  padding: 10px;
+}
+
+.patterns-category {
+  float: left;
+}

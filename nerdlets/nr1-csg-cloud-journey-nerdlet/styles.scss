@@ -114,6 +114,10 @@
   }
 }
 
+ul[role="tablist"] li button[role="tab"] span {
+  padding: 8px 16px;
+}
+
 .insights-dashboard {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

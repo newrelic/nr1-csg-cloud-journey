@@ -47,7 +47,7 @@ export default class Optimization extends React.Component {
           <TabsItem value="tab-1" label="Cost Optimization Nerdlet">
             <div style={{height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
               <Button
-                onClick={() => navigation.openStackedNerdlet({id: 'b7016cbc-7c21-4389-bc9f-6e31a6ef674e.neon-nerdlet'})}
+                onClick={() => navigation.openStackedNerdlet({id: '1805f171-b49b-443f-ae0e-590b4362a1fa.cloud-optimize-nerdlet'})}
                 type={Button.TYPE.PRIMARY}
                 sizeType={Button.SIZE_TYPE.LARGE}
                 iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER}>

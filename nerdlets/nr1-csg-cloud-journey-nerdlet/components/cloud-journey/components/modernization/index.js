@@ -15,6 +15,7 @@ import {
   Button,
 } from 'nr1';
 /** local */
+import ModernizationPatterns from './modernization-patterns';
 /** 3rd party */
 
 
@@ -43,21 +44,23 @@ export default class Modernization extends React.Component {
       <div className="inside-container">
         <Tabs>
           <TabsItem value="tab-1" label="Infrastructure Modernization">
-            Infrastructure Modernization
-          </TabsItem>
-          <TabsItem value="tab-2" label="Optimization - EC2">
             <div style={{height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
               <Button
-                onClick={() => navigation.openStackedNerdlet({id: 'b7016cbc-7c21-4389-bc9f-6e31a6ef674e.neon-nerdlet'})}
+                onClick={() => navigation.openLauncher({id: 'k8s-cluster-explorer-nerdlet.cluster-explorer-launcher'})}
                 type={Button.TYPE.PRIMARY}
                 sizeType={Button.SIZE_TYPE.LARGE}
-                iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER}>
-                Open Nerdlet
+                iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__KUBERNETES__K8S_CLUSTER}>
+                Open K8 Cluster View
               </Button>
             </div>
           </TabsItem>
+          <TabsItem value="tab-2" label="Optimization - EC2">
+            <div>
+              <ModernizationPatterns />
+            </div>
+          </TabsItem>
           <TabsItem value="tab-3" label="Rob's Modernization Dashboard">
-            Rob's Modernization Dashboard
+            TODO
           </TabsItem>
         </Tabs>
       </div>

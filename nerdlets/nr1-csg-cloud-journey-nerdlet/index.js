@@ -11,7 +11,7 @@ import React from 'react';
 import { PlatformStateContext } from 'nr1'
 import { NerdletStateContext } from 'nr1';
 /** local */
-import CloudJourney from './components/cloud-journey';
+import Splash from './splash';
 /** 3rd party */
 
 
@@ -24,7 +24,7 @@ export default class Nr1CsgCloudJourney extends React.Component {
         {launcherUrlState => (
           <NerdletStateContext.Consumer>
             {nerdletUrlState => (
-              <CloudJourney
+              <Splash
                 launcherUrlState={launcherUrlState}
                 nerdletUrlState={nerdletUrlState}
               />
