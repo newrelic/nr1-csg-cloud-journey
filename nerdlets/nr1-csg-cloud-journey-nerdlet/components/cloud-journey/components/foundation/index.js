@@ -8,8 +8,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 /** nr1 */
-import { navigation } from 'nr1';
+import {
+  navigation,
+  Tabs,
+  TabsItem,
+} from 'nr1';
 /** local */
+import InsightsDashboard from '../../../insights-dashboard';
+import SREDashboard from '../../../insights-dashboard/dashboards/sre.json';
+import WAFReliabilityDashboard from '../../../insights-dashboard/dashboards/waf-reliability.json';
+import WAFOperationalExcellenceDashboard from '../../../insights-dashboard/dashboards/waf-operational-excellence.json';
 /** 3rd party */
 
 
@@ -20,49 +28,31 @@ import { navigation } from 'nr1';
  * WAF: https://one.newrelic.com/launcher/dashboards.launcher?packages=local#launcher=eyJ0aW1lUmFuZ2UiOnsiYmVnaW5fdGltZSI6bnVsbCwiZW5kX3RpbWUiOm51bGwsImR1cmF0aW9uIjpudWxsfX0=&pane=eyJuZXJkbGV0SWQiOiJkYXNoYm9hcmRzLmRhc2hib2FyZCIsImVudGl0eUlkIjoiTVRZd05qZzJNbnhXU1ZwOFJFRlRTRUpQUVZKRWZERXdNVEkxTWprIiwiaXNUZW1wbGF0ZUVtcHR5IjpmYWxzZX0=&state=IjZFMTVDOERFLUUwNTktQ0IzNi02OUI4LTlCMzdBRTJGOTM4MSI=
  */
 export default class Foundation extends React.Component {
-  static propTypes = {}; //propTypes
+  static propTypes = {
+    accountId: PropTypes.number,
+  }; //propTypes
 
   constructor(props) {
     super(props);
-    this.state = {
-      currentTab: 1,
-    };
-
-    this.switchTab = this.switchTab.bind(this);
   }; //constructor
-
-  switchTab(e, id) {
-    e.preventDefault();
-
-    this.setState({
-      currentTab: id,
-    });
-  }
 
   /** Lifecycle render */
   render() {
-    const { currentTab } = this.state;
+    const { accountId } = this.props;
 
     return(
       <div className="inside-container">
-        <div className="tabs-sub">
-          <ul className="tabs">
-            <li className={currentTab === 1 ? 'active' : ''}>
-              <a href="#sub-tab-1" className="u-unstyledLink" onClick={e => this.switchTab(e, 1)}>SRE</a>
-            </li>
-            <li className={currentTab === 2 ? 'active' : ''}>
-              <a href="#sub-tab-2" className="u-unstyledLink" onClick={e => this.switchTab(e, 2)}>WAF</a>
-            </li>
-          </ul>
-        </div>
-        <div className="content-main">
-          <div id="sub-tab-1" className={currentTab === 1 ? 'show' : ''}>
-            SRE dashboard goes here
-          </div>
-          <div id="sub-tab-2" className={currentTab === 2 ? 'show' : ''}>
-            WAF dashboard goes here
-          </div>
-        </div>
+        <Tabs>
+          <TabsItem value="tab-1" label="SRE">
+            <InsightsDashboard accountId={accountId} dashboard={SREDashboard} />
+          </TabsItem>
+          <TabsItem value="tab-2" label="WAF - Reliability">
+            <InsightsDashboard accountId={accountId} dashboard={WAFReliabilityDashboard} />
+          </TabsItem>
+          <TabsItem value="tab-3" label="WAF - Operational Excellence">
+            <InsightsDashboard accountId={accountId} dashboard={WAFOperationalExcellenceDashboard} />
+          </TabsItem>
+        </Tabs>
       </div>
     );
   } //render

@@ -1,23 +1,23 @@
 {
-    "private": true,
-    "name": "nr1-csg-cloud-journey",
-    "description": "Nerdpack nr1-csg-cloud-journey",
-    "version": "0.1.0",
-    "scripts": {
-        "start": "nr1 nerdpack:serve",
-        "test": "exit 0"
-    },
-    "nr1": {
-        "uuid": "5b363c9d-5f6c-43c7-a274-eed8735ba0f0"
-    },
-    "dependencies": {
-        "prop-types": "^15.6.2",
-        "react": "^16.6.3",
-        "react-dom": "^16.6.3"
-    },
-    "browserslist": [
-        "last 2 versions",
-        "not ie < 11",
-        "not dead"
-    ]
+  "private": true,
+  "name": "nr1-csg-cloud-journey",
+  "description": "Nerdpack nr1-csg-cloud-journey",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "nr1 nerdpack:serve",
+    "test": "exit 0"
+  },
+  "nr1": {
+    "uuid": "1782dc24-3c9d-486c-9496-db7f0dc88859"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not ie < 11",
+    "not dead"
+  ]
 }

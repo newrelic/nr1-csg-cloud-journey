@@ -1,22 +1,19 @@
 /**
- * 
  *
- * @file 
+ *
+ * @file
  * @author
  */
 /** core */
 import React from 'react';
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 /** nr1 */
-import { Button } from 'nr1';
-import { navigation } from 'nr1';
-import { Grid } from 'nr1';
-import { GridItem } from 'nr1';
-import { EntityStorageQuery } from 'nr1'
-import { Spinner } from 'nr1';
-import { PlatformStateContext } from 'nr1'
-import { NerdletStateContext } from 'nr1';
+import {
+  navigation,
+  Tabs,
+  TabsItem,
+  Button,
+} from 'nr1';
 /** local */
 /** 3rd party */
 
@@ -29,27 +26,41 @@ import { NerdletStateContext } from 'nr1';
  * Infrastructure Modernization: K8 Cluster View
  * Modernization Patterns Nerdlet: https://newrelic.jiveon.com/people/bthomason@newrelic.com/blog/2019/11/01/introducing-the-cas-modernization-nerdpack (https://source.datanerd.us/bthomason/modernization-nerdpack)
  */
-export default class Modernization extends Component {
+export default class Modernization extends React.Component {
+  static propTypes = {
+    accountId: PropTypes.number,
+  }; //propTypes
 
-    static propTypes = {
-        nerdletUrlState: PropTypes.object,
-        launcherUrlState: PropTypes.object,
-        nerdlet_beginTS: PropTypes.any,
-        nerdlet_endTS: PropTypes.any,
-        nerdlet_duration: PropTypes.any
-      }; //propTypes
+  constructor(props) {
+    super(props);
+  }; //constructor
 
-    constructor(props) {
-        super(props)
-    }; //constructor
+  /** Lifecycle render */
+  render() {
+    const { accountId } = this.props;
 
-    /** Lifecycle render */
-    render() {
-
-        return(
-            <div>
-                <p>Modernization</p>
+    return(
+      <div className="inside-container">
+        <Tabs>
+          <TabsItem value="tab-1" label="Infrastructure Modernization">
+            Infrastructure Modernization
+          </TabsItem>
+          <TabsItem value="tab-2" label="Optimization - EC2">
+            <div style={{height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+              <Button
+                onClick={() => navigation.openStackedNerdlet({id: 'b7016cbc-7c21-4389-bc9f-6e31a6ef674e.neon-nerdlet'})}
+                type={Button.TYPE.PRIMARY}
+                sizeType={Button.SIZE_TYPE.LARGE}
+                iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER}>
+                Open Nerdlet
+              </Button>
             </div>
-        );
-    } //render
+          </TabsItem>
+          <TabsItem value="tab-3" label="Rob's Modernization Dashboard">
+            Rob's Modernization Dashboard
+          </TabsItem>
+        </Tabs>
+      </div>
+    );
+  } //render
 }//Modernization

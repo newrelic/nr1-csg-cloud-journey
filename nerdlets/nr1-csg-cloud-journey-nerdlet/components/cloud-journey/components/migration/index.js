@@ -1,23 +1,28 @@
 /**
- * 
  *
- * @file 
+ *
+ * @file
  * @author
  */
 /** core */
 import React from 'react';
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 /** nr1 */
-import { Button } from 'nr1';
-import { navigation } from 'nr1';
-import { Grid } from 'nr1';
-import { GridItem } from 'nr1';
-import { EntityStorageQuery } from 'nr1'
-import { Spinner } from 'nr1';
-import { PlatformStateContext } from 'nr1'
-import { NerdletStateContext } from 'nr1';
+import {
+  navigation,
+  Tabs,
+  TabsItem,
+} from 'nr1';
 /** local */
+import InsightsDashboard from '../../../insights-dashboard';
+//import DiscoveryPlanningDashboard from '../../../insights-dashboard/dashboards/discovery-planning.json';
+import DiscoveryHardwareDashboard from '../../../insights-dashboard/dashboards/discovery-hardware.json';
+import DiscoveryApplicationsDashboard from '../../../insights-dashboard/dashboards/discovery-applications.json';
+import DeliveryOverviewDashboard from '../../../insights-dashboard/dashboards/delivery-overview.json';
+import DeliveryHardwareDashboard from '../../../insights-dashboard/dashboards/delivery-hardware.json';
+import DeliveryApplicationsDashboard from '../../../insights-dashboard/dashboards/delivery-applications.json';
+import ValidateTechnologyDashboard from '../../../insights-dashboard/dashboards/validate-technology.json';
+import ValidateBusinessCaseDashboard from '../../../insights-dashboard/dashboards/validate-business-case.json';
 /** 3rd party */
 
 
@@ -28,27 +33,48 @@ import { NerdletStateContext } from 'nr1';
  * Delivery: https://one.newrelic.com/launcher/dashboards.launcher?packages=local#launcher=eyJ0aW1lUmFuZ2UiOnsiYmVnaW5fdGltZSI6bnVsbCwiZW5kX3RpbWUiOm51bGwsImR1cmF0aW9uIjpudWxsfX0=&pane=eyJuZXJkbGV0SWQiOiJkYXNoYm9hcmRzLmRhc2hib2FyZCIsImVudGl0eUlkIjoiTVRZd05qZzJNbnhXU1ZwOFJFRlRTRUpQUVZKRWZEUXlNVEkwTnciLCJpc1RlbXBsYXRlRW1wdHkiOmZhbHNlfQ==&state=IjM1NzgzMUEzLTE4RDAtMDA5Ri03MzFBLTg2NjgwQjgxRUYyRiI=
  * Validation: https://one.newrelic.com/launcher/dashboards.launcher?packages=local#launcher=eyJ0aW1lUmFuZ2UiOnsiYmVnaW5fdGltZSI6bnVsbCwiZW5kX3RpbWUiOm51bGwsImR1cmF0aW9uIjpudWxsfX0=&pane=eyJuZXJkbGV0SWQiOiJkYXNoYm9hcmRzLmRhc2hib2FyZCIsImVudGl0eUlkIjoiTVRZd05qZzJNbnhXU1ZwOFJFRlRTRUpQUVZKRWZEWTFNekkzT1EiLCJpc1RlbXBsYXRlRW1wdHkiOmZhbHNlfQ==&state=IjczRkM0RUIyLTk4OUEtQjkxOS1GOUQ2LUYyNEJFOTg4MkNCOSI=
  */
-export default class Migration extends Component {
+export default class Migration extends React.Component {
+  static propTypes = {
+    accountId: PropTypes.number,
+  }; //propTypes
 
-    static propTypes = {
-        nerdletUrlState: PropTypes.object,
-        launcherUrlState: PropTypes.object,
-        nerdlet_beginTS: PropTypes.any,
-        nerdlet_endTS: PropTypes.any,
-        nerdlet_duration: PropTypes.any
-      }; //propTypes
+  constructor(props) {
+    super(props);
+  }; //constructor
 
-    constructor(props) {
-        super(props)
-    }; //constructor
+  /** Lifecycle render */
+  render() {
+    const { accountId } = this.props;
 
-    /** Lifecycle render */
-    render() {
-
-        return(
-            <div>
-                <p>Migration</p>
-            </div>
-        );
-    } //render
+    return(
+      <div className="inside-container">
+      <Tabs>
+        <TabsItem value="tab-1" label="Discovery - Planning">
+          TODO
+        </TabsItem>
+        <TabsItem value="tab-2" label="Discovery - Hardware">
+          <InsightsDashboard accountId={accountId} dashboard={DiscoveryHardwareDashboard} />
+        </TabsItem>
+        <TabsItem value="tab-3" label="Discovery - Applications">
+          <InsightsDashboard accountId={accountId} dashboard={DiscoveryApplicationsDashboard} />
+        </TabsItem>
+        <TabsItem value="tab-4" label="Delivery - Overview">
+          <InsightsDashboard accountId={accountId} dashboard={DeliveryOverviewDashboard} />
+        </TabsItem>
+        <TabsItem value="tab-5" label="Delivery - Hardware">
+          <InsightsDashboard accountId={accountId} dashboard={DeliveryHardwareDashboard} />
+        </TabsItem>
+        <TabsItem value="tab-6" label="Delivery - Applications">
+          <InsightsDashboard accountId={accountId} dashboard={DeliveryApplicationsDashboard} />
+        </TabsItem>
+        <TabsItem value="tab-7" label="Validate - Technology">
+          <InsightsDashboard accountId={accountId} dashboard={ValidateTechnologyDashboard} />
+        </TabsItem>
+        <TabsItem value="tab-8" label="Validate - Business Case">
+          <InsightsDashboard accountId={accountId} dashboard={ValidateBusinessCaseDashboard} />
+        </TabsItem>
+      </Tabs>
+      </div>
+    );
+  } //render
 }//Migration

@@ -33,7 +33,8 @@ export default class CloudJourney extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTab: 1
+      currentTab: 1,
+      accountId: 2246998,
     };
 
     this.switchTab = this.switchTab.bind(this);
@@ -49,8 +50,8 @@ export default class CloudJourney extends React.Component {
 
   /** Lifecycle render */
   render() {
-    const { currentTab } = this.state;
-    
+    const { currentTab, accountId } = this.state;
+
     return(
       <div className="container">
         <div className="tabs-main">
@@ -72,21 +73,21 @@ export default class CloudJourney extends React.Component {
             </li>
           </ul>
         </div>
-        <div className="content-main">
+        <div className="tab-content">
           <div id="main-tab-1" className={currentTab === 1 ? 'show' : ''}>
-            <Foundation />
+            <Foundation accountId={accountId} />
           </div>
           <div id="main-tab-2" className={currentTab === 2 ? 'show' : ''}>
-            <Migration />
+            <Migration accountId={accountId} />
           </div>
           <div id="main-tab-3" className={currentTab === 3 ? 'show' : ''}>
-            <Optimization />
+            <Optimization accountId={accountId} />
           </div>
           <div id="main-tab-4" className={currentTab === 4 ? 'show' : ''}>
-            <Modernization />
+            <Modernization accountId={accountId} />
           </div>
           <div id="main-tab-5" className={currentTab === 5 ? 'show' : ''}>
-            <ThrivingDigitalBusiness />
+            <ThrivingDigitalBusiness accountId={accountId} />
           </div>
         </div>
       </div>
