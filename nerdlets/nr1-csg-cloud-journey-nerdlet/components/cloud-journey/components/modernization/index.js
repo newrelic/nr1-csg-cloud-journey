@@ -16,6 +16,8 @@ import {
 } from 'nr1';
 /** local */
 import ModernizationPatterns from './modernization-patterns';
+import InsightsDashboard from '../../../insights-dashboard';
+import CloudNativeServicesDashboard from '../../../insights-dashboard/dashboards/cloud-native-services.json';
 /** 3rd party */
 
 
@@ -43,24 +45,13 @@ export default class Modernization extends React.Component {
     return(
       <div className="inside-container">
         <Tabs>
-          <TabsItem value="tab-1" label="Infrastructure Modernization">
-            <div style={{height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-              <Button
-                onClick={() => navigation.openLauncher({id: 'k8s-cluster-explorer-nerdlet.cluster-explorer-launcher'})}
-                type={Button.TYPE.PRIMARY}
-                sizeType={Button.SIZE_TYPE.LARGE}
-                iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__KUBERNETES__K8S_CLUSTER}>
-                Open K8 Cluster View
-              </Button>
-            </div>
-          </TabsItem>
-          <TabsItem value="tab-2" label="Optimization - EC2">
+          <TabsItem value="tab-1" label="Modernization Patterns">
             <div>
               <ModernizationPatterns />
             </div>
           </TabsItem>
-          <TabsItem value="tab-3" label="Rob's Modernization Dashboard">
-            TODO
+          <TabsItem value="tab-2" label="Cloud Native Services">
+            <InsightsDashboard accountId={accountId} dashboard={CloudNativeServicesDashboard} />
           </TabsItem>
         </Tabs>
       </div>

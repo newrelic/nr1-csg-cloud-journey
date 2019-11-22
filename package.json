@@ -2,7 +2,7 @@
   "private": true,
   "name": "nr1-csg-cloud-journey",
   "description": "Nerdpack nr1-csg-cloud-journey",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "start": "nr1 nerdpack:serve",
     "test": "exit 0"
@@ -11,6 +11,7 @@
     "uuid": "1782dc24-3c9d-486c-9496-db7f0dc88859"
   },
   "dependencies": {
+    "markdown-it": "^10.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",

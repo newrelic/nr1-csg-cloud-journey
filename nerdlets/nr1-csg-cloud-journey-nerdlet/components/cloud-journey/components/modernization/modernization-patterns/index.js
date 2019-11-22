@@ -32,6 +32,7 @@ class ModernizationPatterns extends Component {
   }
 
   displayChart(type,query,account) {
+    account=parseInt(account, 10)
     if (type == "PieChart") {
       var chart = <PieChart query={query} fullWidth={true} accountId={account} />
     } else if (type == "AreaChart") {
@@ -100,21 +101,23 @@ class ModernizationPatterns extends Component {
 
 	{ this.state.splash && <Landing /> }
 
-        <div align={'justify'} class="center">{ReactHtmlParser(current_description)}</div>
+        <div align={'justify'} className="center">{ReactHtmlParser(current_description)}</div>
 
 	{current_chart}
 
-        {items.map(item =>
-          <table class={item.view}>
-                  <tr><th colspan={item.tdNames.length}><center><h3>{ReactHtmlParser(item.name)}</h3></center></th></tr>
+        {items.map((item, idx) =>
+          <table key={idx} className={item.view}>
+            <tbody>
+                  <tr><th colSpan={item.tdNames.length}><center><h3>{ReactHtmlParser(item.name)}</h3></center></th></tr>
                   <tr>
-                    {item.tdNames.map(tdName =>
-                    <th>{tdName}</th>
+                    {item.tdNames.map((tdName, i) =>
+                    <th key={i}>{tdName}</th>
                     )}
                   </tr>
-		  {item.tdValues.map(function(name, index){
-                    return <tr> {name.map(n => <td>{ReactHtmlParser(n)}</td>)} </tr>
-                  })}
+		              {item.tdValues.map((name, index) =>
+                    <tr key={index}>{name.map((n, i) => <td key={i}>{ReactHtmlParser(n)}</td>)}</tr>
+                  )}
+            </tbody>
           </table>
         )}
       </div>
