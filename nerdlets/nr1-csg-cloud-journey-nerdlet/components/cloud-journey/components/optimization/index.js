@@ -44,24 +44,23 @@ export default class Optimization extends React.Component {
     return(
       <div className="inside-container">
         <Tabs>
-          <TabsItem value="tab-1" label="Cost Optimization Nerdlet">
-            <div style={{height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <TabsItem value="tab-1" label="Optimization - EC2">
+            <div className="optimization-nerdlet">
               <Button
                 onClick={() => navigation.openStackedNerdlet({id: '1805f171-b49b-443f-ae0e-590b4362a1fa.cloud-optimize-nerdlet'})}
-                type={Button.TYPE.PRIMARY}
+                type={Button.TYPE.PLAIN}
                 sizeType={Button.SIZE_TYPE.LARGE}
-                iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER}>
+                iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER}
+                style={{color: '#ff9900', backgroundColor: 'white'}}>
                 Open Nerdlet
               </Button>
             </div>
-          </TabsItem>
-          <TabsItem value="tab-2" label="Optimization - EC2">
             <InsightsDashboard accountId={accountId} dashboard={OptimizationEC2Dashboard} />
           </TabsItem>
-          <TabsItem value="tab-3" label="Optimization - EBS">
+          <TabsItem value="tab-2" label="Optimization - EBS">
             <InsightsDashboard accountId={accountId} dashboard={OptimizationEBSDashboard} />
           </TabsItem>
-          <TabsItem value="tab-4" label="Optimization - S3">
+          <TabsItem value="tab-3" label="Optimization - S3">
             <InsightsDashboard accountId={accountId} dashboard={OptimizationS3Dashboard} />
           </TabsItem>
         </Tabs>

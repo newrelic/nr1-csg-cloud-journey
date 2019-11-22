@@ -21,7 +21,9 @@ import {
 } from 'nr1';
 /** local */
 /** 3rd party */
+import MD from 'markdown-it';
 
+const md = new MD();
 
 /**
  * InsightsDashboard Component
@@ -47,7 +49,7 @@ export default class InsightsDashboard extends React.Component {
     });
 
     const widgetContent = (widget) => {
-      if (!(widget && widget.process_as)) return null;
+      if (!widget) return null;
       if (/(billboard|attribute_sheet|gauge)/.test(widget.process_as))
         return <BillboardChart fullHeight fullWidth accountId={accountId} query={widget.nrql} />;
       if (/funnel/.test(widget.process_as))
@@ -64,6 +66,10 @@ export default class InsightsDashboard extends React.Component {
         return <HistogramChart fullHeight fullWidth accountId={accountId} query={widget.nrql} />;
       if (/area/.test(widget.process_as))
         return <AreaChart fullHeight fullWidth accountId={accountId} query={widget.nrql} />;
+      if (!widget.nrql) {
+        let markdown = (widget.customizations || {}).markdown;
+        if (markdown) return <div dangerouslySetInnerHTML={{ __html: md.render(markdown) }} />
+      }
       return null;
     }
 

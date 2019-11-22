@@ -74,44 +74,7 @@
   margin: 0 auto;
   padding: 2em 0;
 
-  .tabs-sub {
-    padding-top: 2em;
-    border-bottom: 1px solid #f4f5f5;
-    // margin-bottom: 2em;
 
-    ul {
-      width: 100%;
-      list-style: none;
-      overflow: hidden;
-      display: flex;
-      margin-left: 2em;
-
-      li {
-        text-align: center;
-        align-self: center;
-        display: block;
-
-        a {
-          display: block;
-          padding: 1em 5em;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          text-decoration: none;
-          text-transform: uppercase;
-          font: 15px Montserrat, sans-serif;
-          color: #2a3434;
-          border-bottom: 5px solid white;
-        }
-
-        &.active {
-          a {
-            border-bottom-color: #2a3434;
-          }
-        }
-      }
-    }
-  }
 }
 
 ul[role="tablist"] li button[role="tab"] span {
@@ -157,6 +120,67 @@ ul[role="tablist"] li button[role="tab"] span {
   div:last-child {
     border-right-width: 2px;
   }
-
-
 }
+
+.optimization-nerdlet {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1em;
+  background: url(//d1.awsstatic.com/LATAM/Webinar/Background.0eeb3322c050ea83325a4a53e24116ef20acf0b7.png) no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* modernization-patterns */
+.side-by-side {
+    float: left;
+    margin-left: 10px;
+}
+
+table {
+    margin-bottom:10px;
+    width:49%;
+}
+
+.three{
+    float: left;
+    margin-left: 10px;
+    width: calc(97% / 3);
+}
+
+.top-to-bottom {
+    margin: auto;
+    width: 99%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.center {
+  font-size: 18px;
+  margin: auto;
+  width: 50%;
+  padding: 20px;
+}
+
+.center-line {
+  margin: auto;
+}
+
+.main-text {
+  font-size: 14px;
+  margin: auto;
+  width: 85%;
+  padding: 10px;
+}
+
+.patterns {
+  font-size: 14px;
+  margin: auto;
+  width: 85%;
+  padding: 10px;
+}
+
+.patterns-category {
+  float: left;
+}
+/* /modernization-patterns */

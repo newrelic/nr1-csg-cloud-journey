@@ -63,10 +63,10 @@ export default class CloudJourney extends React.Component {
               <a href="#main-tab-2" className="u-unstyledLink" onClick={e => this.switchTab(e, 2)}>Migration</a>
             </li>
             <li className={currentTab === 3 ? 'active' : ''}>
-              <a href="#main-tab-3" className="u-unstyledLink" onClick={e => this.switchTab(e, 3)}>Optimization</a>
+              <a href="#main-tab-3" className="u-unstyledLink" onClick={e => this.switchTab(e, 3)}>Modernization</a>
             </li>
             <li className={currentTab === 4 ? 'active' : ''}>
-              <a href="#main-tab-4" className="u-unstyledLink" onClick={e => this.switchTab(e, 4)}>Modernization</a>
+              <a href="#main-tab-4" className="u-unstyledLink" onClick={e => this.switchTab(e, 4)}>Optimization</a>
             </li>
             <li className={currentTab === 5 ? 'active' : ''}>
               <a href="#main-tab-5" className="u-unstyledLink" onClick={e => this.switchTab(e, 5)}>Thriving Business</a>
@@ -81,10 +81,10 @@ export default class CloudJourney extends React.Component {
             <Migration accountId={accountId} />
           </div>
           <div id="main-tab-3" className={currentTab === 3 ? 'show' : ''}>
-            <Optimization accountId={accountId} />
+            <Modernization accountId={accountId} />
           </div>
           <div id="main-tab-4" className={currentTab === 4 ? 'show' : ''}>
-            <Modernization accountId={accountId} />
+            <Optimization accountId={accountId} />
           </div>
           <div id="main-tab-5" className={currentTab === 5 ? 'show' : ''}>
             <ThrivingDigitalBusiness accountId={accountId} />

@@ -15,14 +15,12 @@ import {
 } from 'nr1';
 /** local */
 import InsightsDashboard from '../../../insights-dashboard';
-//import DiscoveryPlanningDashboard from '../../../insights-dashboard/dashboards/discovery-planning.json';
+import DiscoveryPlanningDashboard from '../../../insights-dashboard/dashboards/discovery-planning.json';
 import DiscoveryHardwareDashboard from '../../../insights-dashboard/dashboards/discovery-hardware.json';
 import DiscoveryApplicationsDashboard from '../../../insights-dashboard/dashboards/discovery-applications.json';
-import DeliveryOverviewDashboard from '../../../insights-dashboard/dashboards/delivery-overview.json';
-import DeliveryHardwareDashboard from '../../../insights-dashboard/dashboards/delivery-hardware.json';
-import DeliveryApplicationsDashboard from '../../../insights-dashboard/dashboards/delivery-applications.json';
 import ValidateTechnologyDashboard from '../../../insights-dashboard/dashboards/validate-technology.json';
 import ValidateBusinessCaseDashboard from '../../../insights-dashboard/dashboards/validate-business-case.json';
+import DeliveryOverviewDashboard from '../../../insights-dashboard/dashboards/delivery-overview.json';
 /** 3rd party */
 
 
@@ -50,7 +48,7 @@ export default class Migration extends React.Component {
       <div className="inside-container">
       <Tabs>
         <TabsItem value="tab-1" label="Discovery - Planning">
-          TODO
+          <InsightsDashboard accountId={accountId} dashboard={DiscoveryPlanningDashboard} />
         </TabsItem>
         <TabsItem value="tab-2" label="Discovery - Hardware">
           <InsightsDashboard accountId={accountId} dashboard={DiscoveryHardwareDashboard} />
@@ -58,20 +56,14 @@ export default class Migration extends React.Component {
         <TabsItem value="tab-3" label="Discovery - Applications">
           <InsightsDashboard accountId={accountId} dashboard={DiscoveryApplicationsDashboard} />
         </TabsItem>
-        <TabsItem value="tab-4" label="Delivery - Overview">
-          <InsightsDashboard accountId={accountId} dashboard={DeliveryOverviewDashboard} />
-        </TabsItem>
-        <TabsItem value="tab-5" label="Delivery - Hardware">
-          <InsightsDashboard accountId={accountId} dashboard={DeliveryHardwareDashboard} />
-        </TabsItem>
-        <TabsItem value="tab-6" label="Delivery - Applications">
-          <InsightsDashboard accountId={accountId} dashboard={DeliveryApplicationsDashboard} />
-        </TabsItem>
-        <TabsItem value="tab-7" label="Validate - Technology">
+        <TabsItem value="tab-4" label="Validate - Technology">
           <InsightsDashboard accountId={accountId} dashboard={ValidateTechnologyDashboard} />
         </TabsItem>
-        <TabsItem value="tab-8" label="Validate - Business Case">
+        <TabsItem value="tab-5" label="Validate - Business Case">
           <InsightsDashboard accountId={accountId} dashboard={ValidateBusinessCaseDashboard} />
+        </TabsItem>
+        <TabsItem value="tab-6" label="Delivery - Overview">
+          <InsightsDashboard accountId={accountId} dashboard={DeliveryOverviewDashboard} />
         </TabsItem>
       </Tabs>
       </div>
