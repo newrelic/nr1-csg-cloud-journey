@@ -15,6 +15,7 @@ import {
   TabsItem,
 } from 'nr1';
 /** local */
+import k8Image from './k8.png'
 import InsightsDashboard from '../../../insights-dashboard';
 import SREDashboard from '../../../insights-dashboard/dashboards/sre.json';
 import WAFReliabilityDashboard from '../../../insights-dashboard/dashboards/waf-reliability.json';
@@ -54,19 +55,13 @@ export default class Foundation extends React.Component {
             <InsightsDashboard accountId={accountId} dashboard={WAFOperationalExcellenceDashboard} />
           </TabsItem>
           <TabsItem value="tab-4" label="Kubernetes Monitoring">
-            <div style={{height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-              <Button
-                onClick={() => navigation.openStackedNerdlet({
-                  id: 'k8s-cluster-explorer-nerdlet.k8s-cluster-explorer',
-                  urlState: {
-                    entityGuid: 'MTYwNjg2MnxJTkZSQXxOQXwzNjcyMjkzNzY0NjA0OTU5Mjk3',
-                  }
-                })}
-                type={Button.TYPE.PRIMARY}
-                sizeType={Button.SIZE_TYPE.LARGE}
-                iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__KUBERNETES__K8S_CLUSTER}>
-                Open K8 Cluster View
-              </Button>
+            <div style={{height: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+              <img src={k8Image} alt="Kubernetes Monitoring" style={{height: '100%', cursor: 'pointer'}} onClick={() => navigation.openStackedNerdlet({
+                id: 'k8s-cluster-explorer-nerdlet.k8s-cluster-explorer',
+                urlState: {
+                  entityGuid: 'MjI0Njk5OHxJTkZSQXxOQXw3ODYzMTg3Mjc2MDUzMzAzODAw',
+                }
+              })}/>
             </div>
           </TabsItem>
         </Tabs>

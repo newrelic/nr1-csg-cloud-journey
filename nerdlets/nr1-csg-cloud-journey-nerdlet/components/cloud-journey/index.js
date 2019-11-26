@@ -28,12 +28,13 @@ export default class CloudJourney extends React.Component {
   static propTypes = {
     nerdletUrlState: PropTypes.object,
     launcherUrlState: PropTypes.object,
+    tabIndex: PropTypes.number,
   }; //propTypes
 
   constructor(props) {
     super(props);
     this.state = {
-      currentTab: 1,
+      currentTab: ('tabIndex' in props) ? props.tabIndex : 1,
       accountId: 2246998,
     };
 
