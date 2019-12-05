@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 /** nr1 */
 import { Button } from 'nr1';
 /** local */
-import splashImage from './splash.png'
+import splashImage from './cloud_journey_no_text.png'
 import CloudJourney from './components/cloud-journey';
 /** 3rd party */
 
@@ -28,28 +28,54 @@ export default class Splash extends React.Component {
     super(props);
     this.state = {
       showSplash: true,
+      tabIndex: 1,
     };
+
+    this.mapClickHandler = this.mapClickHandler.bind(this);
   }; //constructor
 
+  mapClickHandler(e, tabIndex) {
+    e.preventDefault();
+    this.setState({
+      tabIndex: tabIndex,
+      showSplash: false,
+    });
+  }
+
   render() {
-    const { showSplash } = this.state;
+    const { showSplash, tabIndex } = this.state;
     const { nerdletUrlState, launcherUrlState } = this.props;
 
     return (showSplash) ? (
-      <div  style={{backgroundColor: '#fff', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <div>
-          <Button onClick={() => this.setState({ showSplash: false })} type={Button.TYPE. PLAIN} iconType={Button.ICON_TYPE.INTERFACE__ARROW__ARROW_RIGHT__V_ALTERNATE}>
-            Get Started
-          </Button>
-        </div>
-        <div>
-          <img src={splashImage} alt="Cloud Journey" />
+      <div className="splash" style={{backgroundImage: `url(${splashImage})`}}>
+        <div className="parts">
+          <div className="title" style={{marginTop: '75%'}} onClick={e => this.mapClickHandler(e, 1)}>
+            <h2>Foundation</h2>
+            <h3>Tool Consolidation and<br/>Landing Zone instrumentation</h3>
+          </div>
+          <div className="title" style={{marginTop: '30%'}} onClick={e => this.mapClickHandler(e, 2)}>
+            <h2>Migration</h2>
+            <h3>Before, During, and After</h3>
+          </div>
+          <div className="title" style={{marginTop: '5%'}} onClick={e => this.mapClickHandler(e, 3)}>
+            <h2>Modernization</h2>
+            <h3>Modern Technologies and<br/>Processes</h3>
+          </div>
+          <div className="title" style={{marginTop: '30%'}} onClick={e => this.mapClickHandler(e, 4)}>
+            <h2>Optimization</h2>
+            <h3>Cost Control</h3>
+          </div>
+          <div className="title" style={{marginTop: '75%'}} onClick={e => this.mapClickHandler(e, 5)}>
+            <h2>Thriving Business</h2>
+            <h3>Business Value KPI</h3>
+          </div>
         </div>
       </div>
     ) : (
       <CloudJourney
         launcherUrlState={launcherUrlState}
         nerdletUrlState={nerdletUrlState}
+        tabIndex={tabIndex}
       />
     );
   } //render

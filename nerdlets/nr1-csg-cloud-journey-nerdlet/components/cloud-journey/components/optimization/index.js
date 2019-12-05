@@ -15,6 +15,7 @@ import {
   Button,
 } from 'nr1';
 /** local */
+import optimizationImage from './nerdlet-launcher.png'
 import InsightsDashboard from '../../../insights-dashboard';
 import OptimizationEC2Dashboard from '../../../insights-dashboard/dashboards/optimization-ec2.json';
 import OptimizationEBSDashboard from '../../../insights-dashboard/dashboards/optimization-ebs.json';
@@ -46,14 +47,7 @@ export default class Optimization extends React.Component {
         <Tabs>
           <TabsItem value="tab-1" label="Optimization - EC2">
             <div className="optimization-nerdlet">
-              <Button
-                onClick={() => navigation.openStackedNerdlet({id: '1805f171-b49b-443f-ae0e-590b4362a1fa.cloud-optimize-nerdlet'})}
-                type={Button.TYPE.PLAIN}
-                sizeType={Button.SIZE_TYPE.LARGE}
-                iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER}
-                style={{color: '#ff9900', backgroundColor: 'white'}}>
-                Open Nerdlet
-              </Button>
+              <img src={optimizationImage} alt="Optimization Nerdlet" onClick={() => navigation.openStackedNerdlet({id: '1805f171-b49b-443f-ae0e-590b4362a1fa.cloud-optimize-nerdlet'})} />
             </div>
             <InsightsDashboard accountId={accountId} dashboard={OptimizationEC2Dashboard} />
           </TabsItem>
