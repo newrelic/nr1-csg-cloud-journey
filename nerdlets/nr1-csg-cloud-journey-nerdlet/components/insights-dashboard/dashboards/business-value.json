@@ -1,5 +1,5 @@
 {
-    "dashboard_account_id": 2246998,
+    "dashboard_account_id": DEADBEEF,
     "filter": {
         "event_types": [
             "Transaction",

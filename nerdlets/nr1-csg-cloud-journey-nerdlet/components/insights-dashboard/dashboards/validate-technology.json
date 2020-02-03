@@ -1,5 +1,5 @@
 {
-    "dashboard_account_id": 2246998,
+    "dashboard_account_id": DEADBEEF,
     "filter": null,
     "grid_column_count": 3,
     "icon": "bar-chart",
