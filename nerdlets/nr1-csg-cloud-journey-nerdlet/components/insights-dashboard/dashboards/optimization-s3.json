@@ -32,7 +32,7 @@
             "facet": "provider.bucketName",
             "height": 1,
             "notes": null,
-            "nrql": "from DatastoreSample SELECT latest(provider.allRequests.Sum) AS 'Total Requests', latest(timestamp) as 'Last Polled' WHERE provider.bucketName is NOT NULL AND provider.allRequests.Sum < 10 FACET provider.bucketName LIMIT 2000",
+            "nrql": "from DatastoreSample SELECT latest(provider.allRequests.Sum) AS 'Total Requests', latest(timestamp) as 'Last Polled' WHERE provider.bucketName is NOT NULL AND provider.allRequests.Sum < 10 FACET provider.bucketName since 1 week ago LIMIT 2000",
             "process_as": "facet_table",
             "row": 1,
             "title": "Archival Candidates (Infrequently Accessed Buckets)",

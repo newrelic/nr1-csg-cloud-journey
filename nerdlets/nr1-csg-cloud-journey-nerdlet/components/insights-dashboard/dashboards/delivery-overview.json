@@ -92,7 +92,7 @@
             "facet": "monitorName",
             "height": 1,
             "notes": null,
-            "nrql": "from SyntheticCheck SELECT percentage(count(*),where result = 'SUCCESS') as 'Availability %' FACET monitorName",
+            "nrql": "from SyntheticCheck SELECT percentage(count(*),where result = 'SUCCESS') as 'Availability %' FACET monitorName since 1 day ago",
             "process_as": "facet_bar_chart",
             "row": 3,
             "title": "Availability",

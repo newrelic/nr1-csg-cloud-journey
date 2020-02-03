@@ -160,7 +160,7 @@
             "facet": null,
             "height": 1,
             "notes": null,
-            "nrql": "FROM SyntheticCheck SELECT percentage(count(*), WHERE result = 'SUCCESS') SINCE 5 day ago",
+            "nrql": "FROM SyntheticCheck SELECT percentage(count(*), WHERE result = 'SUCCESS') SINCE 1 week ago",
             "process_as": "gauge",
             "row": 4,
             "title": "Homepage Availability",

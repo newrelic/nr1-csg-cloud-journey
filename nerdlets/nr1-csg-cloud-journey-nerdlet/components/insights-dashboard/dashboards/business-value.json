@@ -208,7 +208,7 @@
             "facet": "httpResponseCode",
             "height": 1,
             "notes": null,
-            "nrql": "SELECT count(httpResponseCode) FROM Transaction  WHERE  httpResponseCode != '200' facet httpResponseCode",
+            "nrql": "SELECT count(httpResponseCode) FROM Transaction  WHERE  httpResponseCode != '200' facet httpResponseCode since 1 day ago",
             "process_as": "facet_pie_chart",
             "row": 4,
             "title": "Error Responses",
