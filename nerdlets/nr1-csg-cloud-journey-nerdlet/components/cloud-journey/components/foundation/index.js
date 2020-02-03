@@ -54,16 +54,6 @@ export default class Foundation extends React.Component {
           <TabsItem value="tab-3" label="WAF - Operational Excellence">
             <InsightsDashboard accountId={accountId} dashboard={WAFOperationalExcellenceDashboard} />
           </TabsItem>
-          <TabsItem value="tab-4" label="Kubernetes Monitoring">
-            <div style={{height: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-              <img src={k8Image} alt="Kubernetes Monitoring" style={{height: '100%', cursor: 'pointer'}} onClick={() => navigation.openStackedNerdlet({
-                id: 'k8s-cluster-explorer-nerdlet.k8s-cluster-explorer',
-                urlState: {
-                  entityGuid: 'MjI0Njk5OHxJTkZSQXxOQXw3ODYzMTg3Mjc2MDUzMzAzODAw',
-                }
-              })}/>
-            </div>
-          </TabsItem>
         </Tabs>
       </div>
     );
