@@ -107,7 +107,7 @@
             "facet": null,
             "height": 1,
             "notes": null,
-            "nrql": "FROM Transaction SELECT rate(count(*), 1 minute) as 'RPM' WHERE appName LIKE '%_AWS' since 1 hour ago COMPARE WITH 1 day ago",
+            "nrql": "FROM Transaction SELECT rate(count(*), 1 minute) as 'RPM' WHERE appName LIKE '%_AWS' since 1 hour ago COMPARE WITH 1 hour ago",
             "process_as": "billboard_comparison",
             "row": 3,
             "title": "RPM - AWS",

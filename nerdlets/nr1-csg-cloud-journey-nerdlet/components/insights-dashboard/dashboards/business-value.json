@@ -118,7 +118,7 @@
             "facet": "duration",
             "height": 1,
             "notes": null,
-            "nrql": "SELECT count(*) AS 'Duration' FROM PageView facet buckets(duration,10,10) SINCE 5 hours ago WHERE pageUrl like '%shoppingcart'",
+            "nrql": "SELECT count(*) AS 'Duration' FROM PageView facet buckets(duration,10,10) SINCE 1 day ago WHERE pageUrl like '%shoppingcart'",
             "process_as": "facet_bar_chart",
             "row": 2,
             "title": "Purchase Confirmation Page Duration",
