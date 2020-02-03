@@ -11,9 +11,6 @@ modernization_nerdlet_config = "nerdlets/nr1-csg-cloud-journey-nerdlet/component
 account_number = raw_input("Please provide the account number where this nerdlet is being deployed and then press ENTER: ")
 acount_number = account_number.strip()
 
-account_name = raw_input("Please provide a friendly name (this can be anything you wish) for this account and then press ENTER: ")
-acount_name = account_name.strip()
-
 #Add account number to nerdlet main view
 fbuffer = open(nerdlet)
 data = fbuffer.read()
@@ -46,7 +43,6 @@ data = fbuffer.read()
 fbuffer.close()
 
 data = data.replace("<ACCOUNT_NUMBER>",account_number)
-data = data.replace("<ACCOUNT_NAME>",account_name)
 data = data.replace("<INSIGHTS_QUERY_KEY>",insights_query_key)
 
 fbuffer = open(modernization_nerdlet_config,'w')
