@@ -2,7 +2,7 @@ export var queries =
 [
     {
         "chart": {
-            "query": "FROM SystemSample SELECT uniqueCount(hostname) AS 'Hosts' FACET cases(WHERE linuxDistribution LIKE 'Amazon Linux AMI 2018.03' AS Outdated, WHERE linuxDistribution LIKE 'Amazon Linux 2' AS 'Up-to-date')",
+            "query": "FROM SystemSample SELECT uniqueCount(hostname) AS 'Instance Count' WHERE linuxDistribution LIKE '%Amazon%' FACET linuxDistribution AS 'Linux Distro'",
             "type": "PieChart"
         },
         "description": "The latest and final release of the original Amazon Linux AMI occurred in March of 2018.  It is highly recommended that any instances using this AMI are migrated to Amazon Linux 2.",
@@ -11,11 +11,11 @@ export var queries =
         "queries": [
             {
                 "name": "Operating System: Amazon Linux 1",
-                "value": "FROM ComputeSample SELECT latest(linuxDistribution) AS 'Linux Distro' WHERE linuxDistribution LIKE '%Amazon%201%' FACET hostname LIMIT 2000"
+                "value": "FROM SystemSample SELECT latest(linuxDistribution) AS 'Linux Distro' WHERE linuxDistribution LIKE '%Amazon%201%' FACET hostname LIMIT 2000"
             },
             {
                 "name": "Operating System: Amazon Linux 2",
-                "value": "FROM ComputeSample SELECT latest(linuxDistribution) AS 'Linux Distro' WHERE linuxDistribution LIKE '%Amazon Linux 2%' FACET hostname LIMIT 2000"
+                "value": "FROM SystemSample SELECT latest(linuxDistribution) AS 'Linux Distro' WHERE linuxDistribution LIKE '%Amazon Linux 2%' FACET hostname LIMIT 2000"
             }
         ],
         "type": "list",
@@ -23,7 +23,7 @@ export var queries =
     },
     {
         "chart": {
-            "query": "FROM SystemSample SELECT uniqueCount(hostname) AS 'Hosts' FACET cases(WHERE linuxDistribution LIKE 'Amazon Linux AMI 2018.03' AS Outdated, WHERE linuxDistribution LIKE 'Amazon Linux 2' AS 'Up-to-date')",
+            "query": "FROM SystemSample SELECT uniqueCount(hostname) AS 'Instance Count' WHERE linuxDistribution LIKE '%Amazon Linux 2%' FACET linuxDistribution AS 'Linux Distro'",
             "type": "PieChart"
         },
         "description": "The latest and final release of the original Amazon Linux AMI occurred in March of 2018.  It is highly recommended that any instances using this AMI are migrated to Amazon Linux 2.",
@@ -32,7 +32,7 @@ export var queries =
         "queries": [
             {
                 "name": "Outdated OS: Amazon Linux",
-                "value": "FROM ComputeSample SELECT latest(linuxDistribution) WHERE operatingSystem = 'linux' AND linuxDistribution LIKE '%Amazon%201%' FACET hostname LIMIT 2000"
+                "value": "FROM SystemSample SELECT latest(linuxDistribution) WHERE operatingSystem = 'linux' AND linuxDistribution LIKE '%Amazon%201%' FACET hostname LIMIT 2000"
             }
         ],
         "type": "list",
@@ -125,7 +125,7 @@ export var queries =
     },
     {
         "chart": {
-            "query": "FROM SystemSample SELECT uniqueCount(hostname) AS 'Instance Count' WHERE windowsFamily IS NOT NULL LIKE FACET windowsVersion AS 'Windows Version'",
+            "query": "FROM SystemSample SELECT uniqueCount(hostname) AS 'Instance Count' WHERE windowsFamily IS NOT NULL FACET windowsVersion AS 'Windows Version'",
             "type": "PieChart"
         },
         "description": "Microsoft supports Windows Server releases for a period of 10 years.  The latest version of Windows Server is 2019 while the latest supported release is version 2012.",
@@ -134,7 +134,7 @@ export var queries =
         "queries": [
             {
                 "name": "Windows Hosts: Versions",
-                "value": "FROM SystemSample SELECT uniqueCount(hostname) AS 'Instance Count' WHERE windowsFamily IS NOT NULL LIKE FACET windowsVersion AS 'Windows Version'"
+                "value": "FROM SystemSample SELECT uniqueCount(hostname) AS 'Instance Count' WHERE windowsFamily IS NOT NULL FACET windowsVersion AS 'Windows Version'"
             }
         ],
         "type": "list",
