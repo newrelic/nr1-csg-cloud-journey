@@ -1,1 +1,72 @@
-{"title":"LabsUseOnly","icon":"bar-chart","grid_column_count":3,"filter":null,"owner":{"email":"ayathirajadasan@newrelic.com"},"widgets":[{"title":"Downgrade Candidates: CPU Idle \u003e 80%","nrql":"FROM SystemSample SELECT min(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' AND cpuIdlePercent \u003e 80 FACET hostname","process_as":"facet_bar_chart","width":2,"height":1,"row":1,"column":1,"event_types":["SystemSample"],"facet":"hostname","customizations":{},"notes":null},{"title":"Upgrade Candidates: CPU Idle \u003c 20%","nrql":"FROM SystemSample SELECT min(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' AND cpuIdlePercent \u003c 20 FACET hostname","process_as":"facet_table","width":1,"height":1,"row":1,"column":3,"event_types":["SystemSample"],"facet":"hostname","customizations":{},"notes":null},{"title":"Maximum CPU Utilization by Hostname","nrql":"FROM SystemSample SELECT max(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' FACET hostname TIMESERIES","process_as":"faceted_line_chart","width":3,"height":1,"row":2,"column":1,"event_types":["SystemSample"],"facet":"hostname","customizations":null,"notes":null},{"title":"Average CPU Utilization by Hostname","nrql":"FROM SystemSample SELECT average(cpuPercent) as '%' WHERE provider ='Ec2Instance' FACET hostname TIMESERIES","process_as":"faceted_line_chart","width":3,"height":1,"row":3,"column":1,"event_types":["SystemSample"],"facet":"hostname","customizations":null,"notes":null}],"dashboard_account_id":2246998}
+{
+    "dashboard_account_id": 2246998,
+    "filter": null,
+    "grid_column_count": 3,
+    "icon": "bar-chart",
+    "owner": {
+        "email": "ayathirajadasan@newrelic.com"
+    },
+    "title": "LabsUseOnly",
+    "widgets": [
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "SystemSample"
+            ],
+            "facet": "hostname",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM SystemSample SELECT min(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' AND cpuIdlePercent > 80 FACET hostname",
+            "process_as": "facet_bar_chart",
+            "row": 1,
+            "title": "Downgrade Candidates: CPU Idle > 80%",
+            "width": 2
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "SystemSample"
+            ],
+            "facet": "hostname",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM SystemSample SELECT min(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' AND cpuIdlePercent < 20 FACET hostname",
+            "process_as": "facet_table",
+            "row": 1,
+            "title": "Upgrade Candidates: CPU Idle < 20%",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "SystemSample"
+            ],
+            "facet": "hostname",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM SystemSample SELECT max(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' FACET hostname TIMESERIES",
+            "process_as": "faceted_line_chart",
+            "row": 2,
+            "title": "Maximum CPU Utilization by Hostname",
+            "width": 3
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "SystemSample"
+            ],
+            "facet": "hostname",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM SystemSample SELECT average(cpuPercent) as '%' WHERE provider ='Ec2Instance' FACET hostname TIMESERIES",
+            "process_as": "faceted_line_chart",
+            "row": 3,
+            "title": "Average CPU Utilization by Hostname",
+            "width": 3
+        }
+    ]
+}

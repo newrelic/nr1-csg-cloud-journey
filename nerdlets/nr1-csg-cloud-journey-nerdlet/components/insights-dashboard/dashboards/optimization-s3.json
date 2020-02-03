@@ -1,1 +1,57 @@
-{"title":"LabsUseOnly","icon":"bar-chart","grid_column_count":3,"filter":null,"owner":{"email":"ayathirajadasan@newrelic.com"},"widgets":[{"title":"Bucket Count","nrql":"from DatastoreSample SELECT uniqueCount(provider.bucketName) as 'Buckets' WHERE provider.bucketName is NOT NULL LIMIT 2000","process_as":"billboard","width":1,"height":1,"row":1,"column":1,"event_types":["DatastoreSample"],"facet":null,"customizations":{},"notes":null},{"title":"Archival Candidates (Infrequently Accessed Buckets)","nrql":"from DatastoreSample SELECT latest(provider.allRequests.Sum) AS 'Total Requests', latest(timestamp) as 'Last Polled' WHERE provider.bucketName is NOT NULL AND provider.allRequests.Sum \u003c 10 FACET provider.bucketName LIMIT 2000","process_as":"facet_table","width":2,"height":1,"row":1,"column":2,"event_types":["DatastoreSample"],"facet":"provider.bucketName","customizations":{},"notes":null},{"title":"Largest Buckets","nrql":"from DatastoreSample SELECT latest(provider.bucketSizeBytes.Average) as 'Average Size in Bytes', latest(timestamp) as 'Last polled' WHERE provider.bucketSizeBytes.Average IS NOT NULL FACET provider.bucketName SINCE 3 days ago LIMIT 2000","process_as":"facet_table","width":3,"height":1,"row":2,"column":1,"event_types":["DatastoreSample"],"facet":"provider.bucketName","customizations":{},"notes":null}],"dashboard_account_id":2246998}
+{
+    "dashboard_account_id": 2246998,
+    "filter": null,
+    "grid_column_count": 3,
+    "icon": "bar-chart",
+    "owner": {
+        "email": "ayathirajadasan@newrelic.com"
+    },
+    "title": "LabsUseOnly",
+    "widgets": [
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "DatastoreSample"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "from DatastoreSample SELECT uniqueCount(provider.bucketName) as 'Buckets' WHERE provider.bucketName is NOT NULL LIMIT 2000",
+            "process_as": "billboard",
+            "row": 1,
+            "title": "Bucket Count",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "DatastoreSample"
+            ],
+            "facet": "provider.bucketName",
+            "height": 1,
+            "notes": null,
+            "nrql": "from DatastoreSample SELECT latest(provider.allRequests.Sum) AS 'Total Requests', latest(timestamp) as 'Last Polled' WHERE provider.bucketName is NOT NULL AND provider.allRequests.Sum < 10 FACET provider.bucketName LIMIT 2000",
+            "process_as": "facet_table",
+            "row": 1,
+            "title": "Archival Candidates (Infrequently Accessed Buckets)",
+            "width": 2
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "DatastoreSample"
+            ],
+            "facet": "provider.bucketName",
+            "height": 1,
+            "notes": null,
+            "nrql": "from DatastoreSample SELECT latest(provider.bucketSizeBytes.Average) as 'Average Size in Bytes', latest(timestamp) as 'Last polled' WHERE provider.bucketSizeBytes.Average IS NOT NULL FACET provider.bucketName SINCE 3 days ago LIMIT 2000",
+            "process_as": "facet_table",
+            "row": 2,
+            "title": "Largest Buckets",
+            "width": 3
+        }
+    ]
+}

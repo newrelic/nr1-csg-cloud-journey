@@ -1,1 +1,365 @@
-{"title":"LabsUseOnly","icon":"money","grid_column_count":3,"filter":null,"owner":{"email":"ayathirajadasan@newrelic.com"},"widgets":[{"title":"Site Visitors Day over Day : On-Premises","nrql":"FROM PageView SELECT uniqueCount(session) AS 'Site Visitors' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_OP' SINCE 1 day ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":1,"column":1,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Site Visitors Day over Day - AWS","nrql":"FROM PageView SELECT uniqueCount(session) AS 'Site Visitors' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' SINCE 1 day ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":1,"column":2,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Site Visitors Day over Day : Combined","nrql":"FROM PageView SELECT uniqueCount(session) AS 'Site Visitors' WHERE username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":1,"column":3,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Purchase Funnel Today : On-Premises","nrql":"FROM PageView SELECT funnel(session, WHERE pageUrl like '%/' AS 'Homepage', where pageUrl like '%/browse/plans' AS 'Deals Listing', WHERE pageUrl LIKE '%login.jsp' AS 'Add to Cart',  WHERE pageUrl LIKE '%/checkout' AS 'Payment') WHERE username NOT LIKE '%acme.com' and appName LIKE '%_OP' SINCE 1 day ago","process_as":"funnel","width":1,"height":1,"row":2,"column":1,"event_types":["PageView"],"facet":null,"customizations":null,"notes":"MUST CUSTOMIZE URLS","steps":null,"resource":null},{"title":"Purchase Funnel Today: AWS","nrql":"FROM PageView SELECT funnel(session, WHERE pageUrl like '%/' AS 'Homepage', where pageUrl like '%/browse/plans' AS 'Deals Listing', WHERE pageUrl LIKE '%login.jsp' AS 'Add to Cart',  WHERE pageUrl LIKE '%/checkout' AS 'Payment') WHERE username NOT LIKE '%acme.com' and appName LIKE '%_AWS' SINCE 1 day ago","process_as":"funnel","width":1,"height":1,"row":2,"column":2,"event_types":["PageView"],"facet":null,"customizations":null,"notes":"NOTE:  MUST CUSTOMIZE URLs","steps":null,"resource":null},{"title":"Purchase Funnel Today : Combined","nrql":"FROM PageView SELECT funnel(session, WHERE pageUrl like '%/' AS 'Homepage', where pageUrl like '%/browse/plans' AS 'Deals Listing', WHERE pageUrl LIKE '%login.jsp' AS 'Add to Cart',  WHERE pageUrl LIKE '%/checkout' AS 'Payment') WHERE username NOT LIKE '%acme.com' and (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago","process_as":"funnel","width":1,"height":1,"row":2,"column":3,"event_types":["PageView"],"facet":null,"customizations":null,"notes":"NOTE:  MUST CUSTOMIZE URLS","steps":null,"resource":null},{"title":"Error Breakdown : On-Premises","nrql":"from Transaction SELECT count(errorMessage) WHERE appName LIKE '%_OP' since 1 day ago FACET errorMessage","process_as":"facet_pie_chart","width":1,"height":1,"row":3,"column":1,"event_types":["Transaction"],"facet":"errorMessage","customizations":{},"notes":null},{"title":"Error Breakdown - AWS","nrql":"from Transaction SELECT count(errorMessage) WHERE appName LIKE '%_AWS' since 1 day ago FACET errorMessage","process_as":"facet_pie_chart","width":1,"height":1,"row":3,"column":2,"event_types":["Transaction"],"facet":"errorMessage","customizations":{},"notes":null},{"title":"Error Breakdown : Combined","nrql":"from Transaction SELECT count(errorMessage) WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' since 1 day ago FACET errorMessage","process_as":"facet_pie_chart","width":1,"height":1,"row":3,"column":3,"event_types":["Transaction"],"facet":"errorMessage","customizations":{},"notes":null},{"title":"Homepage Availability","nrql":"FROM SyntheticCheck SELECT percentage(count(*), WHERE result = 'SUCCESS') SINCE 5 day ago","process_as":"gauge","width":1,"height":1,"row":4,"column":1,"event_types":["SyntheticCheck"],"facet":null,"customizations":{"limit":100.0},"notes":null},{"title":"One Month Downtime","nrql":"FROM SyntheticCheck SELECT 100 - percentage(count(*), WHERE result = 'SUCCESS') as '%' SINCE 1 month ago facet location limit 5","process_as":"facet_bar_chart","width":2,"height":1,"row":4,"column":2,"event_types":["SyntheticCheck"],"facet":"location","customizations":{},"notes":null},{"title":"Users Experiencing Errors : On-Premises","nrql":"from Transaction SELECT uniqueCount(username) as 'Count' WHERE error IS NOT NULL and username NOT LIKE '%acme.com' AND appName LIKE '%_OP' since 1 day ago","process_as":"billboard","width":1,"height":1,"row":5,"column":1,"event_types":["Transaction"],"facet":null,"customizations":{},"notes":null},{"title":"Users Experiencing Errors : AWS","nrql":"from Transaction SELECT uniqueCount(username) as 'Count' WHERE error IS NOT NULL and username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' since 1 day ago","process_as":"billboard","width":1,"height":1,"row":5,"column":2,"event_types":["Transaction"],"facet":null,"customizations":{},"notes":null},{"title":"Users Experiencing Errors : Combined","nrql":"from Transaction SELECT uniqueCount(username) as 'Count' WHERE error IS NOT NULL and username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago","process_as":"billboard","width":1,"height":1,"row":5,"column":3,"event_types":["Transaction"],"facet":null,"customizations":{},"notes":null},{"title":"Revenue Day over Day : On-Premises","nrql":"FROM Transaction SELECT sum(PurchasedCartGrandTotal) As 'Revenue' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_OP' SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES","process_as":"comparison_line_chart","width":1,"height":1,"row":6,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Revenue Day over Day : AWS","nrql":"FROM Transaction SELECT sum(PurchasedCartGrandTotal) As 'Revenue' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES","process_as":"comparison_line_chart","width":1,"height":1,"row":6,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Revenue Day over Day : Combined","nrql":"FROM Transaction SELECT sum(PurchasedCartGrandTotal) As 'Revenue' WHERE username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES","process_as":"comparison_line_chart","width":1,"height":1,"row":6,"column":3,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Current Users : On-Premises","nrql":"FROM PageView SELECT uniqueCount(session) AS 'Count' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_OP' SINCE 5 minute ago UNTIL 1 minute ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":7,"column":1,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Current Users : AWS","nrql":"FROM PageView SELECT uniqueCount(session) AS 'Count' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' SINCE 5 minute ago UNTIL 1 minute ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":7,"column":2,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Current Users : Combined","nrql":"FROM PageView SELECT uniqueCount(session) AS 'Count' WHERE username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 5 minute ago UNTIL 1 minute ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":7,"column":3,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Page Duration Last day (sec) : On-Premises","nrql":"FROM PageView SELECT histogram(duration,10) WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_OP' SINCE 1 day ago","process_as":"histogram","width":1,"height":1,"row":8,"column":1,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Page Duration Last Day (sec) : AWS","nrql":"FROM PageView SELECT histogram(duration,10) WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' SINCE 1 day ago","process_as":"histogram","width":1,"height":1,"row":8,"column":2,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Page Duration Last Day (sec) : Combined","nrql":"FROM PageView SELECT histogram(duration,10) WHERE username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago","process_as":"histogram","width":1,"height":1,"row":8,"column":3,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null}],"dashboard_account_id":2246998}
+{
+    "dashboard_account_id": 2246998,
+    "filter": null,
+    "grid_column_count": 3,
+    "icon": "money",
+    "owner": {
+        "email": "ayathirajadasan@newrelic.com"
+    },
+    "title": "LabsUseOnly",
+    "widgets": [
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT uniqueCount(session) AS 'Site Visitors' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_OP' SINCE 1 day ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 1,
+            "title": "Site Visitors Day over Day : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT uniqueCount(session) AS 'Site Visitors' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' SINCE 1 day ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 1,
+            "title": "Site Visitors Day over Day - AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT uniqueCount(session) AS 'Site Visitors' WHERE username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 1,
+            "title": "Site Visitors Day over Day : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "MUST CUSTOMIZE URLS",
+            "nrql": "FROM PageView SELECT funnel(session, WHERE pageUrl like '%/' AS 'Homepage', where pageUrl like '%/browse/plans' AS 'Deals Listing', WHERE pageUrl LIKE '%login.jsp' AS 'Add to Cart',  WHERE pageUrl LIKE '%/checkout' AS 'Payment') WHERE username NOT LIKE '%acme.com' and appName LIKE '%_OP' SINCE 1 day ago",
+            "process_as": "funnel",
+            "resource": null,
+            "row": 2,
+            "steps": null,
+            "title": "Purchase Funnel Today : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "NOTE:  MUST CUSTOMIZE URLs",
+            "nrql": "FROM PageView SELECT funnel(session, WHERE pageUrl like '%/' AS 'Homepage', where pageUrl like '%/browse/plans' AS 'Deals Listing', WHERE pageUrl LIKE '%login.jsp' AS 'Add to Cart',  WHERE pageUrl LIKE '%/checkout' AS 'Payment') WHERE username NOT LIKE '%acme.com' and appName LIKE '%_AWS' SINCE 1 day ago",
+            "process_as": "funnel",
+            "resource": null,
+            "row": 2,
+            "steps": null,
+            "title": "Purchase Funnel Today: AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "NOTE:  MUST CUSTOMIZE URLS",
+            "nrql": "FROM PageView SELECT funnel(session, WHERE pageUrl like '%/' AS 'Homepage', where pageUrl like '%/browse/plans' AS 'Deals Listing', WHERE pageUrl LIKE '%login.jsp' AS 'Add to Cart',  WHERE pageUrl LIKE '%/checkout' AS 'Payment') WHERE username NOT LIKE '%acme.com' and (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago",
+            "process_as": "funnel",
+            "resource": null,
+            "row": 2,
+            "steps": null,
+            "title": "Purchase Funnel Today : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "errorMessage",
+            "height": 1,
+            "notes": null,
+            "nrql": "from Transaction SELECT count(errorMessage) WHERE appName LIKE '%_OP' since 1 day ago FACET errorMessage",
+            "process_as": "facet_pie_chart",
+            "row": 3,
+            "title": "Error Breakdown : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "errorMessage",
+            "height": 1,
+            "notes": null,
+            "nrql": "from Transaction SELECT count(errorMessage) WHERE appName LIKE '%_AWS' since 1 day ago FACET errorMessage",
+            "process_as": "facet_pie_chart",
+            "row": 3,
+            "title": "Error Breakdown - AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "errorMessage",
+            "height": 1,
+            "notes": null,
+            "nrql": "from Transaction SELECT count(errorMessage) WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' since 1 day ago FACET errorMessage",
+            "process_as": "facet_pie_chart",
+            "row": 3,
+            "title": "Error Breakdown : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {
+                "limit": 100.0
+            },
+            "event_types": [
+                "SyntheticCheck"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM SyntheticCheck SELECT percentage(count(*), WHERE result = 'SUCCESS') SINCE 5 day ago",
+            "process_as": "gauge",
+            "row": 4,
+            "title": "Homepage Availability",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "SyntheticCheck"
+            ],
+            "facet": "location",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM SyntheticCheck SELECT 100 - percentage(count(*), WHERE result = 'SUCCESS') as '%' SINCE 1 month ago facet location limit 5",
+            "process_as": "facet_bar_chart",
+            "row": 4,
+            "title": "One Month Downtime",
+            "width": 2
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "from Transaction SELECT uniqueCount(username) as 'Count' WHERE error IS NOT NULL and username NOT LIKE '%acme.com' AND appName LIKE '%_OP' since 1 day ago",
+            "process_as": "billboard",
+            "row": 5,
+            "title": "Users Experiencing Errors : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "from Transaction SELECT uniqueCount(username) as 'Count' WHERE error IS NOT NULL and username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' since 1 day ago",
+            "process_as": "billboard",
+            "row": 5,
+            "title": "Users Experiencing Errors : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "from Transaction SELECT uniqueCount(username) as 'Count' WHERE error IS NOT NULL and username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago",
+            "process_as": "billboard",
+            "row": 5,
+            "title": "Users Experiencing Errors : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT sum(PurchasedCartGrandTotal) As 'Revenue' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_OP' SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES",
+            "process_as": "comparison_line_chart",
+            "row": 6,
+            "title": "Revenue Day over Day : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT sum(PurchasedCartGrandTotal) As 'Revenue' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES",
+            "process_as": "comparison_line_chart",
+            "row": 6,
+            "title": "Revenue Day over Day : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT sum(PurchasedCartGrandTotal) As 'Revenue' WHERE username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES",
+            "process_as": "comparison_line_chart",
+            "row": 6,
+            "title": "Revenue Day over Day : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT uniqueCount(session) AS 'Count' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_OP' SINCE 5 minute ago UNTIL 1 minute ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 7,
+            "title": "Current Users : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT uniqueCount(session) AS 'Count' WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' SINCE 5 minute ago UNTIL 1 minute ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 7,
+            "title": "Current Users : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT uniqueCount(session) AS 'Count' WHERE username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 5 minute ago UNTIL 1 minute ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 7,
+            "title": "Current Users : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT histogram(duration,10) WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_OP' SINCE 1 day ago",
+            "process_as": "histogram",
+            "row": 8,
+            "title": "Page Duration Last day (sec) : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT histogram(duration,10) WHERE username NOT LIKE '%acme.com' AND appName LIKE '%_AWS' SINCE 1 day ago",
+            "process_as": "histogram",
+            "row": 8,
+            "title": "Page Duration Last Day (sec) : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT histogram(duration,10) WHERE username NOT LIKE '%acme.com' AND (appName LIKE '%_OP' OR appName LIKE '%_AWS') SINCE 1 day ago",
+            "process_as": "histogram",
+            "row": 8,
+            "title": "Page Duration Last Day (sec) : Combined",
+            "width": 1
+        }
+    ]
+}

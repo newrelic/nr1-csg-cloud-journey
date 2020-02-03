@@ -1,1 +1,387 @@
-{"title":"M\u0026O:Monitor:SLOs","icon":"bar-chart","grid_column_count":3,"filter":null,"owner":{"email":"jadams@newrelic.com"},"widgets":[{"title":"Response Time - AWS","nrql":"FROM PageView SELECT average(duration) WHERE appName LIKE '%_AWS' SINCE 30 minutes ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":1,"column":1,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Average Resp Time Last 24 Hours - AWS","nrql":"FROM Transaction SELECT average(duration) WHERE appName LIKE '%_AWS' since 1 day ago until 1 minute ago timeseries 30 minutes","process_as":"line_chart","width":1,"height":1,"row":1,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Response Time by Web Transaction - AWS","nrql":"FROM Transaction SELECT average(duration) WHERE transactionType='Web' AND appName LIKE '%_AWS' FACET name limit 20","process_as":"facet_bar_chart","width":1,"height":1,"row":1,"column":3,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"Response Time - On-Premises","nrql":"FROM PageView SELECT average(duration) WHERE appName LIKE '%_OP' SINCE 30 minutes ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":2,"column":1,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Average Resp Time Last 24 Hours - On-Premises","nrql":"FROM Transaction SELECT average(duration) WHERE appName LIKE '%_OP' since 1 day ago until 1 minute ago timeseries 30 minutes","process_as":"line_chart","width":1,"height":1,"row":2,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Response Time by Web Transaction - On-Premises","nrql":"FROM Transaction SELECT average(duration) WHERE transactionType='Web' AND appName LIKE '%_OP' FACET name limit 20","process_as":"facet_bar_chart","width":1,"height":1,"row":2,"column":3,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"RPM - AWS","nrql":"FROM Transaction SELECT rate(count(*), 1 minute) as 'RPM' WHERE appName LIKE '%_AWS' since 1 hour ago COMPARE WITH 1 hour ago","process_as":"billboard_comparison","width":1,"height":1,"row":3,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Throughput Last 24 Hours - AWS","nrql":"FROM Transaction SELECT count(*)/30 as 'RPM' WHERE appName LIKE '%_AWS' SINCE yesterday UNTIL 1 minute ago TIMESERIES 30 minutes","process_as":"line_chart","width":1,"height":1,"row":3,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Throughput by Transaction - AWS","nrql":"FROM Transaction SELECT count(*) AS 'Count' WHERE appName LIKE '%_AWS' FACET name SINCE 30 minutes ago LIMIT 20","process_as":"facet_bar_chart","width":1,"height":1,"row":3,"column":3,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"RPM - On-Premises","nrql":"FROM Transaction SELECT rate(count(*), 1 minute) as 'RPM' WHERE appName LIKE '%_OP' since 1 hour ago COMPARE WITH 1 hour ago","process_as":"billboard_comparison","width":1,"height":1,"row":4,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Throughput Last 24 Hours - On-Premises","nrql":"FROM Transaction SELECT count(*)/30 as 'RPM' WHERE appName LIKE '%_OP' SINCE yesterday UNTIL 1 minute ago TIMESERIES 30 minutes","process_as":"line_chart","width":1,"height":1,"row":4,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Throughput by Transaction - On-Premises","nrql":"FROM Transaction SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' FACET name SINCE 30 minutes ago LIMIT 20","process_as":"facet_bar_chart","width":1,"height":1,"row":4,"column":3,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"Average Response Time Last Wk vs Prior WK - AWS","nrql":"FROM Transaction SELECT average(duration) WHERE appName LIKE '%_AWS' since 1 week ago until 1 minute ago timeseries 30 minutes COMPARE WITH 1 week ago","process_as":"comparison_line_chart","width":1,"height":1,"row":5,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Throughput Last WK vs Prior WK - AWS","nrql":"FROM Transaction SELECT count(*)/30 as 'RPM' WHERE appName LIKE '%_AWS' since 1 week ago until 1 minute ago TIMESERIES 30 minutes COMPARE WITH 1 week ago","process_as":"comparison_line_chart","width":1,"height":1,"row":5,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"HTTP Response Status - AWS","nrql":"FROM Transaction SELECT count(`response.status`) WHERE appName LIKE '%_AWS' FACET `response.status`","process_as":"facet_pie_chart","width":1,"height":1,"row":5,"column":3,"event_types":["Transaction"],"facet":"response.status","customizations":{},"notes":null},{"title":"Average Response Time Last Wk vs Prior WK - On-Premises","nrql":"FROM Transaction SELECT average(duration) WHERE appName LIKE '%_OP' since 1 week ago until 1 minute ago timeseries 30 minutes COMPARE WITH 1 week ago","process_as":"comparison_line_chart","width":1,"height":1,"row":6,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Throughput Last WK vs Prior WK - On-Premises","nrql":"FROM Transaction SELECT count(*)/30 as 'RPM' WHERE appName LIKE '%_OP' since 1 week ago until 1 minute ago TIMESERIES 30 minutes COMPARE WITH 1 week ago","process_as":"comparison_line_chart","width":1,"height":1,"row":6,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"HTTP Response Status - On-Premises","nrql":"FROM Transaction SELECT count(`response.status`) WHERE appName LIKE '%_OP' FACET `response.status`","process_as":"facet_pie_chart","width":1,"height":1,"row":6,"column":3,"event_types":["Transaction"],"facet":"response.status","customizations":{},"notes":null},{"title":"Throughput by Day - AWS","nrql":"FROM Transaction SELECT count(*) WHERE appName LIKE '%_AWS' FACET weekdayOf(timestamp) since 7 days ago","process_as":"facet_bar_chart","width":1,"height":1,"row":7,"column":1,"event_types":["Transaction"],"facet":"Weekday of timestamp","customizations":{},"notes":null},{"title":"99th, 95th - AWS","nrql":"FROM Transaction SELECT percentile(duration, 50, 95, 99) WHERE appName LIKE '%_AWS' FACET name","process_as":"facet_table","width":2,"height":1,"row":7,"column":2,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"Throughput by Day - On-Premises","nrql":"FROM Transaction SELECT count(*) WHERE appName LIKE '%_OP' FACET weekdayOf(timestamp) since 7 days ago","process_as":"facet_bar_chart","width":1,"height":1,"row":8,"column":1,"event_types":["Transaction"],"facet":"Weekday of timestamp","customizations":{},"notes":null},{"title":"99th, 95th - On-Premises","nrql":"FROM Transaction SELECT percentile(duration, 50, 95, 99) WHERE appName LIKE '%_OP' FACET name","process_as":"facet_table","width":2,"height":1,"row":8,"column":2,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"All Transactions Count Avg, Max, Min Duration - AWS","nrql":"FROM Transaction SELECT count(*), average(duration), max(duration), min(duration) WHERE appName LIKE '%_AWS' FACET name SINCE 1 day ago limit 500","process_as":"facet_table","width":3,"height":1,"row":9,"column":1,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"All Transactions Count Avg, Max, Min Duration - On-Premise","nrql":"FROM Transaction SELECT count(*), average(duration), max(duration), min(duration) WHERE appName LIKE '%_OP' FACET name SINCE 1 day ago limit 500","process_as":"facet_table","width":3,"height":1,"row":10,"column":1,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"Monthly Uptime","nrql":"FROM SyntheticCheck SELECT percentage(count(result), WHERE result = 'SUCCESS') AS '%' since 12 months ago facet monthOf(timestamp)","process_as":"facet_bar_chart","width":1,"height":1,"row":11,"column":1,"event_types":["SyntheticCheck"],"facet":"Month of timestamp","customizations":{},"notes":null}],"dashboard_account_id":2246998}
+{
+    "dashboard_account_id": 2246998,
+    "filter": null,
+    "grid_column_count": 3,
+    "icon": "bar-chart",
+    "owner": {
+        "email": "jadams@newrelic.com"
+    },
+    "title": "M&O:Monitor:SLOs",
+    "widgets": [
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT average(duration) WHERE appName LIKE '%_AWS' SINCE 30 minutes ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 1,
+            "title": "Response Time - AWS",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT average(duration) WHERE appName LIKE '%_AWS' since 1 day ago until 1 minute ago timeseries 30 minutes",
+            "process_as": "line_chart",
+            "row": 1,
+            "title": "Average Resp Time Last 24 Hours - AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT average(duration) WHERE transactionType='Web' AND appName LIKE '%_AWS' FACET name limit 20",
+            "process_as": "facet_bar_chart",
+            "row": 1,
+            "title": "Response Time by Web Transaction - AWS",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT average(duration) WHERE appName LIKE '%_OP' SINCE 30 minutes ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 2,
+            "title": "Response Time - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT average(duration) WHERE appName LIKE '%_OP' since 1 day ago until 1 minute ago timeseries 30 minutes",
+            "process_as": "line_chart",
+            "row": 2,
+            "title": "Average Resp Time Last 24 Hours - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT average(duration) WHERE transactionType='Web' AND appName LIKE '%_OP' FACET name limit 20",
+            "process_as": "facet_bar_chart",
+            "row": 2,
+            "title": "Response Time by Web Transaction - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT rate(count(*), 1 minute) as 'RPM' WHERE appName LIKE '%_AWS' since 1 hour ago COMPARE WITH 1 hour ago",
+            "process_as": "billboard_comparison",
+            "row": 3,
+            "title": "RPM - AWS",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*)/30 as 'RPM' WHERE appName LIKE '%_AWS' SINCE yesterday UNTIL 1 minute ago TIMESERIES 30 minutes",
+            "process_as": "line_chart",
+            "row": 3,
+            "title": "Throughput Last 24 Hours - AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Count' WHERE appName LIKE '%_AWS' FACET name SINCE 30 minutes ago LIMIT 20",
+            "process_as": "facet_bar_chart",
+            "row": 3,
+            "title": "Throughput by Transaction - AWS",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT rate(count(*), 1 minute) as 'RPM' WHERE appName LIKE '%_OP' since 1 hour ago COMPARE WITH 1 hour ago",
+            "process_as": "billboard_comparison",
+            "row": 4,
+            "title": "RPM - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*)/30 as 'RPM' WHERE appName LIKE '%_OP' SINCE yesterday UNTIL 1 minute ago TIMESERIES 30 minutes",
+            "process_as": "line_chart",
+            "row": 4,
+            "title": "Throughput Last 24 Hours - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' FACET name SINCE 30 minutes ago LIMIT 20",
+            "process_as": "facet_bar_chart",
+            "row": 4,
+            "title": "Throughput by Transaction - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT average(duration) WHERE appName LIKE '%_AWS' since 1 week ago until 1 minute ago timeseries 30 minutes COMPARE WITH 1 week ago",
+            "process_as": "comparison_line_chart",
+            "row": 5,
+            "title": "Average Response Time Last Wk vs Prior WK - AWS",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*)/30 as 'RPM' WHERE appName LIKE '%_AWS' since 1 week ago until 1 minute ago TIMESERIES 30 minutes COMPARE WITH 1 week ago",
+            "process_as": "comparison_line_chart",
+            "row": 5,
+            "title": "Throughput Last WK vs Prior WK - AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "response.status",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(`response.status`) WHERE appName LIKE '%_AWS' FACET `response.status`",
+            "process_as": "facet_pie_chart",
+            "row": 5,
+            "title": "HTTP Response Status - AWS",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT average(duration) WHERE appName LIKE '%_OP' since 1 week ago until 1 minute ago timeseries 30 minutes COMPARE WITH 1 week ago",
+            "process_as": "comparison_line_chart",
+            "row": 6,
+            "title": "Average Response Time Last Wk vs Prior WK - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*)/30 as 'RPM' WHERE appName LIKE '%_OP' since 1 week ago until 1 minute ago TIMESERIES 30 minutes COMPARE WITH 1 week ago",
+            "process_as": "comparison_line_chart",
+            "row": 6,
+            "title": "Throughput Last WK vs Prior WK - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "response.status",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(`response.status`) WHERE appName LIKE '%_OP' FACET `response.status`",
+            "process_as": "facet_pie_chart",
+            "row": 6,
+            "title": "HTTP Response Status - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "Weekday of timestamp",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) WHERE appName LIKE '%_AWS' FACET weekdayOf(timestamp) since 7 days ago",
+            "process_as": "facet_bar_chart",
+            "row": 7,
+            "title": "Throughput by Day - AWS",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT percentile(duration, 50, 95, 99) WHERE appName LIKE '%_AWS' FACET name",
+            "process_as": "facet_table",
+            "row": 7,
+            "title": "99th, 95th - AWS",
+            "width": 2
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "Weekday of timestamp",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) WHERE appName LIKE '%_OP' FACET weekdayOf(timestamp) since 7 days ago",
+            "process_as": "facet_bar_chart",
+            "row": 8,
+            "title": "Throughput by Day - On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT percentile(duration, 50, 95, 99) WHERE appName LIKE '%_OP' FACET name",
+            "process_as": "facet_table",
+            "row": 8,
+            "title": "99th, 95th - On-Premises",
+            "width": 2
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*), average(duration), max(duration), min(duration) WHERE appName LIKE '%_AWS' FACET name SINCE 1 day ago limit 500",
+            "process_as": "facet_table",
+            "row": 9,
+            "title": "All Transactions Count Avg, Max, Min Duration - AWS",
+            "width": 3
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*), average(duration), max(duration), min(duration) WHERE appName LIKE '%_OP' FACET name SINCE 1 day ago limit 500",
+            "process_as": "facet_table",
+            "row": 10,
+            "title": "All Transactions Count Avg, Max, Min Duration - On-Premise",
+            "width": 3
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "SyntheticCheck"
+            ],
+            "facet": "Month of timestamp",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM SyntheticCheck SELECT percentage(count(result), WHERE result = 'SUCCESS') AS '%' since 12 months ago facet monthOf(timestamp)",
+            "process_as": "facet_bar_chart",
+            "row": 11,
+            "title": "Monthly Uptime",
+            "width": 1
+        }
+    ]
+}

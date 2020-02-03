@@ -1,1 +1,308 @@
-{"title":"SRE - Golden Signals","icon":"bar-chart","grid_column_count":3,"filter":{"key_names":["username","entityName","host"],"event_types":["Transaction","SystemSample"],"filter_first":false},"owner":{"email":"bthomason@newrelic.com"},"widgets":[{"title":"Latency - HTTP 200","nrql":"SELECT percentile(totalTime, 50, 90, 99) FROM Transaction WHERE  httpResponseCode = '200' SINCE 1 day ago TIMESERIES 1 hour EXTRAPOLATE","process_as":"line_chart","width":1,"height":1,"row":1,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":"The time it takes to service a request with a HTTP code 200."},{"title":"Latency - HTTP 500","nrql":"SELECT percentile(totalTime, 50, 90, 99) FROM Transaction WHERE  httpResponseCode = '500' SINCE 1 day ago TIMESERIES 1 hour EXTRAPOLATE","process_as":"line_chart","width":1,"height":1,"row":1,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":"The time it takes to service a request with a HTTP code 500."},{"title":"Latency - 90 Percentile with Username","nrql":"SELECT percentile(totalTime, 90) FROM Transaction  SINCE 1 day ago FACET username limit 20","process_as":"facet_table","width":1,"height":2,"row":1,"column":3,"event_types":["Transaction"],"facet":"username","customizations":{},"notes":"The time it takes to service a request segmented by a custom attribute."},{"title":"Latency - HTTP 500 - Trend Analysis","nrql":"SELECT count(*) FROM Transaction WHERE  httpResponseCode = '500' SINCE 1 day ago TIMESERIES 1 hour COMPARE WITH 1 day ago EXTRAPOLATE","process_as":"comparison_line_chart","width":2,"height":1,"row":2,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":"The time it takes to service a request with a HTTP code 500."},{"title":"Traffic - Throughput Per Minute","nrql":"SELECT rate(count(*), 1 minute) AS 'Requests per Minute' FROM Transaction  since 1 day ago TIMESERIES 10 minute EXTRAPOLATE","process_as":"line_chart","width":1,"height":1,"row":3,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":"A measure of how much demand is being placed on your application."},{"title":"Traffic - Throughput Per Hour","nrql":"SELECT rate(count(*), 1 hour) AS 'Requests per Hour' FROM Transaction  since 7 day ago TIMESERIES 1 hour  EXTRAPOLATE","process_as":"line_chart","width":1,"height":1,"row":3,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":"A measure of how much demand is being placed on your application."},{"title":"Traffic - Throughput Per Hour with Username","nrql":"SELECT rate(count(*), 1 hour) AS 'Requests per Hour' FROM Transaction  since 1 day ago FACET username limit 20","process_as":"facet_table","width":1,"height":2,"row":3,"column":3,"event_types":["Transaction"],"facet":"username","customizations":{},"notes":"A measure of how much demand is being placed on your application with a custom attribute."},{"title":"Traffic - Throughput Per Hour - Trend Analysis","nrql":"SELECT rate(count(*), 1 hour) AS 'Requests per Hour' FROM Transaction  since 7 day ago COMPARE WITH 1 week ago TIMESERIES 1 hour EXTRAPOLATE","process_as":"comparison_line_chart","width":2,"height":1,"row":4,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":"A measure of how much demand is being placed on your application."},{"title":"Errors - HTTP Status Codes","nrql":"SELECT filter(count(*), WHERE httpResponseCode LIKE '1%') as '1xx Informational', filter(count(*), WHERE httpResponseCode LIKE '2%') as '2xx Success', filter(count(*), WHERE httpResponseCode LIKE '3%') as '3xx Redirection', filter(count(*), WHERE httpResponseCode LIKE '4%') as '4xx Client Error', filter(count(*), WHERE httpResponseCode LIKE '5%') as '5xx Server Error' FROM Transaction  SINCE 1 day ago","process_as":"attribute_sheet","width":1,"height":1,"row":5,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Errors - Unhandled Errors %","nrql":"SELECT percentage(count(*), WHERE error is true) AS 'Unhandled Error rate %' FROM Transaction  SINCE 1 day ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":5,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Errors - HTTP Code Redirection, Client Error And Server Error by Transaction Name","nrql":"SELECT count(*) FROM Transaction WHERE  httpResponseCode LIKE '3%' or httpResponseCode LIKE '4%' OR httpResponseCode LIKE '5%' SINCE 1 day ago FACET httpResponseCode, name TIMESERIES 10 minutes","process_as":"faceted_line_chart","width":1,"height":1,"row":5,"column":3,"event_types":["Transaction"],"facet":"[\"httpResponseCode\", \"name\"]","customizations":null,"notes":null},{"title":"Errors - HTTP Code Redirection, Client Error And Server Error","nrql":"SELECT filter(count(*), WHERE httpResponseCode LIKE '3%' as 'Redirection'), filter(count(*), WHERE httpResponseCode LIKE '4%' as 'Client Error'), filter(count(*), WHERE httpResponseCode LIKE '5%' as 'Server Error') FROM Transaction SINCE 1 day ago TIMESERIES 10 minutes EXTRAPOLATE","process_as":"line_chart","width":2,"height":1,"row":6,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":"The rate of requests that fail, either explicitly or implicitly"},{"title":"Errors - Top 10 Unhandled Application Errors with Transaction Name and Host","nrql":"SELECT count(*) FROM TransactionError WHERE  username IS NOT NULL FACET username, error.message, transactionName, host SINCE 1 day ago limit 10","process_as":"facet_table","width":1,"height":2,"row":6,"column":3,"event_types":["TransactionError"],"facet":"[\"username\", \"error.message\", \"transactionName\", \"host\"]","customizations":{},"notes":null},{"title":"Errors - Top 5 Unhandled Application Errors","nrql":"SELECT count(*) FROM TransactionError  FACET error.class SINCE 1 day ago TIMESERIES 10 minute limit 5 EXTRAPOLATE","process_as":"faceted_area_chart","width":2,"height":1,"row":7,"column":1,"event_types":["TransactionError"],"facet":"error.class","customizations":null,"notes":null},{"title":"Saturation - Database Percentile","nrql":"SELECT percentile(databaseDuration, 50, 90, 99) FROM Transaction  SINCE 1 day ago TIMESERIES 10 minute EXTRAPOLATE","process_as":"line_chart","width":1,"height":1,"row":8,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Saturation - Top 5 Database 90 Percentile by Host and Transaction Name","nrql":"SELECT percentile(databaseDuration, 90) FROM Transaction  FACET host, name TIMESERIES 1 hour since  1 day ago","process_as":"faceted_line_chart","width":1,"height":1,"row":8,"column":2,"event_types":["Transaction"],"facet":"[\"host\", \"name\"]","customizations":null,"notes":null},{"title":"Saturation - Database 90 Percentile with Username","nrql":"SELECT percentile(databaseDuration, 90) FROM Transaction  FACET username SINCE 1 day ago LIMIT 10","process_as":"facet_table","width":1,"height":3,"row":8,"column":3,"event_types":["Transaction"],"facet":"username","customizations":{},"notes":null},{"title":"Saturation - Database Trend Analysis","nrql":"SELECT percentile(databaseDuration, 50, 95) FROM Transaction  SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES 10 minute EXTRAPOLATE","process_as":"comparison_line_chart","width":2,"height":1,"row":9,"column":1,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Saturation - Throughput Per Min, Max Total, Max Web, Max DB and Max Ext by Host","nrql":"SELECT rate(count(*), 1 minute) as 'RPM', max(totalTime) as 'Total', max(webDuration) as 'Web', max(databaseDuration) as 'DB', max(externalDuration) as 'External' FROM Transaction FACET host SINCE 1 day ago","process_as":"facet_table","width":2,"height":1,"row":10,"column":1,"event_types":["Transaction"],"facet":"host","customizations":{},"notes":null}],"dashboard_account_id":2246998}
+{
+    "dashboard_account_id": 2246998,
+    "filter": {
+        "event_types": [
+            "Transaction",
+            "SystemSample"
+        ],
+        "filter_first": false,
+        "key_names": [
+            "username",
+            "entityName",
+            "host"
+        ]
+    },
+    "grid_column_count": 3,
+    "icon": "bar-chart",
+    "owner": {
+        "email": "bthomason@newrelic.com"
+    },
+    "title": "SRE - Golden Signals",
+    "widgets": [
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "The time it takes to service a request with a HTTP code 200.",
+            "nrql": "SELECT percentile(totalTime, 50, 90, 99) FROM Transaction WHERE  httpResponseCode = '200' SINCE 1 day ago TIMESERIES 1 hour EXTRAPOLATE",
+            "process_as": "line_chart",
+            "row": 1,
+            "title": "Latency - HTTP 200",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "The time it takes to service a request with a HTTP code 500.",
+            "nrql": "SELECT percentile(totalTime, 50, 90, 99) FROM Transaction WHERE  httpResponseCode = '500' SINCE 1 day ago TIMESERIES 1 hour EXTRAPOLATE",
+            "process_as": "line_chart",
+            "row": 1,
+            "title": "Latency - HTTP 500",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "username",
+            "height": 2,
+            "notes": "The time it takes to service a request segmented by a custom attribute.",
+            "nrql": "SELECT percentile(totalTime, 90) FROM Transaction  SINCE 1 day ago FACET username limit 20",
+            "process_as": "facet_table",
+            "row": 1,
+            "title": "Latency - 90 Percentile with Username",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "The time it takes to service a request with a HTTP code 500.",
+            "nrql": "SELECT count(*) FROM Transaction WHERE  httpResponseCode = '500' SINCE 1 day ago TIMESERIES 1 hour COMPARE WITH 1 day ago EXTRAPOLATE",
+            "process_as": "comparison_line_chart",
+            "row": 2,
+            "title": "Latency - HTTP 500 - Trend Analysis",
+            "width": 2
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "A measure of how much demand is being placed on your application.",
+            "nrql": "SELECT rate(count(*), 1 minute) AS 'Requests per Minute' FROM Transaction  since 1 day ago TIMESERIES 10 minute EXTRAPOLATE",
+            "process_as": "line_chart",
+            "row": 3,
+            "title": "Traffic - Throughput Per Minute",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "A measure of how much demand is being placed on your application.",
+            "nrql": "SELECT rate(count(*), 1 hour) AS 'Requests per Hour' FROM Transaction  since 7 day ago TIMESERIES 1 hour  EXTRAPOLATE",
+            "process_as": "line_chart",
+            "row": 3,
+            "title": "Traffic - Throughput Per Hour",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "username",
+            "height": 2,
+            "notes": "A measure of how much demand is being placed on your application with a custom attribute.",
+            "nrql": "SELECT rate(count(*), 1 hour) AS 'Requests per Hour' FROM Transaction  since 1 day ago FACET username limit 20",
+            "process_as": "facet_table",
+            "row": 3,
+            "title": "Traffic - Throughput Per Hour with Username",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "A measure of how much demand is being placed on your application.",
+            "nrql": "SELECT rate(count(*), 1 hour) AS 'Requests per Hour' FROM Transaction  since 7 day ago COMPARE WITH 1 week ago TIMESERIES 1 hour EXTRAPOLATE",
+            "process_as": "comparison_line_chart",
+            "row": 4,
+            "title": "Traffic - Throughput Per Hour - Trend Analysis",
+            "width": 2
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT filter(count(*), WHERE httpResponseCode LIKE '1%') as '1xx Informational', filter(count(*), WHERE httpResponseCode LIKE '2%') as '2xx Success', filter(count(*), WHERE httpResponseCode LIKE '3%') as '3xx Redirection', filter(count(*), WHERE httpResponseCode LIKE '4%') as '4xx Client Error', filter(count(*), WHERE httpResponseCode LIKE '5%') as '5xx Server Error' FROM Transaction  SINCE 1 day ago",
+            "process_as": "attribute_sheet",
+            "row": 5,
+            "title": "Errors - HTTP Status Codes",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT percentage(count(*), WHERE error is true) AS 'Unhandled Error rate %' FROM Transaction  SINCE 1 day ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 5,
+            "title": "Errors - Unhandled Errors %",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "[\"httpResponseCode\", \"name\"]",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT count(*) FROM Transaction WHERE  httpResponseCode LIKE '3%' or httpResponseCode LIKE '4%' OR httpResponseCode LIKE '5%' SINCE 1 day ago FACET httpResponseCode, name TIMESERIES 10 minutes",
+            "process_as": "faceted_line_chart",
+            "row": 5,
+            "title": "Errors - HTTP Code Redirection, Client Error And Server Error by Transaction Name",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "The rate of requests that fail, either explicitly or implicitly",
+            "nrql": "SELECT filter(count(*), WHERE httpResponseCode LIKE '3%' as 'Redirection'), filter(count(*), WHERE httpResponseCode LIKE '4%' as 'Client Error'), filter(count(*), WHERE httpResponseCode LIKE '5%' as 'Server Error') FROM Transaction SINCE 1 day ago TIMESERIES 10 minutes EXTRAPOLATE",
+            "process_as": "line_chart",
+            "row": 6,
+            "title": "Errors - HTTP Code Redirection, Client Error And Server Error",
+            "width": 2
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "[\"username\", \"error.message\", \"transactionName\", \"host\"]",
+            "height": 2,
+            "notes": null,
+            "nrql": "SELECT count(*) FROM TransactionError WHERE  username IS NOT NULL FACET username, error.message, transactionName, host SINCE 1 day ago limit 10",
+            "process_as": "facet_table",
+            "row": 6,
+            "title": "Errors - Top 10 Unhandled Application Errors with Transaction Name and Host",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "error.class",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT count(*) FROM TransactionError  FACET error.class SINCE 1 day ago TIMESERIES 10 minute limit 5 EXTRAPOLATE",
+            "process_as": "faceted_area_chart",
+            "row": 7,
+            "title": "Errors - Top 5 Unhandled Application Errors",
+            "width": 2
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT percentile(databaseDuration, 50, 90, 99) FROM Transaction  SINCE 1 day ago TIMESERIES 10 minute EXTRAPOLATE",
+            "process_as": "line_chart",
+            "row": 8,
+            "title": "Saturation - Database Percentile",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "[\"host\", \"name\"]",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT percentile(databaseDuration, 90) FROM Transaction  FACET host, name TIMESERIES 1 hour since  1 day ago",
+            "process_as": "faceted_line_chart",
+            "row": 8,
+            "title": "Saturation - Top 5 Database 90 Percentile by Host and Transaction Name",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "username",
+            "height": 3,
+            "notes": null,
+            "nrql": "SELECT percentile(databaseDuration, 90) FROM Transaction  FACET username SINCE 1 day ago LIMIT 10",
+            "process_as": "facet_table",
+            "row": 8,
+            "title": "Saturation - Database 90 Percentile with Username",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT percentile(databaseDuration, 50, 95) FROM Transaction  SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES 10 minute EXTRAPOLATE",
+            "process_as": "comparison_line_chart",
+            "row": 9,
+            "title": "Saturation - Database Trend Analysis",
+            "width": 2
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "host",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT rate(count(*), 1 minute) as 'RPM', max(totalTime) as 'Total', max(webDuration) as 'Web', max(databaseDuration) as 'DB', max(externalDuration) as 'External' FROM Transaction FACET host SINCE 1 day ago",
+            "process_as": "facet_table",
+            "row": 10,
+            "title": "Saturation - Throughput Per Min, Max Total, Max Web, Max DB and Max Ext by Host",
+            "width": 2
+        }
+    ]
+}
