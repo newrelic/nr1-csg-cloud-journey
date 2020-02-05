@@ -60,6 +60,7 @@ python before-and-after.py before
 ```bash
 python before-and-after.py after
 ```
+Before executing the following command, which will configure the application to run inside the account of your choosing, please ensure you have the account number and the account's Insights query key in hand.
 
 ```bash
 python configure.py
