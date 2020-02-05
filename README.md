@@ -41,12 +41,13 @@ Next, install the [NR1 CLI](https://one.newrelic.com/launcher/developer-center.l
 
 Next, install the [Optimization Needpack](https://github.com/newrelic/nr1-cloud-optimize).
 
-Next, to clone this repository and run the code locally against your New Relic data, execute the following commands:
+Next, to clone this repository and run the code locally against your New Relic data, execute the following commands(**You will need to enter 'y' when prompted to create a new UUID for the application**):
 
 ```bash
 nr1 nerdpack:clone -r https://github.com/newrelic/nr1-csg-cloud-journey.git
 cd nr1-csg-cloud-journey
 npm update
+nr1 nerdpack:uuid --generate
 ```
 
 **If you are deploying this application to an account that contains only On-Prem server resources, execute the following command**
