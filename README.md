@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Please note that this application is only intended to work for customers who plan to migrate, have begin migrating, or have already migrated to AWS.  We are looking to expand this application to support GCP and Azure, but it is currently designed for **AWS only**.
+Please note that this application is only intended to work for customers who plan to migrate, have begun migrating, or have already migrated to AWS.  We are looking to expand this application to support GCP and Azure, but it is currently designed for **AWS only**.
 
 Before proceeding, ensure that the customer's AWS account is properly connected to New Relic by [following the instructions here](https://docs.newrelic.com/docs/integrations/amazon-integrations/get-started/connect-aws-infrastructure).
 
@@ -18,7 +18,7 @@ The Cloud Journey App provides a Before, During, and After view of the customer'
 
 Within these five pillars, the app provides Observability using three different assets:
 
-* Dashboards: Some of these will require configuration. [Click here](./DASHBOARDS.md) for more information.
+* Dashboards:  **In order for a large portion of the dashboards to function, the customer must rename all of their on-prem applications to end with** *_OP* **and rename all of their AWS applications to end with** *_AWS*. Alternatively, if a customer has or is willing to place all of their On-Prem assets under one master account and all of their AWS assets under a separate master account, this app can be deployed as two separate applications instead. Regardless of which deployment method you choose, certain NRQL queries contained in the dashboards will require modification. [Click here](./DASHBOARDS.md) for more information.
 * Modernization Nerdlet: This will work out of the box but can be customized. [Click here](./MODERNIZATION.md) for more information.
 * [Optimization Needpack](https://github.com/newrelic/nr1-cloud-optimize): This will work out of the box
 
@@ -46,6 +46,22 @@ Next, to clone this repository and run the code locally against your New Relic d
 ```bash
 nr1 nerdpack:clone -r https://github.com/newrelic/nr1-csg-cloud-journey.git
 cd nr1-csg-cloud-journey
+npm update
+```
+
+**If you are deploying this application to an account that contains only On-Prem server resources, execute the following command**
+
+```bash
+python before-and-after.py before
+```
+
+**If you are deploying this application to an account that contains only AWS resources, execute the following command**
+
+```bash
+python before-and-after.py after
+```
+
+```bash
 python configure.py
 ```
 

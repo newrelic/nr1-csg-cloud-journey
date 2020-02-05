@@ -4,9 +4,7 @@ Below you will find a list of all queries contained in the dashboards included w
 
 >nerdlets/nr1-csg-cloud-journey-nerdlet/components/insights-dashboard/dashboards
 
-**In order for a majority of the dashboards to function, the customer must rename all of their on-prem applications to end with** *_OP* **and rename all of their AWS applications to end with** *_AWS*.
-
-**Certain queries will also require modification.  Instructions for those modifications are listed below.**
+**Certain queries will require modification.  Instructions for those modifications are listed below.**
 
 ## cloud-native-services.json
 
