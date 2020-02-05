@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sys
+import json
 import os
 
 nerdlet = "nerdlets/nr1-csg-cloud-journey-nerdlet/components/cloud-journey/index.js"
@@ -29,6 +29,8 @@ for dashboard in dashboards:
 	fbuffer.close()
 	
 	data = data.replace("DEADBEEF",account_number)
+	data = json.loads(data)
+	data = json.dumps(data,indent=4)
 	
 	fbuffer = open(dashboards_dir + dashboard,'w')
 	fbuffer.write(data)

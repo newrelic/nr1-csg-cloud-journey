@@ -90,7 +90,7 @@ for dashboard in dashboards:
 				widget['nrql'] = widget['nrql'].replace("appName LIKE '%_AWS'","appName LIKE '%'")
 				new_widgets.append(widget)
 	data['widgets'] = new_widgets
-	data = json.dumps(data)
+	data = json.dumps(data,indent=4)
 	if data.count("12345678") >= 1:
 		data = data.replace("12345678","DEADBEEF")
 	fbuffer = open(dashboards_dir + dashboard,"w")
