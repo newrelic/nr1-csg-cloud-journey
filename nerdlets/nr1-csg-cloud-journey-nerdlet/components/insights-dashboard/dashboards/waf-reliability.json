@@ -1,1 +1,117 @@
-{"title":"CAS:CJ:Reliability","icon":"bar-chart","grid_column_count":3,"filter":null,"owner":{"email":"jadams@newrelic.com"},"widgets":[{"title":"Load time by Browser","nrql":"from PageView select average(duration) facet userAgentName TIMESERIES","process_as":"faceted_area_chart","width":1,"height":1,"row":1,"column":1,"event_types":["PageView"],"facet":"userAgentName","customizations":null,"notes":null},{"title":"Front End user Experience","nrql":"from PageView select average(duration) as 'Avg Page Load Time', max(duration) as 'Max Page Load Time', count(*)/10 as 'Page Views' timeseries","process_as":"line_chart","width":1,"height":1,"row":1,"column":2,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"% Users Satisfied","nrql":"SELECT apdex(duration, t: 1.0) FROM Transaction SINCE 3 week ago","process_as":"billboard","width":1,"height":1,"row":1,"column":3,"event_types":["Transaction"],"facet":null,"customizations":{},"notes":"Users that are experiencing 1 second response time"},{"title":"Users by Experience","nrql":"SELECT count(apdexPerfZone) FROM Transaction FACET apdexPerfZone SINCE 3 DAYS AGO TIMESERIES","process_as":"faceted_area_chart","width":1,"height":1,"row":2,"column":1,"event_types":["Transaction"],"facet":"apdexPerfZone","customizations":null,"notes":"S=Satisfied\nT=Tolerating\nF=Frustrated"},{"title":"Avg Tx duration","nrql":"SELECT average(duration) FROM PageView FACET name since 1 day ago","process_as":"facet_table","width":2,"height":1,"row":2,"column":2,"event_types":["PageView"],"facet":"name","customizations":{},"notes":null},{"title":"Autoscaling Events","nrql":"SELECT count(entityName) FROM AutoScalingGroupSample FACET entityName SINCE 30 MINUTES AGO","process_as":"facet_bar_chart","width":1,"height":1,"row":3,"column":1,"event_types":["AutoScalingGroupSample"],"facet":"entityName","customizations":{},"notes":null},{"title":"Avg Page load time by country","nrql":"SELECT average(duration) as 'Load Time', count(username) as 'Users' FROM PageView FACET countryCode SINCE 30 MINUTES AGO limit 10","process_as":"facet_table","width":1,"height":1,"row":3,"column":3,"event_types":["PageView"],"facet":"countryCode","customizations":{},"notes":null}],"dashboard_account_id":2246998}
+{
+    "dashboard_account_id": DEADBEEF,
+    "filter": null,
+    "grid_column_count": 3,
+    "icon": "bar-chart",
+    "owner": {
+        "email": "jadams@newrelic.com"
+    },
+    "title": "CAS:CJ:Reliability",
+    "widgets": [
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": "userAgentName",
+            "height": 1,
+            "notes": null,
+            "nrql": "from PageView select average(duration) facet userAgentName TIMESERIES since 1 week ago",
+            "process_as": "faceted_area_chart",
+            "row": 1,
+            "title": "Load time by Browser",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "from PageView select average(duration) as 'Avg Page Load Time', max(duration) as 'Max Page Load Time', count(*)/10 as 'Page Views' timeseries since 1 week ago",
+            "process_as": "line_chart",
+            "row": 1,
+            "title": "Front End user Experience",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": "Users that are experiencing 1 second response time",
+            "nrql": "SELECT apdex(duration, t: 1.0) FROM Transaction SINCE 1 week ago",
+            "process_as": "billboard",
+            "row": 1,
+            "title": "% Users Satisfied",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "apdexPerfZone",
+            "height": 1,
+            "notes": "S=Satisfied\nT=Tolerating\nF=Frustrated",
+            "nrql": "SELECT count(apdexPerfZone) FROM Transaction FACET apdexPerfZone SINCE 1 week ago TIMESERIES",
+            "process_as": "faceted_area_chart",
+            "row": 2,
+            "title": "Users by Experience",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "PageView"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT average(duration) FROM PageView FACET name since 1 day ago",
+            "process_as": "facet_table",
+            "row": 2,
+            "title": "Avg Tx duration",
+            "width": 2
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "AutoScalingGroupSample"
+            ],
+            "facet": "entityName",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT count(entityName) FROM AutoScalingGroupSample FACET entityName SINCE 1 day AGO",
+            "process_as": "facet_bar_chart",
+            "row": 3,
+            "title": "Autoscaling Events",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "PageView"
+            ],
+            "facet": "countryCode",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT average(duration) as 'Load Time', count(username) as 'Users' FROM PageView FACET countryCode SINCE 1 day AGO limit 10",
+            "process_as": "facet_table",
+            "row": 3,
+            "title": "Avg Page load time by country",
+            "width": 1
+        }
+    ]
+}

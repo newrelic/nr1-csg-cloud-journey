@@ -1,20 +1,351 @@
-{"title":"Migration Readiness Planning ","icon":"bar-chart","grid_column_count":3,"filter":{"key_names":[],"event_types":["PageView"],"filter_first":false},"owner":{"email":"bthomason@newrelic.com"},"widgets":[
-{"title":"","nrql":null,"width":3,"height":1,"row":1,"column":1,"notes":null,"event_types":null,"facet":null,"agent_ids":[],"duration":null,"metrics":null,"raw_metric_name":null,"end_time":null,"cds_params_payload":null,"renderer":null,"renderer_props":null,"customizations":{"markdown":"# High Level KPIs to Track for App Migration \n\n"}},
-{"title":"Dollars Processed vs Failed ","nrql":"FROM Transaction SELECT sum(PurchasedCartGrandTotal)/1000 as 'Revenue'   facet name since 1 day ago","process_as":"facet_pie_chart","width":1,"height":1,"row":1,"column":2,"event_types":["Transaction"],"facet":"name","customizations":{"drilldown":{}},"notes":null},
-{"title":"Top Errors in The Application","nrql":"FROM TransactionError select count(*)  facet error.class,error.message","process_as":"facet_bar_chart","width":1,"height":1,"row":1,"column":3,"event_types":["TransactionError"],"facet":"[\"error.class\", \"error.message\"]","customizations":{"drilldown":{}},"notes":null},
-{"title":"CPU Utilization by Host ","nrql":"FROM SystemSample select average(cpuPercent) as 'CPU % used'  facet fullHostname","process_as":"facet_bar_chart","width":1,"height":1,"row":2,"column":1,"event_types":["SystemSample"],"facet":"fullHostname","customizations":{"drilldown":{}},"notes":null},
-{"title":"Slowest Transactions in the App (Top 20)","nrql":"From Transaction select max(duration)  facet appName, name since last hour limit 5","process_as":"facet_bar_chart","width":1,"height":1,"row":2,"column":2,"event_types":["Transaction"],"facet":"[\"appName\", \"name\"]","customizations":{"drilldown":{}},"notes":null},
-{"title":"","nrql":null,"width":1,"height":1,"row":3,"column":1,"notes":null,"event_types":null,"facet":null,"agent_ids":[],"duration":null,"metrics":null,"raw_metric_name":null,"end_time":null,"cds_params_payload":null,"renderer":null,"renderer_props":null,"customizations":{"markdown":"# Suggested Business KPI's to Track \n## Needs Custom attributes "}},
-{"title":"Average Transaction Duration ","nrql":"FROM PageView SELECT funnel(session, WHERE pageUrl like '%/' AS 'Homepage', where pageUrl like '%/browse/plans' AS 'Deals Listing', WHERE pageUrl LIKE '%login.jsp' AS 'Add to Cart',  WHERE pageUrl LIKE '%/checkout' AS 'Payment')  SINCE 1 day ago","process_as":"funnel","width":1,"height":1,"row":3,"column":2,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null,"steps":null,"resource":null},
-{"title":"Revenue Through Web Portal: WoW","nrql":"FROM Transaction SELECT sum(PurchasedCartGrandTotal) As 'Revenue'  SINCE 1 day ago COMPARE WITH 1 week ago TIMESERIES","process_as":"comparison_line_chart","width":1,"height":1,"row":3,"column":3,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},
-{"title":"","nrql":null,"width":1,"height":1,"row":4,"column":1,"notes":null,"event_types":null,"facet":null,"agent_ids":[],"duration":null,"metrics":null,"raw_metric_name":null,"end_time":null,"cds_params_payload":null,"renderer":null,"renderer_props":null,"customizations":{"markdown":"# Suggested Application KPIs to Track"}},
-{"title":"Application Performance Score","nrql":"FROM Transaction SELECT ((filter(count(*),WHERE apdexPerfZone= 'S' OR `nr.apdexPerfZone` = 'S') + (filter(count(*), WHERE apdexPerfZone = 'T' OR `nr.apdexPerfZone` = 'T')/2))/count(*))*100 AS '% Score'  SINCE 1 week ago","process_as":"billboard","width":1,"height":1,"row":4,"column":2,"event_types":["Transaction"],"facet":null,"customizations":{"thresholds":{}},"notes":null},
-{"title":"Application Response Time in 24 hrs (ms) : WoW","nrql":"from Transaction SELECT average(duration)*1000 AS 'ms'  SINCE 24 hours ago TIMESERIES compare with 1 week ago","process_as":"comparison_line_chart","width":1,"height":1,"row":4,"column":3,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},
-{"title":"Most Visited End Points","nrql":"FROM Transaction select count(*) facet request.uri ","process_as":"facet_table","width":1,"height":1,"row":5,"column":1,"event_types":["Transaction"],"facet":"request.uri","customizations":{"drilldown":{}},"notes":null},
-{"title":"Performance By Country","nrql":"FROM  PageView select average(duration)  facet countryCode TIMESERIES 1 hour since 1 day ago","process_as":"faceted_line_chart","width":1,"height":1,"row":5,"column":2,"event_types":["PageView"],"facet":"countryCode","customizations":null,"notes":null},
-{"title":"User Locations ","nrql":"from PageView select count(*) facet countryCode","process_as":"facet_pie_chart","width":1,"height":1,"row":5,"column":3,"event_types":["PageView"],"facet":"countryCode","customizations":{"drilldown":{}},"notes":null},
-{"title":"Pages Viewed the Most/Duration","nrql":"from PageView select count(*), average(duration) as 'Avg Duration', average(networkDuration) as 'Avg Network Duration' , average(webAppDuration) as 'AVG Web App Duration' facet appName, pageUrl ","process_as":"facet_table","width":1,"height":1,"row":6,"column":1,"event_types":["PageView"],"facet":"[\"appName\", \"pageUrl\"]","customizations":{"drilldown":{}},"notes":null},
-{"title":"Hardware Utilization for Application","nrql":"FROM SystemSample select average(cpuPercent), max(cpuPercent) , average(memoryUsedBytes/memoryTotalBytes) as 'Average Memory Used%' where apmApplicationNames like '%WebPortal%' facet hostname , processorCount,coreCount ","process_as":"facet_table","width":1,"height":1,"row":6,"column":2,"event_types":["SystemSample"],"facet":"[\"hostname\", \"processorCount\", \"coreCount\"]","customizations":{"drilldown":{}},"notes":null},
-{"title":"","nrql":null,"width":1,"height":1,"row":7,"column":1,"notes":null,"event_types":null,"facet":null,"agent_ids":[],"duration":null,"metrics":null,"raw_metric_name":null,"end_time":null,"cds_params_payload":null,"renderer":null,"renderer_props":null,"customizations":{"markdown":"# Suggested Infrastructure KPIs to Track"}},
-{"title":"Memory Utilization","nrql":"from SystemSample select average(memoryUsedBytes/memoryTotalBytes) as '% of Memory used' timeseries 5 minutes since 1 hour ago facet hostname","process_as":"faceted_line_chart","width":1,"height":1,"row":7,"column":2,"event_types":["SystemSample"],"facet":"hostname","customizations":null,"notes":null},
-{"title":"Infrastructure CPU Utilization for App","nrql":"from SystemSample select average(cpuPercent) as 'CPU utlization' timeseries 5 minutes since 1 hour ago facet hostname","process_as":"faceted_line_chart","width":1,"height":1,"row":7,"column":3,"event_types":["SystemSample"],"facet":"hostname","customizations":null,"notes":null}],"dashboard_account_id":2246998}
+{
+    "dashboard_account_id": DEADBEEF,
+    "filter": {
+        "event_types": [
+            "PageView"
+        ],
+        "filter_first": false,
+        "key_names": []
+    },
+    "grid_column_count": 3,
+    "icon": "bar-chart",
+    "owner": {
+        "email": "bthomason@newrelic.com"
+    },
+    "title": "Migration Readiness Planning ",
+    "widgets": [
+        {
+            "agent_ids": [],
+            "cds_params_payload": null,
+            "column": 1,
+            "customizations": {
+                "markdown": "# High Level KPIs to Track for App Migration \n\n"
+            },
+            "duration": null,
+            "end_time": null,
+            "event_types": null,
+            "facet": null,
+            "height": 1,
+            "metrics": null,
+            "notes": null,
+            "nrql": null,
+            "raw_metric_name": null,
+            "renderer": null,
+            "renderer_props": null,
+            "row": 1,
+            "title": "",
+            "width": 3
+        },
+        {
+            "column": 2,
+            "customizations": {
+                "drilldown": {}
+            },
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT sum(PurchasedCartGrandTotal)/1000 as 'Revenue'   facet name since 1 day ago",
+            "process_as": "facet_pie_chart",
+            "row": 1,
+            "title": "Dollars Processed vs Failed ",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {
+                "drilldown": {}
+            },
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "[\"error.class\", \"error.message\"]",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError select count(*)  facet error.class,error.message since 1 day ago",
+            "process_as": "facet_bar_chart",
+            "row": 1,
+            "title": "Top Errors in The Application",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {
+                "drilldown": {}
+            },
+            "event_types": [
+                "SystemSample"
+            ],
+            "facet": "fullHostname",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM SystemSample select average(cpuPercent) as 'CPU % used'  facet fullHostname since 1 day ago",
+            "process_as": "facet_bar_chart",
+            "row": 2,
+            "title": "CPU Utilization by Host ",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {
+                "drilldown": {}
+            },
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "[\"appName\", \"name\"]",
+            "height": 1,
+            "notes": null,
+            "nrql": "From Transaction select max(duration)  facet appName, name since last hour limit 5",
+            "process_as": "facet_bar_chart",
+            "row": 2,
+            "title": "Slowest Transactions in the App (Top 20)",
+            "width": 1
+        },
+        {
+            "agent_ids": [],
+            "cds_params_payload": null,
+            "column": 1,
+            "customizations": {
+                "markdown": "# Suggested Business KPI's to Track \n## Needs Custom attributes "
+            },
+            "duration": null,
+            "end_time": null,
+            "event_types": null,
+            "facet": null,
+            "height": 1,
+            "metrics": null,
+            "notes": null,
+            "nrql": null,
+            "raw_metric_name": null,
+            "renderer": null,
+            "renderer_props": null,
+            "row": 3,
+            "title": "",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM PageView SELECT funnel(session, WHERE pageUrl like '%/' AS 'Homepage', where pageUrl like '%/browse/plans' AS 'Deals Listing', WHERE pageUrl LIKE '%login.jsp' AS 'Add to Cart',  WHERE pageUrl LIKE '%/checkout' AS 'Payment')  SINCE 1 day ago",
+            "process_as": "funnel",
+            "resource": null,
+            "row": 3,
+            "steps": null,
+            "title": "Average Transaction Duration ",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT sum(PurchasedCartGrandTotal) As 'Revenue'  SINCE 1 day ago COMPARE WITH 1 week ago TIMESERIES",
+            "process_as": "comparison_line_chart",
+            "row": 3,
+            "title": "Revenue Through Web Portal: WoW",
+            "width": 1
+        },
+        {
+            "agent_ids": [],
+            "cds_params_payload": null,
+            "column": 1,
+            "customizations": {
+                "markdown": "# Suggested Application KPIs to Track"
+            },
+            "duration": null,
+            "end_time": null,
+            "event_types": null,
+            "facet": null,
+            "height": 1,
+            "metrics": null,
+            "notes": null,
+            "nrql": null,
+            "raw_metric_name": null,
+            "renderer": null,
+            "renderer_props": null,
+            "row": 4,
+            "title": "",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {
+                "thresholds": {}
+            },
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT ((filter(count(*),WHERE apdexPerfZone= 'S' OR `nr.apdexPerfZone` = 'S') + (filter(count(*), WHERE apdexPerfZone = 'T' OR `nr.apdexPerfZone` = 'T')/2))/count(*))*100 AS '% Score'  SINCE 1 week ago",
+            "process_as": "billboard",
+            "row": 4,
+            "title": "Application Performance Score",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "from Transaction SELECT average(duration)*1000 AS 'ms'  SINCE 24 hours ago TIMESERIES compare with 1 week ago",
+            "process_as": "comparison_line_chart",
+            "row": 4,
+            "title": "Application Response Time in 24 hrs (ms) : WoW",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {
+                "drilldown": {}
+            },
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "request.uri",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction select count(*) facet request.uri ",
+            "process_as": "facet_table",
+            "row": 5,
+            "title": "Most Visited End Points",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": "countryCode",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM  PageView select average(duration)  facet countryCode TIMESERIES 1 hour since 1 day ago",
+            "process_as": "faceted_line_chart",
+            "row": 5,
+            "title": "Performance By Country",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {
+                "drilldown": {}
+            },
+            "event_types": [
+                "PageView"
+            ],
+            "facet": "countryCode",
+            "height": 1,
+            "notes": null,
+            "nrql": "from PageView select count(*) facet countryCode",
+            "process_as": "facet_pie_chart",
+            "row": 5,
+            "title": "User Locations ",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {
+                "drilldown": {}
+            },
+            "event_types": [
+                "PageView"
+            ],
+            "facet": "[\"appName\", \"pageUrl\"]",
+            "height": 1,
+            "notes": null,
+            "nrql": "from PageView select count(*), average(duration) as 'Avg Duration', average(networkDuration) as 'Avg Network Duration' , average(webAppDuration) as 'AVG Web App Duration' facet appName, pageUrl since 1 day ago",
+            "process_as": "facet_table",
+            "row": 6,
+            "title": "Pages Viewed the Most/Duration",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {
+                "drilldown": {}
+            },
+            "event_types": [
+                "SystemSample"
+            ],
+            "facet": "[\"hostname\", \"processorCount\", \"coreCount\"]",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM SystemSample select average(cpuPercent), max(cpuPercent) , average(memoryUsedBytes/memoryTotalBytes) as 'Average Memory Used%' where apmApplicationNames like '%WebPortal%' facet hostname , processorCount, coreCount since 1 day ago",
+            "process_as": "facet_table",
+            "row": 6,
+            "title": "Hardware Utilization for Application",
+            "width": 1
+        },
+        {
+            "agent_ids": [],
+            "cds_params_payload": null,
+            "column": 1,
+            "customizations": {
+                "markdown": "# Suggested Infrastructure KPIs to Track"
+            },
+            "duration": null,
+            "end_time": null,
+            "event_types": null,
+            "facet": null,
+            "height": 1,
+            "metrics": null,
+            "notes": null,
+            "nrql": null,
+            "raw_metric_name": null,
+            "renderer": null,
+            "renderer_props": null,
+            "row": 7,
+            "title": "",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "SystemSample"
+            ],
+            "facet": "hostname",
+            "height": 1,
+            "notes": null,
+            "nrql": "from SystemSample select average(memoryUsedBytes/memoryTotalBytes) as '% of Memory used' timeseries 5 minutes since 1 hour ago facet hostname",
+            "process_as": "faceted_line_chart",
+            "row": 7,
+            "title": "Memory Utilization",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "SystemSample"
+            ],
+            "facet": "hostname",
+            "height": 1,
+            "notes": null,
+            "nrql": "from SystemSample select average(cpuPercent) as 'CPU utlization' timeseries 5 minutes since 1 hour ago facet hostname",
+            "process_as": "faceted_line_chart",
+            "row": 7,
+            "title": "Infrastructure CPU Utilization for App",
+            "width": 1
+        }
+    ]
+}

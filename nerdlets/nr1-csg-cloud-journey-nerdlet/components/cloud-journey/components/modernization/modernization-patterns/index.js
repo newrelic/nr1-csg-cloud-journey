@@ -24,7 +24,7 @@ class ModernizationPatterns extends Component {
     super(props);
     this.state = {
       items: [],
-      current_account: "",
+      current_account: account_options[0].value,
       current_description: "",
       current_chart: "",
       splash: true,
@@ -96,7 +96,6 @@ class ModernizationPatterns extends Component {
     var { current_chart } = this.state;
     return (
       <div>
-        <Select onChange={this.updateAccount} options={account_options} />
         <Select onChange={this.updateQueries} options={options} />
 
 	{ this.state.splash && <Landing /> }

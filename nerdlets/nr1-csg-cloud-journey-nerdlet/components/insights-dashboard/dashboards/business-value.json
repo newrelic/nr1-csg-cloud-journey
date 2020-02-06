@@ -1,1 +1,233 @@
-{"title":" $ Business Metrics ","icon":"line-chart","grid_column_count":3,"filter":{"key_names":["appName","duration","name","regionCode","httpResponseCode"],"event_types":["Transaction","PageView"],"filter_first":false},"owner":{"email":"bthomason@newrelic.com"},"widgets":[{"title":"Transactions And Error Codes","nrql":"SELECT count(*),count(errorCode) from Transaction since 1 day ago FACET appName","process_as":"facet_table","width":1,"height":1,"row":1,"column":1,"event_types":["Transaction"],"facet":"appName","customizations":{"drilldown":{"dashboard_id":806338}},"notes":null},{"title":"Revenue Day Over Day","nrql":"SELECT sum(PurchasedCartGrandTotal)/365 As 'Revenue' FROM Transaction WHERE name = 'WebTransaction/JSP/purchase/confirmation.jsp' since 1 day ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":1,"column":2,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Live Users","nrql":"SELECT uniqueCount(session)*151 AS 'Site Visitors' FROM PageView SINCE 2 minutes ago","process_as":"billboard","width":1,"height":1,"row":1,"column":3,"event_types":["PageView"],"facet":null,"customizations":{},"notes":null},{"title":"Users Day Over Day","nrql":"SELECT uniqueCount(session)/9 AS 'Site Visitors' FROM PageView SINCE 1 day ago COMPARE WITH 1 day ago","process_as":"billboard_comparison","width":1,"height":1,"row":2,"column":1,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null},{"title":"Total Revenue At Risk in Dollars","nrql":"SELECT sum(PurchasedCartGrandTotal)/450 AS 'Average Price' from Transaction where error  IS NOT NULL since 1 day ago","process_as":"billboard","width":1,"height":1,"row":2,"column":2,"event_types":["Transaction"],"facet":null,"customizations":{"thresholds":{"warning":5000.0,"critical":20000.0}},"notes":null},{"title":"Purchase Confirmation Page Duration","nrql":"SELECT count(*) AS 'Duration' FROM PageView facet buckets(duration,10,10) SINCE 5 hours ago WHERE pageUrl like '%shoppingcart'","process_as":"facet_bar_chart","width":1,"height":1,"row":2,"column":3,"event_types":["PageView"],"facet":"duration","customizations":{"drilldown":{"dashboard_id":806338}},"notes":null},{"title":"Home Duration \u003e 4s","nrql":"SELECT count(*)*2 as 'Page Views' FROM PageView where pageUrl LIKE '%webportal%.amazonaws.com/' and duration \u003e= 4 since 1 day ago","process_as":"billboard","width":1,"height":1,"row":3,"column":1,"event_types":["PageView"],"facet":null,"customizations":{"thresholds":{"warning":50.0,"critical":20000.0}},"notes":null},{"title":"Purchase Conversion","nrql":"SELECT funnel(session, WHERE pageUrl like '%webportal%.amazonaws.com/' AS 'Home', where pageUrl like '%.amazonaws.com/login' AS 'Login', WHERE pageUrl LIKE '%webportal%.amazonaws.com/browse/%' AS 'Browse Items',  WHERE pageUrl LIKE '%webportal%.amazonaws.com/shoppingcart' AS 'Purchased') FROM PageView SINCE 1 day ago","process_as":"funnel","width":1,"height":1,"row":3,"column":2,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null,"steps":null,"resource":null},{"title":"Average Cart Value, Number of Errors","nrql":"SELECT 53.2 AS 'Avg Margin', count(*) AS 'Purchase Errors' from Transaction where name = 'WebTransaction/JSP/purchase/confirmation.jsp' AND  error  IS NOT NULL since 1 day ago","process_as":"attribute_sheet","width":1,"height":1,"row":3,"column":3,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Logins by Region","nrql":"SELECT count(*) FROM PageView facet regionCode SINCE 1 HOUR AGO limit 10","process_as":"facet_bar_chart","width":1,"height":1,"row":4,"column":1,"event_types":["PageView"],"facet":"regionCode","customizations":{"drilldown":{"dashboard_id":424898}},"notes":null},{"title":"Error Responses","nrql":"SELECT count(httpResponseCode) FROM Transaction  WHERE  httpResponseCode != '200' facet httpResponseCode","process_as":"facet_pie_chart","width":1,"height":1,"row":4,"column":2,"event_types":["Transaction"],"facet":"httpResponseCode","customizations":{"drilldown":{"dashboard_id":806338}},"notes":null},{"title":"Users past day vs the day before","nrql":"SELECT uniqueCount(session) AS 'Site Visitors' FROM PageView SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES","process_as":"comparison_line_chart","width":1,"height":1,"row":4,"column":3,"event_types":["PageView"],"facet":null,"customizations":null,"notes":null}],"dashboard_account_id":2246998}
+{
+    "dashboard_account_id": DEADBEEF,
+    "filter": {
+        "event_types": [
+            "Transaction",
+            "PageView"
+        ],
+        "filter_first": false,
+        "key_names": [
+            "appName",
+            "duration",
+            "name",
+            "regionCode",
+            "httpResponseCode"
+        ]
+    },
+    "grid_column_count": 3,
+    "icon": "line-chart",
+    "owner": {
+        "email": "bthomason@newrelic.com"
+    },
+    "title": " $ Business Metrics ",
+    "widgets": [
+        {
+            "column": 1,
+            "customizations": {
+                "drilldown": {
+                    "dashboard_id": 806338
+                }
+            },
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT count(*),count(errorCode) from Transaction since 1 day ago FACET appName",
+            "process_as": "facet_table",
+            "row": 1,
+            "title": "Transactions And Error Codes",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT sum(PurchasedCartGrandTotal)/365 As 'Revenue' FROM Transaction WHERE name = 'WebTransaction/JSP/purchase/confirmation.jsp' since 1 day ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 1,
+            "title": "Revenue Day Over Day",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT uniqueCount(session) AS 'Site Visitors' FROM PageView SINCE 2 minutes ago",
+            "process_as": "billboard",
+            "row": 1,
+            "title": "Live Users",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT uniqueCount(session)/9 AS 'Site Visitors' FROM PageView SINCE 1 day ago COMPARE WITH 1 day ago",
+            "process_as": "billboard_comparison",
+            "row": 2,
+            "title": "Users Day Over Day",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {
+                "thresholds": {
+                    "critical": 20000.0,
+                    "warning": 5000.0
+                }
+            },
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT sum(PurchasedCartGrandTotal)/450 AS 'Average Price' from Transaction where error  IS NOT NULL since 1 day ago",
+            "process_as": "billboard",
+            "row": 2,
+            "title": "Total Revenue At Risk in Dollars",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {
+                "drilldown": {
+                    "dashboard_id": 806338
+                }
+            },
+            "event_types": [
+                "PageView"
+            ],
+            "facet": "duration",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT count(*) AS 'Duration' FROM PageView facet buckets(duration,10,10) SINCE 1 day ago WHERE pageUrl like '%shoppingcart'",
+            "process_as": "facet_bar_chart",
+            "row": 2,
+            "title": "Purchase Confirmation Page Duration",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {
+                "thresholds": {
+                    "critical": 20000.0,
+                    "warning": 50.0
+                }
+            },
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT count(*)*2 as 'Page Views' FROM PageView where pageUrl LIKE '%webportal%.amazonaws.com/' and duration >= 4 since 1 day ago",
+            "process_as": "billboard",
+            "row": 3,
+            "title": "Home Duration > 4s",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT funnel(session, WHERE pageUrl like '%webportal%.amazonaws.com/' AS 'Home', where pageUrl like '%.amazonaws.com/login' AS 'Login', WHERE pageUrl LIKE '%webportal%.amazonaws.com/browse/%' AS 'Browse Items',  WHERE pageUrl LIKE '%webportal%.amazonaws.com/shoppingcart' AS 'Purchased') FROM PageView SINCE 1 day ago",
+            "process_as": "funnel",
+            "resource": null,
+            "row": 3,
+            "steps": null,
+            "title": "Purchase Conversion",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT count(*) AS 'Purchase Errors' from Transaction where name = 'WebTransaction/JSP/purchase/confirmation.jsp' AND  error  IS NOT NULL since 1 day ago",
+            "process_as": "attribute_sheet",
+            "row": 3,
+            "title": "Average Cart Value, Number of Errors",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {
+                "drilldown": {
+                    "dashboard_id": 424898
+                }
+            },
+            "event_types": [
+                "PageView"
+            ],
+            "facet": "regionCode",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT count(*) FROM PageView facet regionCode SINCE 1 HOUR AGO limit 10",
+            "process_as": "facet_bar_chart",
+            "row": 4,
+            "title": "Logins by Region",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {
+                "drilldown": {
+                    "dashboard_id": 806338
+                }
+            },
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "httpResponseCode",
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT count(httpResponseCode) FROM Transaction  WHERE  httpResponseCode != '200' facet httpResponseCode since 1 day ago",
+            "process_as": "facet_pie_chart",
+            "row": 4,
+            "title": "Error Responses",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "PageView"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "SELECT uniqueCount(session) AS 'Site Visitors' FROM PageView SINCE 1 day ago COMPARE WITH 1 day ago TIMESERIES",
+            "process_as": "comparison_line_chart",
+            "row": 4,
+            "title": "Users past day vs the day before",
+            "width": 1
+        }
+    ]
+}

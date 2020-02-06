@@ -1,1 +1,477 @@
-{"title":"LabsUseOnly","icon":"bar-chart","grid_column_count":3,"filter":null,"owner":{"email":"ayathirajadasan@newrelic.com"},"widgets":[{"title":"Applications : On-Premises","nrql":"FROM Transaction   SELECT     uniquecount(appName) AS '' WHERE appName LIKE '%_OP'","process_as":"billboard","width":2,"height":1,"row":1,"column":1,"event_types":["Transaction"],"facet":null,"customizations":{},"notes":null},{"title":"Application Locations","nrql":"FROM Transaction   SELECT     filter(uniquecount(appName), WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' ) AS 'Total Apps',  filter(uniquecount(appName), WHERE appName LIKE '%_OP') AS 'On-Premises',  filter(uniquecount(appName), WHERE appName LIKE '%_AWS') AS 'AWS'","process_as":"attribute_sheet","width":1,"height":1,"row":1,"column":3,"event_types":["Transaction"],"facet":null,"customizations":null,"notes":null},{"title":"Applications : AWS","nrql":"FROM Transaction   SELECT     uniquecount(appName) AS '' WHERE appName LIKE '%_AWS'","process_as":"billboard","width":2,"height":1,"row":2,"column":1,"event_types":["Transaction"],"facet":null,"customizations":{},"notes":null},{"title":"Application Locations","nrql":"FROM Transaction  SELECT uniqueCount(appName) AS 'Applications'  FACET cases(  WHERE appName LIKE '%_OP' as 'On-Premises',      WHERE appName LIKE '%_AWS' as 'AWS')","process_as":"facet_pie_chart","width":1,"height":1,"row":2,"column":3,"event_types":["Transaction"],"facet":"cases","customizations":{},"notes":null},{"title":"Top Applications by Utilization : On-Premises","nrql":"FROM Transaction  SELECT count(*) AS 'Transactions' WHERE appName LIKE '%_OP' AND username NOT LIKE '%acme.com' FACET appName","process_as":"facet_bar_chart","width":1,"height":1,"row":3,"column":1,"event_types":["Transaction"],"facet":"appName","customizations":{},"notes":null},{"title":"Top Applications by Utilization : AWS","nrql":"FROM Transaction  SELECT count(*) AS 'Transactions' WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com'  FACET appName","process_as":"facet_bar_chart","width":1,"height":1,"row":3,"column":2,"event_types":["Transaction"],"facet":"appName","customizations":{},"notes":null},{"title":"Top Applications by Utilization : Combined","nrql":"FROM Transaction  SELECT count(*) AS 'Transactions' WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET appName","process_as":"facet_bar_chart","width":1,"height":1,"row":3,"column":3,"event_types":["Transaction"],"facet":"appName","customizations":{},"notes":null},{"title":"Top Application Utilization by Server : On-Premises","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' AND username NOT LIKE '%acme.com') AND username NOT LIKE '%acme.com'  FACET host","process_as":"facet_bar_chart","width":1,"height":1,"row":4,"column":1,"event_types":["Transaction"],"facet":"host","customizations":{},"notes":null},{"title":"Top Application Utilization by Server : AWS","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com' FACET host","process_as":"facet_bar_chart","width":1,"height":1,"row":4,"column":2,"event_types":["Transaction"],"facet":"host","customizations":{},"notes":null},{"title":"Top Application Utilization by Server : Combined","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET host","process_as":"facet_bar_chart","width":1,"height":1,"row":4,"column":3,"event_types":["Transaction"],"facet":"host","customizations":{},"notes":null},{"title":"Top Application Utilization : On-Premises","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_OP'  AND username NOT LIKE '%acme.com' FACET appName","process_as":"facet_bar_chart","width":1,"height":1,"row":5,"column":1,"event_types":["Transaction"],"facet":"appName","customizations":{},"notes":null},{"title":"Top Application Utilization : AWS","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com' FACET appName","process_as":"facet_bar_chart","width":1,"height":1,"row":5,"column":2,"event_types":["Transaction"],"facet":"appName","customizations":{},"notes":null},{"title":"Top Application Utilization : Combined","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET appName","process_as":"facet_bar_chart","width":1,"height":1,"row":5,"column":3,"event_types":["Transaction"],"facet":"appName","customizations":{},"notes":null},{"title":"Top Application Utilization by Routine : On-Premises","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_OP'  AND username NOT LIKE '%acme.com' FACET name","process_as":"facet_bar_chart","width":1,"height":1,"row":6,"column":1,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"Top Application Utilization by Routine : AWS","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com'  FACET name","process_as":"facet_bar_chart","width":1,"height":1,"row":6,"column":2,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"Top Application Utilization by Routine : Combined","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET name","process_as":"facet_bar_chart","width":1,"height":1,"row":6,"column":3,"event_types":["Transaction"],"facet":"name","customizations":{},"notes":null},{"title":"Top Application Utilization by Type : On-Premises","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_OP'  AND username NOT LIKE '%acme.com'  FACET transactionType","process_as":"facet_bar_chart","width":1,"height":1,"row":7,"column":1,"event_types":["Transaction"],"facet":"transactionType","customizations":{},"notes":null},{"title":"Top Application Utilization by Type : AWS","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com' FACET transactionType","process_as":"facet_bar_chart","width":1,"height":1,"row":7,"column":2,"event_types":["Transaction"],"facet":"transactionType","customizations":{},"notes":null},{"title":"Top Application Utilization by Type : Combined","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET transactionType","process_as":"facet_bar_chart","width":1,"height":1,"row":7,"column":3,"event_types":["Transaction"],"facet":"transactionType","customizations":{},"notes":null},{"title":"Top Application Utilization by SubType : On-Premise","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_OP'  AND username NOT LIKE '%acme.com' FACET transactionSubType","process_as":"facet_bar_chart","width":1,"height":1,"row":8,"column":1,"event_types":["Transaction"],"facet":"transactionSubType","customizations":{},"notes":null},{"title":"Top Application Utilization by SubType : AWS","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com' FACET transactionSubType","process_as":"facet_bar_chart","width":1,"height":1,"row":8,"column":2,"event_types":["Transaction"],"facet":"transactionSubType","customizations":{},"notes":null},{"title":"Top Application Utilization by SubType : Combined","nrql":"FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET transactionSubType","process_as":"facet_bar_chart","width":1,"height":1,"row":8,"column":3,"event_types":["Transaction"],"facet":"transactionSubType","customizations":{},"notes":null},{"title":"Top Application Errors : On-Premises","nrql":"FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' FACET appName","process_as":"facet_bar_chart","width":1,"height":1,"row":9,"column":1,"event_types":["TransactionError"],"facet":"appName","customizations":{},"notes":null},{"title":"Top Application Errors : AWS","nrql":"FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_AWS' FACET appName","process_as":"facet_bar_chart","width":1,"height":1,"row":9,"column":2,"event_types":["TransactionError"],"facet":"appName","customizations":{},"notes":null},{"title":"Top Application Errors : Combined","nrql":"FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' FACET appName","process_as":"facet_bar_chart","width":1,"height":1,"row":9,"column":3,"event_types":["TransactionError"],"facet":"appName","customizations":{},"notes":null},{"title":"Top Application Errors by Transaction : On-Premises","nrql":"FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' FACET transactionName","process_as":"facet_bar_chart","width":1,"height":1,"row":10,"column":1,"event_types":["TransactionError"],"facet":"transactionName","customizations":{},"notes":null},{"title":"Top Application Errors by Transaction : AWS","nrql":"FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_AWS' FACET transactionName","process_as":"facet_bar_chart","width":1,"height":1,"row":10,"column":2,"event_types":["TransactionError"],"facet":"transactionName","customizations":{},"notes":null},{"title":"Top Application Errors by Transaction : Combined","nrql":"FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' FACET transactionName","process_as":"facet_bar_chart","width":1,"height":1,"row":10,"column":3,"event_types":["TransactionError"],"facet":"transactionName","customizations":{},"notes":null},{"title":"Top Application Errors by Host : On-Premises","nrql":"FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' FACET host","process_as":"facet_bar_chart","width":1,"height":1,"row":11,"column":1,"event_types":["TransactionError"],"facet":"host","customizations":{},"notes":null},{"title":"Top Application Errors by Host : AWS","nrql":"FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_AWS' FACET host","process_as":"facet_bar_chart","width":1,"height":1,"row":11,"column":2,"event_types":["TransactionError"],"facet":"host","customizations":{},"notes":null},{"title":"Top Application Errors by Host : Combined","nrql":"FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' FACET host","process_as":"facet_bar_chart","width":1,"height":1,"row":11,"column":3,"event_types":["TransactionError"],"facet":"host","customizations":{},"notes":null}],"dashboard_account_id":2246998}
+{
+    "dashboard_account_id": DEADBEEF,
+    "filter": null,
+    "grid_column_count": 3,
+    "icon": "bar-chart",
+    "owner": {
+        "email": "ayathirajadasan@newrelic.com"
+    },
+    "title": "LabsUseOnly",
+    "widgets": [
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction   SELECT     uniquecount(appName) AS '' WHERE appName LIKE '%_OP'",
+            "process_as": "billboard",
+            "row": 1,
+            "title": "Applications : On-Premises",
+            "width": 2
+        },
+        {
+            "column": 3,
+            "customizations": null,
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction   SELECT     filter(uniquecount(appName), WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' ) AS 'Total Apps',  filter(uniquecount(appName), WHERE appName LIKE '%_OP') AS 'On-Premises',  filter(uniquecount(appName), WHERE appName LIKE '%_AWS') AS 'AWS'",
+            "process_as": "attribute_sheet",
+            "row": 1,
+            "title": "Application Locations",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": null,
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction   SELECT     uniquecount(appName) AS '' WHERE appName LIKE '%_AWS'",
+            "process_as": "billboard",
+            "row": 2,
+            "title": "Applications : AWS",
+            "width": 2
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "cases",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction  SELECT uniqueCount(appName) AS 'Applications'  FACET cases(  WHERE appName LIKE '%_OP' as 'On-Premises',      WHERE appName LIKE '%_AWS' as 'AWS')",
+            "process_as": "facet_pie_chart",
+            "row": 2,
+            "title": "Application Locations",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction  SELECT count(*) AS 'Transactions' WHERE appName LIKE '%_OP' AND username NOT LIKE '%acme.com' FACET appName",
+            "process_as": "facet_bar_chart",
+            "row": 3,
+            "title": "Top Applications by Utilization : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction  SELECT count(*) AS 'Transactions' WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com'  FACET appName",
+            "process_as": "facet_bar_chart",
+            "row": 3,
+            "title": "Top Applications by Utilization : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction  SELECT count(*) AS 'Transactions' WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET appName",
+            "process_as": "facet_bar_chart",
+            "row": 3,
+            "title": "Top Applications by Utilization : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "host",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' AND username NOT LIKE '%acme.com') AND username NOT LIKE '%acme.com'  FACET host",
+            "process_as": "facet_bar_chart",
+            "row": 4,
+            "title": "Top Application Utilization by Server : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "host",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com' FACET host",
+            "process_as": "facet_bar_chart",
+            "row": 4,
+            "title": "Top Application Utilization by Server : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "host",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET host",
+            "process_as": "facet_bar_chart",
+            "row": 4,
+            "title": "Top Application Utilization by Server : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_OP'  AND username NOT LIKE '%acme.com' FACET appName",
+            "process_as": "facet_bar_chart",
+            "row": 5,
+            "title": "Top Application Utilization : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com' FACET appName",
+            "process_as": "facet_bar_chart",
+            "row": 5,
+            "title": "Top Application Utilization : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET appName",
+            "process_as": "facet_bar_chart",
+            "row": 5,
+            "title": "Top Application Utilization : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_OP'  AND username NOT LIKE '%acme.com' FACET name",
+            "process_as": "facet_bar_chart",
+            "row": 6,
+            "title": "Top Application Utilization by Routine : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com'  FACET name",
+            "process_as": "facet_bar_chart",
+            "row": 6,
+            "title": "Top Application Utilization by Routine : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "name",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET name",
+            "process_as": "facet_bar_chart",
+            "row": 6,
+            "title": "Top Application Utilization by Routine : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "transactionType",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_OP'  AND username NOT LIKE '%acme.com'  FACET transactionType",
+            "process_as": "facet_bar_chart",
+            "row": 7,
+            "title": "Top Application Utilization by Type : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "transactionType",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com' FACET transactionType",
+            "process_as": "facet_bar_chart",
+            "row": 7,
+            "title": "Top Application Utilization by Type : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "transactionType",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET transactionType",
+            "process_as": "facet_bar_chart",
+            "row": 7,
+            "title": "Top Application Utilization by Type : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "transactionSubType",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_OP'  AND username NOT LIKE '%acme.com' FACET transactionSubType",
+            "process_as": "facet_bar_chart",
+            "row": 8,
+            "title": "Top Application Utilization by SubType : On-Premise",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "transactionSubType",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE appName LIKE '%_AWS'  AND username NOT LIKE '%acme.com' FACET transactionSubType",
+            "process_as": "facet_bar_chart",
+            "row": 8,
+            "title": "Top Application Utilization by SubType : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "Transaction"
+            ],
+            "facet": "transactionSubType",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM Transaction SELECT count(*) AS 'Transactions'  WHERE (appName LIKE '%_OP' OR appName LIKE '%_AWS')  AND username NOT LIKE '%acme.com' FACET transactionSubType",
+            "process_as": "facet_bar_chart",
+            "row": 8,
+            "title": "Top Application Utilization by SubType : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' FACET appName",
+            "process_as": "facet_bar_chart",
+            "row": 9,
+            "title": "Top Application Errors : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_AWS' FACET appName",
+            "process_as": "facet_bar_chart",
+            "row": 9,
+            "title": "Top Application Errors : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "appName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' FACET appName",
+            "process_as": "facet_bar_chart",
+            "row": 9,
+            "title": "Top Application Errors : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "transactionName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' FACET transactionName",
+            "process_as": "facet_bar_chart",
+            "row": 10,
+            "title": "Top Application Errors by Transaction : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "transactionName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_AWS' FACET transactionName",
+            "process_as": "facet_bar_chart",
+            "row": 10,
+            "title": "Top Application Errors by Transaction : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "transactionName",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' FACET transactionName",
+            "process_as": "facet_bar_chart",
+            "row": 10,
+            "title": "Top Application Errors by Transaction : Combined",
+            "width": 1
+        },
+        {
+            "column": 1,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "host",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' FACET host",
+            "process_as": "facet_bar_chart",
+            "row": 11,
+            "title": "Top Application Errors by Host : On-Premises",
+            "width": 1
+        },
+        {
+            "column": 2,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "host",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_AWS' FACET host",
+            "process_as": "facet_bar_chart",
+            "row": 11,
+            "title": "Top Application Errors by Host : AWS",
+            "width": 1
+        },
+        {
+            "column": 3,
+            "customizations": {},
+            "event_types": [
+                "TransactionError"
+            ],
+            "facet": "host",
+            "height": 1,
+            "notes": null,
+            "nrql": "FROM TransactionError SELECT count(*) AS 'Count' WHERE appName LIKE '%_OP' OR appName LIKE '%_AWS' FACET host",
+            "process_as": "facet_bar_chart",
+            "row": 11,
+            "title": "Top Application Errors by Host : Combined",
+            "width": 1
+        }
+    ]
+}
