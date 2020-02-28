@@ -53,18 +53,18 @@ nr1 nerdpack:uuid --generate
 **If you are deploying this application to an account that contains only On-Prem server resources, execute the following command**
 
 ```bash
-python before-and-after.py before
+python2.7 before-and-after.py before
 ```
 
 **If you are deploying this application to an account that contains only AWS resources, execute the following command**
 
 ```bash
-python before-and-after.py after
+python2.7 before-and-after.py after
 ```
 Before executing the following command, which will configure the application to run inside the account of your choosing, please ensure you have the account number and the account's Insights query key in hand.
 
 ```bash
-python configure.py
+python2.7 configure.py
 ```
 
 Before launching the application, you will need to modify certain queries in the dashboards provided.  [Click here](./DASHBOARDS.md) for more information.
