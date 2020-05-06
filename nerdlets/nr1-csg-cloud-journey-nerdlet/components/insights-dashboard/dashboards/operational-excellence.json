@@ -1,0 +1,207 @@
+{
+    "grid_column_count": 3, 
+    "title": "M&O:Monitor:SLOs", 
+    "dashboard_account_id": 1, 
+    "filter": null, 
+    "widgets": [
+        {
+            "nrql": "FROM PageView SELECT average(duration) SINCE 30 minutes ago COMPARE WITH 1 day ago", 
+            "title": "Response Time", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
+            "event_types": [
+                "PageView"
+            ], 
+            "process_as": "billboard_comparison", 
+            "row": 1
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT average(duration) since 1 day ago until 1 minute ago timeseries 30 minutes", 
+            "title": "Average Resp Time Last 24 Hours", 
+            "column": 2, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "line_chart", 
+            "row": 1
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT average(duration) WHERE transactionType='Web' FACET name limit 20 since 1 week ago", 
+            "title": "Response Time by Web Transaction", 
+            "column": 3, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "name", 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "facet_bar_chart", 
+            "row": 1
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT rate(count(*), 1 minute) as 'RPM' since 1 hour ago COMPARE WITH 1 hour ago", 
+            "title": "RPM", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "billboard_comparison", 
+            "row": 2
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT count(*)/30 as 'RPM' SINCE yesterday UNTIL 1 minute ago TIMESERIES 30 minutes", 
+            "title": "Throughput Last 24 Hours", 
+            "column": 2, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "line_chart", 
+            "row": 2
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT count(*) AS 'Count' FACET name SINCE 30 minutes ago LIMIT 20", 
+            "title": "Throughput by Transaction", 
+            "column": 3, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "name", 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "facet_bar_chart", 
+            "row": 2
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT average(duration) since 1 week ago until 1 minute ago timeseries 30 minutes COMPARE WITH 1 week ago", 
+            "title": "Average Response Time Last Wk vs Prior WK", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "comparison_line_chart", 
+            "row": 3
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT count(*)/30 as 'RPM' since 1 week ago until 1 minute ago TIMESERIES 30 minutes COMPARE WITH 1 week ago", 
+            "title": "Throughput Last WK vs Prior WK", 
+            "column": 2, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "comparison_line_chart", 
+            "row": 3
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT count(`response.status`) FACET `response.status`", 
+            "title": "HTTP Response Status", 
+            "column": 3, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "response.status", 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "facet_pie_chart", 
+            "row": 3
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT count(*) FACET weekdayOf(timestamp) since 7 days ago", 
+            "title": "Throughput by Day", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "Weekday of timestamp", 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "facet_bar_chart", 
+            "row": 4
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT percentile(duration, 50, 95, 99) FACET name since 1 week ago", 
+            "title": "99th, 95th", 
+            "column": 2, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "name", 
+            "width": 2, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "facet_table", 
+            "row": 4
+        }, 
+        {
+            "nrql": "FROM Transaction SELECT count(*), average(duration), max(duration), min(duration) FACET name SINCE 1 day ago limit 500", 
+            "title": "All Transactions Count Avg, Max, Min Duration", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "name", 
+            "width": 3, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "facet_table", 
+            "row": 5
+        }, 
+        {
+            "nrql": "FROM SyntheticCheck SELECT percentage(count(result), WHERE result = 'SUCCESS') AS '%' since 12 months ago facet monthOf(timestamp)", 
+            "title": "Monthly Uptime", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "Month of timestamp", 
+            "width": 3, 
+            "event_types": [
+                "SyntheticCheck"
+            ], 
+            "process_as": "facet_bar_chart", 
+            "row": 6
+        }
+    ], 
+    "owner": {
+        "email": "jadams@newrelic.com"
+    }, 
+    "icon": "bar-chart"
+}

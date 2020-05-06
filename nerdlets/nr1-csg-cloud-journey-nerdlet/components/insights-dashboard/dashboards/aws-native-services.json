@@ -80,18 +80,18 @@
             "row": 2
         }, 
         {
-            "nrql": "SELECT * FROM InfrastructureEvent WHERE source LIKE 'aws/lambda%' SINCE 1 day ago", 
-            "title": "Lambda Events from Infra Agent", 
+            "nrql": "SELECT average(`provider.volumeReadOps.Sum`) + average(`provider.volumeWriteOps.Sum`) FROM BlockDeviceSample WHERE provider = 'EbsVolume'  FACET displayName TIMESERIES since 1 day ago", 
+            "title": "EBS - Total Operations", 
             "column": 2, 
             "notes": null, 
             "customizations": null, 
             "height": 1, 
-            "facet": null, 
+            "facet": "displayName", 
             "width": 1, 
             "event_types": [
-                "InfrastructureEvent"
+                "BlockDeviceSample"
             ], 
-            "process_as": "event_table", 
+            "process_as": "faceted_line_chart", 
             "row": 2
         }, 
         {
@@ -155,24 +155,9 @@
             "row": 3
         }, 
         {
-            "nrql": "SELECT average(`provider.volumeReadOps.Sum`) + average(`provider.volumeWriteOps.Sum`) FROM BlockDeviceSample WHERE provider = 'EbsVolume'  FACET displayName TIMESERIES since 1 day ago", 
-            "title": "EBS - Total Operations", 
-            "column": 1, 
-            "notes": null, 
-            "customizations": null, 
-            "height": 1, 
-            "facet": "displayName", 
-            "width": 1, 
-            "event_types": [
-                "BlockDeviceSample"
-            ], 
-            "process_as": "faceted_line_chart", 
-            "row": 4
-        }, 
-        {
             "nrql": "SELECT average(`provider.concurrentExecutions.Average`) FROM ServerlessSample WHERE provider LIKE 'LambdaRegion'  FACET awsRegion SINCE 1 hour ago UNTIL 6 minutes ago TIMESERIES 5 minutes", 
             "title": "Concurrent Lambda executions", 
-            "column": 2, 
+            "column": 1, 
             "notes": null, 
             "customizations": null, 
             "height": 1, 
@@ -182,6 +167,21 @@
                 "ServerlessSample"
             ], 
             "process_as": "faceted_line_chart", 
+            "row": 4
+        },
+        {
+            "nrql": "SELECT * FROM InfrastructureEvent WHERE source LIKE 'aws/lambda%' SINCE 1 day ago", 
+            "title": "Lambda Events from Infra Agent", 
+            "column": 2, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": null, 
+            "width": 2, 
+            "event_types": [
+                "InfrastructureEvent"
+            ], 
+            "process_as": "event_table", 
             "row": 4
         }
     ], 

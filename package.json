@@ -7,16 +7,20 @@
     "start": "nr1 nerdpack:serve",
     "test": "exit 0"
   },
-  "nr1": {
-    "uuid": "1782dc24-3c9d-486c-9496-db7f0dc88859"
-  },
   "dependencies": {
+    "@newrelic/nr1-community": "^1.1.1",
+    "graphiql": "^0.17.5",
+    "graphiql-explorer": "git+https://github.com/mattbaker/graphiql-explorer.git",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.10.3",
     "markdown-it": "^10.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-html-parser": "^2.0.2",
-    "react-select": "^3.0.8"
+    "react-json-tree": "^0.11.2",
+    "react-select": "^3.0.8",
+    "uuid": "^7.0.2"
   },
   "browserslist": [
     "last 2 versions",

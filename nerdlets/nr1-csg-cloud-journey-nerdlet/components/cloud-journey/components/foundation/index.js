@@ -15,11 +15,9 @@ import {
   TabsItem,
 } from 'nr1';
 /** local */
-import k8Image from './k8.png'
 import InsightsDashboard from '../../../insights-dashboard';
-import SREDashboard from '../../../insights-dashboard/dashboards/sre.json';
-import WAFReliabilityDashboard from '../../../insights-dashboard/dashboards/waf-reliability.json';
-import WAFOperationalExcellenceDashboard from '../../../insights-dashboard/dashboards/waf-operational-excellence.json';
+import BaselineDashboard from '../../../baseline.js';
+import LandingZoneDashboard from '../../../insights-dashboard/dashboards/landing-zone.json';
 /** 3rd party */
 
 
@@ -45,14 +43,11 @@ export default class Foundation extends React.Component {
     return(
       <div className="inside-container">
         <Tabs>
-          <TabsItem value="tab-1" label="SRE">
-            <InsightsDashboard accountId={accountId} dashboard={SREDashboard} />
+          <TabsItem value="tab-1" label="Application Performance">
+            <BaselineDashboard accountId={accountId} />
           </TabsItem>
-          <TabsItem value="tab-2" label="WAF - Reliability">
-            <InsightsDashboard accountId={accountId} dashboard={WAFReliabilityDashboard} />
-          </TabsItem>
-          <TabsItem value="tab-3" label="WAF - Operational Excellence">
-            <InsightsDashboard accountId={accountId} dashboard={WAFOperationalExcellenceDashboard} />
+          <TabsItem value="tab-2" label="AWS Landing Zone">
+            <InsightsDashboard accountId={accountId} dashboard={LandingZoneDashboard} />
           </TabsItem>
         </Tabs>
       </div>

@@ -1,0 +1,119 @@
+{
+	"title": "After - Apps",
+	"icon": "bar-chart",
+	"grid_column_count": 3,
+	"filter": null,
+	"owner": {
+		"email": "bthomason@newrelic.com"
+	},
+	"widgets": [{
+		"title": "Applications : AWS",
+		"nrql": "FROM Transaction SELECT uniquecount(appName) AS ''",
+		"process_as": "billboard",
+		"width": 1,
+		"height": 1,
+		"row": 1,
+		"column": 1,
+		"event_types": ["Transaction"],
+		"facet": null,
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Top Applications by Utilization : AWS",
+		"nrql": "FROM Transaction SELECT count(*) AS 'Transactions' FACET appName",
+		"process_as": "facet_bar_chart",
+		"width": 1,
+		"height": 1,
+		"row": 1,
+		"column": 2,
+		"event_types": ["Transaction"],
+		"facet": "appName",
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Top Application Utilization by Server : AWS",
+		"nrql": "FROM Transaction SELECT count(*) AS 'Transactions' FACET host",
+		"process_as": "facet_bar_chart",
+		"width": 1,
+		"height": 1,
+		"row": 1,
+		"column": 3,
+		"event_types": ["Transaction"],
+		"facet": "host",
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Top Application Utilization by Routine : AWS",
+		"nrql": "FROM Transaction SELECT count(*) AS 'Transactions' FACET name",
+		"process_as": "facet_bar_chart",
+		"width": 1,
+		"height": 1,
+		"row": 2,
+		"column": 1,
+		"event_types": ["Transaction"],
+		"facet": "name",
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Top Application Utilization by Type : AWS",
+		"nrql": "FROM Transaction SELECT count(*) AS 'Transactions' FACET transactionType",
+		"process_as": "facet_bar_chart",
+		"width": 1,
+		"height": 1,
+		"row": 2,
+		"column": 2,
+		"event_types": ["Transaction"],
+		"facet": "transactionType",
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Top Application Utilization by SubType : AWS",
+		"nrql": "FROM Transaction SELECT count(*) AS 'Transactions' FACET transactionSubType",
+		"process_as": "facet_bar_chart",
+		"width": 1,
+		"height": 1,
+		"row": 2,
+		"column": 3,
+		"event_types": ["Transaction"],
+		"facet": "transactionSubType",
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Top Application Errors : AWS",
+		"nrql": "FROM TransactionError SELECT count(*) AS 'Count' FACET appName",
+		"process_as": "facet_bar_chart",
+		"width": 1,
+		"height": 1,
+		"row": 3,
+		"column": 1,
+		"event_types": ["TransactionError"],
+		"facet": "appName",
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Top Application Errors by Transaction : AWS",
+		"nrql": "FROM TransactionError SELECT count(*) AS 'Count' FACET transactionName",
+		"process_as": "facet_bar_chart",
+		"width": 1,
+		"height": 1,
+		"row": 3,
+		"column": 2,
+		"event_types": ["TransactionError"],
+		"facet": "transactionName",
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Top Application Errors by Host : AWS",
+		"nrql": "FROM TransactionError SELECT count(*) AS 'Count' FACET host",
+		"process_as": "facet_bar_chart",
+		"width": 1,
+		"height": 1,
+		"row": 3,
+		"column": 3,
+		"event_types": ["TransactionError"],
+		"facet": "host",
+		"customizations": {},
+		"notes": null
+	}],
+	"dashboard_account_id": 1
+}

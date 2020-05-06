@@ -1,51 +1,251 @@
-.side-by-side {
-    float: left;
-    margin-left: 10px;
+@import '~graphiql/graphiql.css';
+@import './_colors.scss';
+@import '~@newrelic/nr1-community/dist/index.css';
+
+.empty-state-container {
+  height: 100%;
+  background-color: #fff;
 }
 
-table {
-    margin-bottom:10px;
-    width:49%;
+div[class*='style_empty-state'] {
+  height: calc(100% - 32px);
 }
 
-.three{
-    float: left;
-    margin-left: 10px;
-    width: calc(97% / 3);
+// I won't lie to you, this is a hodge-podge of hacks and
+// quick fixes produced during a hackathon.
+
+.notebook {
+  margin: 28px 42px 42px;
 }
 
-.top-to-bottom {
-    margin: auto;
-    width: 99%;
-    padding: 10px;
-    margin-bottom: 10px;
+.notebook-header {
+  margin: 0px 14px 42px 14px;
 }
 
-.center {
-  font-size: 18px;
-  margin: auto;
-  width: 50%;
-  padding: 20px;
+.notebook-tool-bar {
+  margin: 0 14px;
 }
 
-.center-line {
-  margin: auto;
+.notebook-import-export-box {
+  font-family: monospace;
+  height: 400px;
+  width: 100%;
+  border: 2px dotted #aaa;
+  padding: 14px;
+  margin: 14px 0;
 }
 
-.main-text {
-  font-size: 14px;
-  margin: auto;
-  width: 85%;
-  padding: 10px;
+.notebook-name-error ::placeholder {
+  color: $red-800;
 }
 
-.patterns {
-  font-size: 14px;
-  margin: auto;
-  width: 85%;
-  padding: 10px;
+.notebook-cell {
+  border: 1px solid $neutral-400;
+  margin: 14px 14px 28px 14px;
+
+  &:nth-child(odd) {
+    background: $neutral-extended-050;
+  }
 }
 
-.patterns-category {
-  float: left;
+.notebook-cell-header {
+  padding: 14px 14px 0 14px;
+}
+
+.notebook-cell-footer {
+  padding: 14px;
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.notebook-cell-input-summary-bar {
+  color: $neutral-extended-600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: monospace;
+  white-space: pre;
+  border-bottom: 1px dashed $neutral-extended-400;
+  margin: 14px;
+}
+
+.notebook-cell-input-summary {
+  height: 75px;
+  cursor: pointer;
+}
+
+.notebook-cell-input-toggle {
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  min-height: 16px;
+  padding: 0px;
+}
+
+.notebook-cell-input-expand {
+  @extend .notebook-cell-input-toggle;
+  margin-bottom: 4px;
+}
+
+.notebook-cell-input-collapse {
+  @extend .notebook-cell-input-toggle;
+  margin-right: 14px;
+}
+
+.notebook-cell-notes {
+  padding: 7px 14px 0 14px;
+}
+
+.cell-label {
+  font-size:18px;
+}
+
+.cell-in-label {
+  @extend .cell-label;
+  color: #9B61A7;
+}
+
+.cell-out-label {
+  @extend .cell-label;
+  color: $brand-400;
+}
+
+.cell-out-error {
+  @extend .cell-label;
+  color: $red-800;
+}
+
+.cell-out-value {
+  margin: 14px;
+  &> ul {
+    background-color: none !important; //Fix this
+  }
+}
+
+.graphiql-container {
+  min-height: 400px;
+  height: 400px;
+  border-bottom: 1px solid #eee;
+
+  .title {
+    @extend .cell-in-label;
+  }
+
+  .topBar {
+    background: none;
+  }
+
+  .historyShow, .docExplorerShow {
+    background: none;
+  }
+
+  .docExplorerShow {
+    border-left: none;
+  }
+
+  .execute-button, .toolbar-button {
+    background: #eee;
+    box-shadow: none;
+    border-radius: 3px;
+    border: none;
+    font-size: 12px;
+  }
+
+  .execute-button {
+    padding: 0;
+    margin-top: 5px;
+    display: inline-block;
+    min-height: 24px;
+    height: 24px;
+    min-width: 53px;
+    width: 53px;
+
+    svg {
+      display: none;
+    }
+
+    &:before {
+      content:"▶";
+    }
+  }
+}
+
+.json-tree-text-field {
+  color: $red-400;
+}
+
+.json-tree-date-field {
+  color: $green-400;
+}
+
+.json-tree-value-widget {
+  display: inline-block;
+  padding: 6px;
+  border: 1px solid #f0f0f0;
+}
+
+.nrql-renderer {
+  width: 800px;
+  background: white;
+}
+
+// Overrides for GraphiQL
+
+.graphiql-container {
+  .resultWrap {
+    display: none;
+  }
+
+  .historyPaneWrap {
+    background: none;
+    box-shadow: none;
+    border-right: 1px solid $neutral-400;
+
+    .history-title-bar {
+      background: none;
+    }
+
+    .history-title {
+      color: #464e4e;
+      font-weight: 400;
+      font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+      font-size: 14px;
+    }
+  }
+
+  .docExplorerShow {
+    padding: 0 14px;
+  }
+}
+
+// Overrides for OneGraph's GraphiQL Explorer package.
+.notebook-graphiql-explorer-container {
+  display: inline-block;
+  width: auto;
+
+  .graphiql-explorer-node {
+    font-size: 14px;
+    line-height: 20px;
+
+    input[type=checkbox] {
+      vertical-align: text-bottom;
+      margin-right: 4px;
+    }
+  }
+
+  .historyPaneWrap {
+    width: 350px !important;
+  }
+
+  span.graphiql-explorer-click-docs {
+    display: none;
+  }
+
+  .graphiql-explorer-node:hover > span.graphiql-explorer-click-docs {
+    display: inline;
+  }
+}
+
+
+.search-box input[type="text"]:not(.u-unstyledInput):not(.AAB1AC-wnd-TextField-input):not([type=button]):not([type=submit]):not([type=checkbox]):not([type=radio]) {
+  padding: 7px 0 7px 24px;
 }

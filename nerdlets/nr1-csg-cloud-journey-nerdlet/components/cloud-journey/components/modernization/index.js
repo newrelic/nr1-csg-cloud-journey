@@ -15,9 +15,9 @@ import {
   Button,
 } from 'nr1';
 /** local */
-import ModernizationPatterns from './modernization-patterns';
 import InsightsDashboard from '../../../insights-dashboard';
-import CloudNativeServicesDashboard from '../../../insights-dashboard/dashboards/cloud-native-services.json';
+import PatternsDashboard from './modernization-patterns';
+import LandingPage from './landing.js';
 /** 3rd party */
 
 
@@ -45,13 +45,11 @@ export default class Modernization extends React.Component {
     return(
       <div className="inside-container">
         <Tabs>
-          <TabsItem value="tab-1" label="Modernization Patterns">
-            <div>
-              <ModernizationPatterns />
-            </div>
+          <TabsItem value="tab-1" label="Overview">
+            <LandingPage />
           </TabsItem>
-          <TabsItem value="tab-2" label="Cloud Native Services">
-            <InsightsDashboard accountId={accountId} dashboard={CloudNativeServicesDashboard} />
+          <TabsItem value="tab-2" label="Modernization Patterns">
+            <PatternsDashboard />
           </TabsItem>
         </Tabs>
       </div>

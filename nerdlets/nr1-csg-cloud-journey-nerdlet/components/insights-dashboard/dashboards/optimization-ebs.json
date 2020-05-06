@@ -1,102 +1,102 @@
 {
-    "dashboard_account_id": DEADBEEF,
-    "filter": null,
-    "grid_column_count": 3,
-    "icon": "bar-chart",
-    "owner": {
-        "email": "ayathirajadasan@newrelic.com"
-    },
-    "title": "LabsUseOnly",
+    "grid_column_count": 3, 
+    "title": "LabsUseOnly", 
+    "dashboard_account_id": 1, 
+    "filter": null, 
     "widgets": [
         {
-            "column": 1,
-            "customizations": {},
+            "nrql": "FROM BlockDeviceSample SELECT uniqueCount(displayName) AS 'Volumes' since 1 week ago", 
+            "title": "Volume Count", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
             "event_types": [
                 "BlockDeviceSample"
-            ],
-            "facet": null,
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM BlockDeviceSample SELECT uniqueCount(displayName) AS 'Volumes' since 1 week ago",
-            "process_as": "billboard",
-            "row": 1,
-            "title": "Volume Count",
-            "width": 1
-        },
+            ], 
+            "process_as": "billboard", 
+            "row": 1
+        }, 
         {
-            "column": 2,
-            "customizations": {},
+            "nrql": "FROM BlockDeviceSample select max(provider.volumeIdleTime.Average/60) AS 'Average Minutes Idle' WHERE provider = 'EbsVolume' AND provider.volumeIdleTime.Average > 200 since 1 week ago FACET displayName LIMIT MAX", 
+            "title": "Idle Volumes", 
+            "column": 2, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "displayName", 
+            "width": 1, 
             "event_types": [
                 "BlockDeviceSample"
-            ],
-            "facet": "displayName",
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM BlockDeviceSample select max(provider.volumeIdleTime.Average/60) AS 'Average Minutes Idle' WHERE provider = 'EbsVolume' AND provider.volumeIdleTime.Average > 200 since 1 week ago FACET displayName LIMIT 2000",
-            "process_as": "facet_bar_chart",
-            "row": 1,
-            "title": "Idle Volumes",
-            "width": 1
-        },
+            ], 
+            "process_as": "facet_bar_chart", 
+            "row": 1
+        }, 
         {
-            "column": 3,
-            "customizations": {},
+            "nrql": "FROM BlockDeviceSample select min(provider.volumeReadOps.Maximum) AS 'Max ReadOPS' WHERE provider = 'EbsVolume' AND provider.volumeType = 'gp2' AND provider.volumeReadOps.Maximum < 200 and provider.volumeReadOps.Maximum > 0 since 1 week ago FACET displayName LIMIT MAX", 
+            "title": "Volume Type Change Candidates: gp2 -> standard", 
+            "column": 3, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "displayName", 
+            "width": 1, 
             "event_types": [
                 "BlockDeviceSample"
-            ],
-            "facet": "displayName",
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM BlockDeviceSample select min(provider.volumeReadOps.Maximum) AS 'Max ReadOPS' WHERE provider = 'EbsVolume' AND provider.volumeType = 'gp2' AND provider.volumeReadOps.Maximum < 200 and provider.volumeReadOps.Maximum > 0 since 1 week ago FACET displayName LIMIT 2000",
-            "process_as": "facet_bar_chart",
-            "row": 1,
-            "title": "Volume Type Change Candidates: gp2 -> standard",
-            "width": 1
-        },
+            ], 
+            "process_as": "facet_bar_chart", 
+            "row": 1
+        }, 
         {
-            "column": 1,
-            "customizations": {},
+            "nrql": "FROM SystemSample SELECT latest(diskUsedPercent) AS 'Utilization %' WHERE provider = 'Ec2Instance' AND diskUsedPercent < 40 FACET hostname LIMIT MAX", 
+            "title": "Volume Size Reduction Candidates: < 40% Storage Utilization", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "hostname", 
+            "width": 1, 
             "event_types": [
                 "SystemSample"
-            ],
-            "facet": "hostname",
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM SystemSample SELECT latest(diskUsedPercent) AS 'Utilization %' WHERE provider = 'Ec2Instance' AND diskUsedPercent < 40 FACET hostname LIMIT 2000",
-            "process_as": "facet_bar_chart",
-            "row": 2,
-            "title": "Volume Size Reduction Candidates: < 40% Storage Utilization",
-            "width": 1
-        },
+            ], 
+            "process_as": "facet_bar_chart", 
+            "row": 2
+        }, 
         {
-            "column": 2,
-            "customizations": {},
+            "nrql": "FROM SystemSample SELECT min(diskUsedPercent) AS 'Utilization %' WHERE provider = 'Ec2Instance' AND diskUsedPercent > 80 FACET hostname since 1 week ago LIMIT MAX", 
+            "title": "Volume Size Increase Candidates: > 80% Storage Utilization", 
+            "column": 2, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "hostname", 
+            "width": 1, 
             "event_types": [
                 "SystemSample"
-            ],
-            "facet": "hostname",
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM SystemSample SELECT min(diskUsedPercent) AS 'Utilization %' WHERE provider = 'Ec2Instance' AND diskUsedPercent > 80 FACET hostname since 1 week ago LIMIT 2000",
-            "process_as": "facet_bar_chart",
-            "row": 2,
-            "title": "Volume Size Increase Candidates: > 80% Storage Utilization",
-            "width": 1
-        },
+            ], 
+            "process_as": "facet_bar_chart", 
+            "row": 2
+        }, 
         {
-            "column": 3,
-            "customizations": null,
+            "nrql": "FROM BlockDeviceSample select uniques(displayName) WHERE provider = 'EbsVolume' AND provider.state = 'available' LIMIT MAX", 
+            "title": "Unattached Volumes", 
+            "column": 3, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
             "event_types": [
                 "BlockDeviceSample"
-            ],
-            "facet": null,
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM BlockDeviceSample select uniques(displayName) WHERE provider = 'EbsVolume' AND provider.state = 'available' LIMIT 2000",
-            "process_as": "uniques_list",
-            "row": 2,
-            "title": "Unattached Volumes",
-            "width": 1
+            ], 
+            "process_as": "uniques_list", 
+            "row": 2
         }
-    ]
+    ], 
+    "owner": {
+        "email": "ayathirajadasan@newrelic.com"
+    }, 
+    "icon": "bar-chart"
 }

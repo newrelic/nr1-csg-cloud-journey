@@ -1,11 +1,26 @@
-module.exports = function(props) {
-  return (
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Stack, StackItem } from 'nr1';
+
+export default class EmptyState extends React.Component {
+  static propTypes = {
+    heading: PropTypes.string,
+    description: PropTypes.string
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { heading, description } = this.props;
+    return (
+      <>
 	<div>
-		<br /><h2 align="center">Welcome to the Modernization Patterns Nerdpack!</h2><br />
 		<div className="main-text">
-			Regardless of the industry they operate in, every one of our customers has a similar business mandate: deliver business value to customers, do this faster/better than the competition, and repeat (forever). To carry out these corporate objectives, our customers are regularly adopting new technologies and platforms, commonly referred to as “Cloud Native” tools. Whether they were born-in-the-cloud or are a large enterprise that’s leveraging the newest cloud platforms, our customers are finding it is difficult to modernize and optimize this rapidly evolving environment: new technologies and approaches are constantly emerging, modern and distributed environments are increasingly complex, and scaling is hard (not to mention costly).
-  			<br /><br />
-			This Nerdpack will assist you in identifying asssets in your AWS environment that can be modernized and/or optimized. It comes pre-loaded with dashboards based on the patterns detailed below.
+			Regardless of the industry you operate in, every business has a similar mandate: deliver business value to customers, do this faster/better than the competition, and repeat. Carrying out these corporate objectives involves regularly adopting new technologies and platforms, commonly referred to as “Cloud Native” tools. Whether you were born-in-the-cloud or are a large enterprise that’s leveraging the newest cloud platforms, it is difficult to modernize and optimize this rapidly evolving environment: new technologies and approaches are constantly emerging, modern and distributed environments are increasingly complex, and scaling is difficult and costly.
+			<br /><br />
+			New Relic can alleviate some of the burden by helping to identify asssets in your AWS environment that can be modernized, optimized, or updated. Here are some key areas to focus on in the never-ending quest to balance performance and cost:  
 		</div>
 		<br /><hr width="85%" className="center-line"/><br />
 		<div className="patterns">
@@ -41,15 +56,17 @@ module.exports = function(props) {
 
 			<img className="patterns-category" src="https://i.ibb.co/DVbxDKD/Amazon-S3-Glacier-light-bg-4x.png" height="25" width="25"/>
 			<h3>&nbsp;Storage Optimization</h3><br />
-			Modernization and optimization go hand-in-hand in the cloud.  For compute, we have released a <a href="https://developer.newrelic.com/open-source/nerdpacks" target="_blank">Cloud Optimization Nerdpack</a>, but in many cases, storage can be as or more costly in AWS.
+			Modernization and optimization go hand-in-hand in the cloud.  For compute, we have released a <a href="https://developer.newrelic.com/open-source/nerdpacks" target="_blank">Cloud Optimization App</a>, but in many cases, storage can be as or more costly in AWS.
 			<br /><br />
 			Infrequently accessed data in S3 buckets that could be stored more cheaply in Glacier, large and unused S3 buckets that are no longer needed, and EBS volumes that are oversized are common issues that are easily remedied providing substantial cost savings.
 			<br /><br />
 			<br /><hr width="85%" className="center-line"/><br />
-			To view dashboards corresponding to the modernization patterns detailed above, simply select your New Relic account name from the dropdown box at the top of the screen and then select the pattern in the the second dropdown box.
+			By clicking on the "Modernization Patterns" link above, you can begin uncovering areas ripe for modernization in your own AWS estate using the New Relic GraphiQL Notebook. It allows you to explore and learn about the NerdGraph API dynamically. NerdGraph is New Relic's GraphQL API, an efficient and flexible query language that lets you request exactly the data you need, without over-fetching or under-fetching. While typical REST APIs require loading from multiple URLs, NerdGraph calls get all the data you need in a single request. 
 			<br /><br />
-			While we have tried to add dashboards that are useful to most AWS consumers, we understand that every organization's modernization definition, needs, and patterns are different.  This Nerdpack is fully customizable allowing you to create dashboards catered to your own specific organizational needs by simply modifying a JSON configuration file.  For details, please <a href="https://github.com/iamfuzz/cas-modernization-nerdpack" target="_blank">visit the GitHub repository.</a>
+                        We have provided some examples to get you started, but you can create, update, save, and delete your own fully customizable notebooks. Notebooks are also exportable and easily shared allowing teams to collaborate on modernization efforts.
 		</div>
 	</div>
-  );
+      </>
+    );
+  }
 }
