@@ -60,7 +60,7 @@ export default class InsightsDashboard extends React.Component {
         return <BarChart fullHeight fullWidth accountId={accountId} query={widget.nrql} />;
       if (/line/.test(widget.process_as))
         return <LineChart fullHeight fullWidth accountId={accountId} query={widget.nrql} />;
-      if (/table/.test(widget.process_as))
+      if (/(table|uniques_list)/.test(widget.process_as))
         return <TableChart fullHeight fullWidth accountId={accountId} query={widget.nrql} />;
       if (/histogram/.test(widget.process_as))
         return <HistogramChart fullHeight fullWidth accountId={accountId} query={widget.nrql} />;

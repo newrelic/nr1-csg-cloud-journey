@@ -1,0 +1,102 @@
+{
+    "grid_column_count": 3, 
+    "title": "CAS:CJ:Reliability", 
+    "dashboard_account_id": 1, 
+    "filter": null, 
+    "widgets": [
+        {
+            "nrql": "from PageView select average(duration) facet userAgentName TIMESERIES since 1 week ago", 
+            "title": "Load time by Browser", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": "userAgentName", 
+            "width": 1, 
+            "event_types": [
+                "PageView"
+            ], 
+            "process_as": "faceted_area_chart", 
+            "row": 1
+        }, 
+        {
+            "nrql": "from PageView select average(duration) as 'Avg Page Load Time', max(duration) as 'Max Page Load Time', count(*)/10 as 'Page Views' timeseries since 1 week ago", 
+            "title": "Front End user Experience", 
+            "column": 2, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
+            "event_types": [
+                "PageView"
+            ], 
+            "process_as": "line_chart", 
+            "row": 1
+        }, 
+        {
+            "nrql": "SELECT apdex(duration, t: 1.0) FROM Transaction SINCE 1 week ago", 
+            "title": "% Users Satisfied", 
+            "column": 3, 
+            "notes": "Users that are experiencing 1 second response time", 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": null, 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "billboard", 
+            "row": 1
+        }, 
+        {
+            "nrql": "SELECT count(apdexPerfZone) FROM Transaction FACET apdexPerfZone SINCE 1 week ago TIMESERIES", 
+            "title": "Users by Experience: Satisfied, Tolerating, and Frustrated", 
+            "column": 1, 
+            "notes": "S=Satisfied\nT=Tolerating\nF=Frustrated", 
+            "customizations": null, 
+            "height": 1, 
+            "facet": "apdexPerfZone", 
+            "width": 1, 
+            "event_types": [
+                "Transaction"
+            ], 
+            "process_as": "faceted_area_chart", 
+            "row": 2
+        }, 
+        {
+            "nrql": "SELECT average(duration) FROM PageView FACET name since 1 day ago", 
+            "title": "Avg Tx duration", 
+            "column": 2, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "name", 
+            "width": 1, 
+            "event_types": [
+                "PageView"
+            ], 
+            "process_as": "facet_table", 
+            "row": 2
+        }, 
+        {
+            "nrql": "SELECT average(duration) as 'Load Time', count(username) as 'Users' FROM PageView FACET countryCode SINCE 1 day AGO limit 10", 
+            "title": "Avg Page load time by country", 
+            "column": 3, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "countryCode", 
+            "width": 1, 
+            "event_types": [
+                "PageView"
+            ], 
+            "process_as": "facet_table", 
+            "row": 2
+        }
+    ], 
+    "owner": {
+        "email": "jadams@newrelic.com"
+    }, 
+    "icon": "bar-chart"
+}

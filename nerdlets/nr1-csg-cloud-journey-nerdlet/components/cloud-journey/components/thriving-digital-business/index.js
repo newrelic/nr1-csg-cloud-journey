@@ -15,7 +15,13 @@ import {
 } from 'nr1';
 /** local */
 import InsightsDashboard from '../../../insights-dashboard';
-import BusnessValueDashboard from '../../../insights-dashboard/dashboards/business-value.json';
+import SREDashboard from '../../../insights-dashboard/dashboards/sre.json';
+import AppsDashboard from '../../../insights-dashboard/dashboards/all-apps.json';
+import InfraDashboard from '../../../insights-dashboard/dashboards/all-infra.json';
+import ReliabilityDashboard from '../../../insights-dashboard/dashboards/reliability.json';
+import OEDashboard from '../../../insights-dashboard/dashboards/operational-excellence.json';
+import AWSDashboard from '../../../insights-dashboard/dashboards/aws-native-services.json';
+import AutoscalingDashboard from '../../../autoscaling.js';
 /** 3rd party */
 
 
@@ -40,8 +46,26 @@ export default class ThrivingDigitalBusiness extends React.Component {
     return(
       <div className="inside-container">
         <Tabs>
-          <TabsItem value="tab-1" label="Business Value">
-            <InsightsDashboard accountId={accountId} dashboard={BusnessValueDashboard} />
+          <TabsItem value="tab-1" label="SRE Dashboard">
+            <InsightsDashboard accountId={accountId} dashboard={SREDashboard} />
+          </TabsItem>
+          <TabsItem value="tab-2" label="Applications">
+            <InsightsDashboard accountId={accountId} dashboard={AppsDashboard} />
+          </TabsItem>
+          <TabsItem value="tab-3" label="Infrastructure">
+            <InsightsDashboard accountId={accountId} dashboard={InfraDashboard} />
+          </TabsItem>
+          <TabsItem value="tab-4" label="Reliability">
+            <InsightsDashboard accountId={accountId} dashboard={ReliabilityDashboard} />
+          </TabsItem>
+          <TabsItem value="tab-5" label="Operational Excellence">
+            <InsightsDashboard accountId={accountId} dashboard={OEDashboard} />
+          </TabsItem>
+          <TabsItem value="tab-6" label="AWS Native Services">
+            <InsightsDashboard accountId={accountId} dashboard={AWSDashboard} />
+          </TabsItem>
+          <TabsItem value="tab-7" label="Elasticity">
+            <AutoscalingDashboard accountId={accountId} />
           </TabsItem>
         </Tabs>
       </div>

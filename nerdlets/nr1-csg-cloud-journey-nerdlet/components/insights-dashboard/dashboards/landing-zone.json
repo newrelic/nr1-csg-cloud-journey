@@ -1,0 +1,171 @@
+{
+	"title": "VPC Info",
+	"icon": "bar-chart",
+	"grid_column_count": 3,
+	"filter": {
+		"key_names": ["ipV4Address", "provider.privateIp", "ec2State", "awsRegion", "clusterName", "ec2InstanceType", "apmApplicationNames", "awsAvailabilityZone", "hostname"],
+		"event_types": ["NetworkSample", "PrivateNetworkSample"],
+		"filter_first": false
+	},
+	"owner": {
+		"email": "bthomason@newrelic.com"
+	},
+	"widgets": [{
+		"title": "VPCs",
+		"nrql": "SELECT uniques(displayName) AS '' FROM PrivateNetworkSample WHERE provider = 'Vpc' SINCE 1 week ago",
+		"process_as": "uniques_list",
+		"width": 1,
+		"height": 1,
+		"row": 1,
+		"column": 1,
+		"event_types": ["PrivateNetworkSample"],
+		"facet": null,
+		"customizations": null,
+		"notes": null
+	}, {
+		"title": "VPC Count by Region",
+		"nrql": "SELECT uniqueCount(displayName) AS '' from PrivateNetworkSample WHERE provider = 'Vpc' FACET awsRegion since 1 week ago",
+		"process_as": "facet_bar_chart",
+		"width": 1,
+		"height": 1,
+		"row": 1,
+		"column": 2,
+		"event_types": ["PrivateNetworkSample"],
+		"facet": "awsRegion",
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "All CIDR blocks in use",
+		"nrql": "SELECT uniques(ipV4Address) AS '' FROM NetworkSample SINCE 1 week ago LIMIT 500",
+		"process_as": "uniques_list",
+		"width": 1,
+		"height": 1,
+		"row": 1,
+		"column": 3,
+		"event_types": ["NetworkSample"],
+		"facet": null,
+		"customizations": null,
+		"notes": null
+	}, {
+		"title": "Kubernetes Clusters",
+		"nrql": "SELECT uniques(clusterName) AS '' FROM NetworkSample SINCE 1 week ago",
+		"process_as": "uniques_list",
+		"width": 1,
+		"height": 1,
+		"row": 2,
+		"column": 1,
+		"event_types": ["NetworkSample"],
+		"facet": null,
+		"customizations": null,
+		"notes": null
+	}, {
+		"title": "Number of Instances Reporting Data",
+		"nrql": "SELECT uniquecount(ec2InstanceId) FROM ComputeSample SINCE 1 week ago",
+		"process_as": "billboard",
+		"width": 1,
+		"height": 1,
+		"row": 2,
+		"column": 2,
+		"event_types": ["ComputeSample"],
+		"facet": null,
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Traffic by VPC",
+		"nrql": "SELECT  sum(`provider.bytes`) / 1024 / 1024 from PrivateNetworkSample where provider='VpcNetworkInterface' TIMESERIES auto since 1 day ago facet `provider.vpcId`",
+		"process_as": "faceted_line_chart",
+		"width": 1,
+		"height": 1,
+		"row": 2,
+		"column": 3,
+		"event_types": ["PrivateNetworkSample"],
+		"facet": "provider.vpcId",
+		"customizations": null,
+		"notes": null
+	}, {
+		"title": "AWS Service Requests",
+		"nrql": "SELECT SUM(requestCount), sum(throttleException) FROM IntegrationProviderReport FACET awsRegion, awsServiceName SINCE 1 week ago LIMIT MAX",
+		"process_as": "facet_table",
+		"width": 2,
+		"height": 1,
+		"row": 3,
+		"column": 1,
+		"event_types": ["IntegrationProviderReport"],
+		"facet": "[\"awsRegion\", \"awsServiceName\"]",
+		"customizations": {},
+		"notes": null
+	}, {
+		"title": "Traffic by Subnet",
+		"nrql": "SELECT sum(`provider.bytes`) / 1024 / 1024 from PrivateNetworkSample where provider='VpcNetworkInterface' TIMESERIES auto since 1 day ago facet `provider.subnetId`",
+		"process_as": "faceted_line_chart",
+		"width": 1,
+		"height": 1,
+		"row": 3,
+		"column": 3,
+		"event_types": ["PrivateNetworkSample"],
+		"facet": "provider.subnetId",
+		"customizations": null,
+		"notes": null
+	}, {
+		"title": "Accepted/Rejected Traffic",
+		"nrql": "SELECT sum(`provider.bytes`) / 1024 / 1024 from PrivateNetworkSample where provider='VpcNetworkInterface' TIMESERIES auto since 1 day ago facet `provider.action`",
+		"process_as": "faceted_line_chart",
+		"width": 1,
+		"height": 1,
+		"row": 4,
+		"column": 1,
+		"event_types": ["PrivateNetworkSample"],
+		"facet": "provider.action",
+		"customizations": null,
+		"notes": null
+	}, {
+		"title": "Rejected Traffic by Source IP",
+		"nrql": "SELECT sum(`provider.packets`) from PrivateNetworkSample where provider='VpcNetworkInterface'  and `provider.action` = 'REJECT' TIMESERIES auto since 1 day ago facet `provider.sourceAddress`",
+		"process_as": "faceted_line_chart",
+		"width": 1,
+		"height": 1,
+		"row": 4,
+		"column": 2,
+		"event_types": ["PrivateNetworkSample"],
+		"facet": "provider.sourceAddress",
+		"customizations": null,
+		"notes": null
+	}, {
+		"title": "Traffic by Requestor ID",
+		"nrql": "SELECT sum(`provider.bytes`) / 1024 / 1024 from PrivateNetworkSample where provider='VpcNetworkInterface' TIMESERIES auto since 1 day ago facet `provider.requesterId`",
+		"process_as": "faceted_line_chart",
+		"width": 1,
+		"height": 1,
+		"row": 4,
+		"column": 3,
+		"event_types": ["PrivateNetworkSample"],
+		"facet": "provider.requesterId",
+		"customizations": null,
+		"notes": null
+	}, {
+		"title": "Traffic by EC2 Instance",
+		"nrql": "SELECT sum(`provider.bytes`) / 1024 / 1024 from PrivateNetworkSample where provider='VpcNetworkInterface' facet `provider.privateDnsName` since 1 day ago TIMESERIES",
+		"process_as": "faceted_line_chart",
+		"width": 2,
+		"height": 1,
+		"row": 5,
+		"column": 1,
+		"event_types": ["PrivateNetworkSample"],
+		"facet": "provider.privateDnsName",
+		"customizations": null,
+		"notes": null
+	}, {
+		"title": "Top Rejected IPs",
+		"nrql": "SELECT sum(`provider.packets`) from PrivateNetworkSample where provider='VpcNetworkInterface' and `provider.action` = 'REJECT' since 1 hour ago facet `provider.sourceAddress`",
+		"process_as": "facet_table",
+		"width": 1,
+		"height": 1,
+		"row": 5,
+		"column": 3,
+		"event_types": ["PrivateNetworkSample"],
+		"facet": "provider.sourceAddress",
+		"customizations": {},
+		"notes": null
+	}],
+	"dashboard_account_id": 1
+}

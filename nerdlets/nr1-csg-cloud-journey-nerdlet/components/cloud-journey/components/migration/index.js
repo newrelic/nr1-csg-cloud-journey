@@ -15,12 +15,13 @@ import {
 } from 'nr1';
 /** local */
 import InsightsDashboard from '../../../insights-dashboard';
-import DiscoveryPlanningDashboard from '../../../insights-dashboard/dashboards/discovery-planning.json';
-import DiscoveryHardwareDashboard from '../../../insights-dashboard/dashboards/discovery-hardware.json';
-import DiscoveryApplicationsDashboard from '../../../insights-dashboard/dashboards/discovery-applications.json';
-import ValidateTechnologyDashboard from '../../../insights-dashboard/dashboards/validate-technology.json';
-import ValidateBusinessCaseDashboard from '../../../insights-dashboard/dashboards/validate-business-case.json';
-import DeliveryOverviewDashboard from '../../../insights-dashboard/dashboards/delivery-overview.json';
+import AppsBeforeDashboard from '../../../insights-dashboard/on-prem-apps.js';
+import AppsAfterDashboard from '../../../insights-dashboard/aws-apps.js';
+import BeforeInfra from '../../../insights-dashboard/dashboards/before-infra.json';
+import BeforeApps from '../../../insights-dashboard/dashboards/before-apps.json';
+import AfterInfra from '../../../insights-dashboard/dashboards/after-infra.json';
+import AfterApps from '../../../insights-dashboard/dashboards/after-apps.json';
+import CompareApps from '../../../compare-apps.js';
 /** 3rd party */
 
 
@@ -47,23 +48,20 @@ export default class Migration extends React.Component {
     return(
       <div className="inside-container">
       <Tabs>
-        <TabsItem value="tab-1" label="Discovery - Planning">
-          <InsightsDashboard accountId={accountId} dashboard={DiscoveryPlanningDashboard} />
+        <TabsItem value="tab-1" label="On-Prem Applications">
+          <AppsBeforeDashboard accountId={accountId} dashboard={BeforeApps} />
         </TabsItem>
-        <TabsItem value="tab-2" label="Discovery - Hardware">
-          <InsightsDashboard accountId={accountId} dashboard={DiscoveryHardwareDashboard} />
+        <TabsItem value="tab-2" label="On-Prem Infrastructure">
+          <InsightsDashboard accountId={accountId} dashboard={BeforeInfra} />
         </TabsItem>
-        <TabsItem value="tab-3" label="Discovery - Applications">
-          <InsightsDashboard accountId={accountId} dashboard={DiscoveryApplicationsDashboard} />
+        <TabsItem value="tab-3" label="Application Comparison">
+          <CompareApps accountId={accountId} />
         </TabsItem>
-        <TabsItem value="tab-4" label="Validate - Technology">
-          <InsightsDashboard accountId={accountId} dashboard={ValidateTechnologyDashboard} />
+        <TabsItem value="tab-4" label="AWS Applications">
+          <AppsAfterDashboard accountId={accountId} dashboard={AfterApps} />
         </TabsItem>
-        <TabsItem value="tab-5" label="Validate - Business Case">
-          <InsightsDashboard accountId={accountId} dashboard={ValidateBusinessCaseDashboard} />
-        </TabsItem>
-        <TabsItem value="tab-6" label="Delivery - Overview">
-          <InsightsDashboard accountId={accountId} dashboard={DeliveryOverviewDashboard} />
+        <TabsItem value="tab-5" label="AWS Infrastructure">
+          <InsightsDashboard accountId={accountId} dashboard={AfterInfra} />
         </TabsItem>
       </Tabs>
       </div>

@@ -1,126 +1,306 @@
-import React, { Component } from 'react';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
-import { NrqlQuery, PieChart, HistogramChart, BarChart, LineChart, AreaChart, BillboardChart, FunnelChart, HeatmapChart, JsonChart, ScatterChart, SparklineChart, StackedBarChart, TableChart } from 'nr1'
-import { queries } from "./queries.js";
-import { accounts } from "./accounts.js";
-import Select from 'react-select'
-const API = "https://rmikl5nj2c.execute-api.us-east-1.amazonaws.com/prod"
-var Landing = require('./landing.jsx');
+import React from 'react';
+import Notebook from './notebook.js';
+import Select from 'react-select'; // replace w/ dropdown
+import {
+  HeadingText,
+  Modal,
+  Button,
+  Stack,
+  StackItem,
+  UserStorageQuery,
+  UserStorageMutation,
+  NerdletStateContext,
+  nerdlet,
+  NerdGraphQuery,
+  Spinner,
+  AccountsQuery
+} from 'nr1';
+import { NerdGraphError, EmptyState } from '@newrelic/nr1-community';
+import { getIntrospectionQuery, buildClientSchema } from 'graphql';
+import { v4 as uuidv4 } from 'uuid';
+import { gettingStartedNotebook } from './getting-started-notebook.js';
 
+const COLLECTION = 'graphiql-notebook';
+const defaultGettingStartedNotebook = gettingStartedNotebook(-1);
 
-var index;
-var options = []
-for (index = 0; index < queries.length; ++index) {
-    options.push({value: index, label: queries[index]['name']});
-}
-
-var account_options = []
-for (index = 0; index < accounts.length; ++index) {
-    account_options.push({value: accounts[index]['value'], label: accounts[index]['name']});
-}
-
-class ModernizationPatterns extends Component {
+export default class NotebookNerdlet extends React.PureComponent {
   constructor(props) {
     super(props);
+    const emptyNotebook = this.newEmptyNotebook();
     this.state = {
-      items: [],
-      current_account: account_options[0].value,
-      current_description: "",
-      current_chart: "",
-      splash: true,
+      emptyNotebook: emptyNotebook,
+      // currentNotebook: defaultGettingStartedNotebook,
+      importHidden: true
     };
   }
 
-  displayChart(type,query,account) {
-    account=parseInt(account, 10)
-    if (type == "PieChart") {
-      var chart = <PieChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "AreaChart") {
-      var chart = <AreaChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "BarChart") {
-      var chart = <BarChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "BillboardChart") {
-      var chart = <BillboardChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "FunnelChart") {
-      var chart = <FunnelChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "HeatmapChart") {
-      var chart = <HeatmapChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "HistogramChart") {
-      var chart = <HistogramChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "JsonChart") {
-      var chart = <JsonChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "LineChart") {
-      var chart = <LineChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "ScatterChart") {
-      var chart = <ScatterChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "SparklineChart") {
-      var chart = <SparklineChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "StackedBarChart") {
-      var chart = <StackedBarChart query={query} fullWidth={true} accountId={account} />
-    } else if (type == "TableChart") {
-      var chart = <TableChart query={query} fullWidth={true} accountId={account} />
+  newEmptyNotebook() {
+    return {
+      uuid: uuidv4(),
+      schemaVersion: 0,
+      title: 'New Notebook',
+      cells: null,
+      ephemeral: true
+    };
+  }
+
+  async getNotebook(uuid) {
+    const notebooks = await this.getNotebooks();
+    // console.debug("getNotebook", [notebooks, uuid]);
+    // debugger;
+    return notebooks.find(notebook => {
+      return notebook.uuid === uuid;
+    });
+  }
+
+  async getNotebooks() {
+    const collection = await UserStorageQuery.query({
+      collection: COLLECTION,
+      fetchPolicyType: 'no-cache'
+    });
+    const { emptyNotebook } = this.state;
+    const notebooks = collection.data.map(({ document }) => document);
+    if (notebooks.length === 0) {
+      return [emptyNotebook, defaultGettingStartedNotebook];
     } else {
-      var chart = ""
+      return [emptyNotebook, ...notebooks];
     }
-    return chart
   }
 
-  updateQueries = (e) => {
-    var query = queries[e.value]
-    this.setState({ splash: false })
-    this.setState({ items: [] })
-    this.setState({ current_chart: "" });
-    this.setState({ current_description: query['description'] })
-    if (query.hasOwnProperty('chart')) {
-      this.setState({ current_chart: this.displayChart(query['chart']['type'],query['chart']['query'],this.state.current_account.split(",",1)[0]) })
-    } else {
-      this.setState({ current_chart: "" });
-    }
-    query['account'] = this.state.current_account
-    fetch(API, {method: 'post', headers: {'Content-Type':'application/json'}, body: JSON.stringify(query)})
-      .then(response => response.json())
-      .then(data => this.setState({ items: data.tables }));
-  }
+  saveNotebook = newNotebook => {
+    return UserStorageMutation.mutate({
+      actionType: UserStorageMutation.ACTION_TYPE.WRITE_DOCUMENT,
+      collection: COLLECTION,
+      documentId: newNotebook.uuid,
+      document: newNotebook
+    }).then(() => {
+      const oldEmptyNotebook = this.state.emptyNotebook;
+      const emptyNotebook =
+        newNotebook.uuid === oldEmptyNotebook.uuid
+          ? this.newEmptyNotebook()
+          : oldEmptyNotebook;
 
-  updateAccount = (e) => {
-    this.setState({ splash: false })
-    this.setState({ current_account: e.value });
-    this.setState({ items: [] });
-    this.setState({ current_description: "" });
-    this.setState({ current_chart: "" });
-  }
+      this.setState({ emptyNotebook }, () => {
+        nerdlet.setUrlState({ notebook: newNotebook.uuid });
+      });
+    });
+  };
 
-  render() {
-    const { items } = this.state;
-    var { current_description } = this.state;
-    var { current_chart } = this.state;
+  onDelete = uuid => {
+    UserStorageMutation.mutate({
+      actionType: UserStorageMutation.ACTION_TYPE.DELETE_DOCUMENT,
+      collection: COLLECTION,
+      documentId: uuid
+    }).then(() => {
+      const { emptyNotebook } = this.state;
+      nerdlet.setUrlState({ notebook: emptyNotebook.uuid });
+    });
+  };
+
+  onNotebookSelect = async ({ value: selectedUUID }) => {
+    // console.debug(selectedUUID);
+    nerdlet.setUrlState({ notebook: selectedUUID });
+  };
+
+  closeImportModal = () => this.setState({ importHidden: true });
+
+  renderHeader(currentNotebook, notebooks) {
+    const options = notebooks.map(notebook => {
+      return {
+        value: notebook.uuid,
+        label: notebook.title
+      };
+    });
+
     return (
-      <div>
-        <Select onChange={this.updateQueries} options={options} />
-
-	{ this.state.splash && <Landing /> }
-
-        <div align={'justify'} className="center">{ReactHtmlParser(current_description)}</div>
-
-	{current_chart}
-
-        {items.map((item, idx) =>
-          <table key={idx} className={item.view}>
-            <tbody>
-                  <tr><th colSpan={item.tdNames.length}><center><h3>{ReactHtmlParser(item.name)}</h3></center></th></tr>
-                  <tr>
-                    {item.tdNames.map((tdName, i) =>
-                    <th key={i}>{tdName}</th>
-                    )}
-                  </tr>
-		              {item.tdValues.map((name, index) =>
-                    <tr key={index}>{name.map((n, i) => <td key={i}>{ReactHtmlParser(n)}</td>)}</tr>
-                  )}
-            </tbody>
-          </table>
-        )}
+      <div className="notebook-header">
+        <HeadingText style={{ marginBottom: '14px', color: '#8e9494' }}>
+          Your Notebooks
+        </HeadingText>
+        <Stack
+          gapType={Stack.GAP_TYPE.BASE}
+          verticalType={Stack.VERTICAL_TYPE.CENTER}
+          horizontalType={Stack.HORIZONTAL_TYPE.CENTER}
+        >
+          <StackItem>
+            <div style={{ width: '300px' }}>
+              <Select
+                options={options}
+                value={{
+                  value: currentNotebook.uuid,
+                  label: currentNotebook.title
+                }}
+                defaultValue={options[0]}
+                onChange={this.onNotebookSelect}
+              />
+            </div>
+          </StackItem>
+          <StackItem shrink>
+            <Button
+              style={{ marginLeft: '14px' }}
+              onClick={() => this.setState({ importHidden: false })}
+              type={Button.TYPE.NORMAL}
+              iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__IMPORT}
+            >
+              Import Notebook
+            </Button>
+          </StackItem>
+        </Stack>
       </div>
     );
   }
+
+  render() {
+    const { emptyNotebook } = this.state;
+    return (
+      <NerdGraphQuery
+        query={getIntrospectionQuery()}
+        fetchPolicyType="no-cache"
+      >
+        {({ data, loading, errors }) => {
+          if (loading) {
+            return <Spinner />;
+          }
+          if (errors) {
+            return (
+              <>
+                <HeadingText>Error Fetching GraphQL Schema</HeadingText>
+                <ul>
+                  {errors.map((error, index) => {
+                    return (
+                      <li key={index}>
+                        <NerdGraphError error={error} />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </>
+            );
+          }
+          if (data) {
+            const schema = buildClientSchema(data);
+            return (
+              <AccountsQuery>
+                {({ data, error, loading }) => {
+                  if (loading) {
+                    return <Spinner />;
+                  }
+                  if (error) {
+                    return <NerdGraphError error={error} />;
+                  }
+                  const accounts = data;
+                  return (
+                    <UserStorageQuery collection={COLLECTION}>
+                      {({ data, loading, error }) => {
+                        if (loading) {
+                          return <Spinner />;
+                        }
+                        if (error) {
+                          return <NerdGraphError error={error} />;
+                        }
+                        const userStorage = data;
+                        return (
+                          <NerdletStateContext.Consumer>
+                            {nerdletUrlState => {
+                              const accountId =
+                                accounts && accounts[0] ? accounts[0].id : 1;
+                              const defaultNotebook = gettingStartedNotebook(
+                                accountId
+                              );
+                              const selectedNotebookUUID =
+                                nerdletUrlState.notebook;
+                              const storageNotebooks = userStorage.map(
+                                ({ document }) => document
+                              );
+                              // create our array of notebooks
+                              const notebooks =
+                                storageNotebooks.length === 0
+                                  ? [emptyNotebook, defaultNotebook]
+                                  : [emptyNotebook, ...storageNotebooks];
+                              // select current notebook
+                              let currentNotebook = notebooks.find(
+                                notebook =>
+                                  notebook.uuid === selectedNotebookUUID
+                              );
+                              currentNotebook =
+                                currentNotebook || defaultNotebook;
+
+                              return (
+                                <div className="notebook">
+                                  {this.renderHeader(
+                                    currentNotebook,
+                                    notebooks
+                                  )}
+                                  <Notebook
+                                    key={currentNotebook.uuid}
+                                    uuid={currentNotebook.uuid}
+                                    schema={schema}
+                                    title={currentNotebook.title}
+                                    cells={currentNotebook.cells}
+                                    ephemeral={!!currentNotebook.ephemeral}
+                                    onSave={this.saveNotebook}
+                                    onDelete={this.onDelete}
+                                    accounts={accounts}
+                                  />
+                                  <Modal
+                                    hidden={this.state.importHidden}
+                                    onClose={this.closeImportModal}
+                                  >
+                                    <HeadingText>
+                                      Paste below and press "import"
+                                    </HeadingText>
+                                    <textarea
+                                      ref={r => (this.importTextArea = r)}
+                                      className="notebook-import-export-box"
+                                    />
+                                    <Button
+                                      onClick={() => {
+                                        const encodedNotebook = this
+                                          .importTextArea.value;
+                                        if (encodedNotebook) {
+                                          const decodedNotebook = JSON.parse(
+                                            atob(encodedNotebook)
+                                          );
+                                          this.saveNotebook(
+                                            decodedNotebook
+                                          ).then(() => {
+                                            this.closeImportModal();
+                                          });
+                                        }
+                                      }}
+                                      type={Button.TYPE.NORMAL}
+                                      iconType={
+                                        Button.ICON_TYPE
+                                          .INTERFACE__OPERATIONS__IMPORT
+                                      }
+                                    >
+                                      Import
+                                    </Button>
+                                  </Modal>
+                                </div>
+                              );
+                            }}
+                          </NerdletStateContext.Consumer>
+                        );
+                      }}
+                    </UserStorageQuery>
+                  );
+                }}
+              </AccountsQuery>
+            );
+          } else {
+            return (
+              <div className="empty-state-container">
+                <EmptyState
+                  heading="Unable to fetch Schema"
+                  description="Check your Nerdpack configuration."
+                  buttonText=""
+                />
+              </div>
+            );
+          }
+        }}
+      </NerdGraphQuery>
+    );
+  }
 }
-export default ModernizationPatterns;

@@ -29,15 +29,16 @@ export default class CloudJourney extends React.Component {
     nerdletUrlState: PropTypes.object,
     launcherUrlState: PropTypes.object,
     tabIndex: PropTypes.number,
+    accountId: PropTypes.number,
   }; //propTypes
 
   constructor(props) {
     super(props);
     this.state = {
       currentTab: ('tabIndex' in props) ? props.tabIndex : 1,
-      accountId: DEADBEEF,
+      accountId: props.accountId,
     };
-
+   
     this.switchTab = this.switchTab.bind(this);
   }; //constructor
 

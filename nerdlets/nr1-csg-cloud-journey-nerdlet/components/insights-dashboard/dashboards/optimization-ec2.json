@@ -1,72 +1,72 @@
 {
-    "dashboard_account_id": DEADBEEF,
-    "filter": null,
-    "grid_column_count": 3,
-    "icon": "bar-chart",
-    "owner": {
-        "email": "ayathirajadasan@newrelic.com"
-    },
-    "title": "LabsUseOnly",
+    "grid_column_count": 3, 
+    "title": "LabsUseOnly", 
+    "dashboard_account_id": 1, 
+    "filter": null, 
     "widgets": [
         {
-            "column": 1,
-            "customizations": {},
+            "nrql": "FROM SystemSample SELECT min(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' AND cpuIdlePercent > 80 FACET hostname since 1 week ago", 
+            "title": "Downgrade Candidates: CPU Idle > 80%", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "hostname", 
+            "width": 2, 
             "event_types": [
                 "SystemSample"
-            ],
-            "facet": "hostname",
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM SystemSample SELECT min(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' AND cpuIdlePercent > 80 FACET hostname since 1 week ago",
-            "process_as": "facet_bar_chart",
-            "row": 1,
-            "title": "Downgrade Candidates: CPU Idle > 80%",
-            "width": 2
-        },
+            ], 
+            "process_as": "facet_bar_chart", 
+            "row": 1
+        }, 
         {
-            "column": 3,
-            "customizations": {},
+            "nrql": "FROM SystemSample SELECT min(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' AND cpuIdlePercent < 20 FACET hostname since 1 week ago", 
+            "title": "Upgrade Candidates: CPU Idle < 20%", 
+            "column": 3, 
+            "notes": null, 
+            "customizations": {}, 
+            "height": 1, 
+            "facet": "hostname", 
+            "width": 1, 
             "event_types": [
                 "SystemSample"
-            ],
-            "facet": "hostname",
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM SystemSample SELECT min(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' AND cpuIdlePercent < 20 FACET hostname since 1 week ago",
-            "process_as": "facet_table",
-            "row": 1,
-            "title": "Upgrade Candidates: CPU Idle < 20%",
-            "width": 1
-        },
+            ], 
+            "process_as": "facet_table", 
+            "row": 1
+        }, 
         {
-            "column": 1,
-            "customizations": null,
+            "nrql": "FROM SystemSample SELECT max(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' FACET hostname since 1 week ago TIMESERIES", 
+            "title": "Maximum CPU Utilization by Hostname", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": "hostname", 
+            "width": 3, 
             "event_types": [
                 "SystemSample"
-            ],
-            "facet": "hostname",
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM SystemSample SELECT max(cpuPercent) AS '%' WHERE provider = 'Ec2Instance' FACET hostname since 1 week ago TIMESERIES",
-            "process_as": "faceted_line_chart",
-            "row": 2,
-            "title": "Maximum CPU Utilization by Hostname",
-            "width": 3
-        },
+            ], 
+            "process_as": "faceted_line_chart", 
+            "row": 2
+        }, 
         {
-            "column": 1,
-            "customizations": null,
+            "nrql": "FROM SystemSample SELECT average(cpuPercent) as '%' WHERE provider ='Ec2Instance' FACET hostname since 1 week ago TIMESERIES", 
+            "title": "Average CPU Utilization by Hostname", 
+            "column": 1, 
+            "notes": null, 
+            "customizations": null, 
+            "height": 1, 
+            "facet": "hostname", 
+            "width": 3, 
             "event_types": [
                 "SystemSample"
-            ],
-            "facet": "hostname",
-            "height": 1,
-            "notes": null,
-            "nrql": "FROM SystemSample SELECT average(cpuPercent) as '%' WHERE provider ='Ec2Instance' FACET hostname since 1 week ago TIMESERIES",
-            "process_as": "faceted_line_chart",
-            "row": 3,
-            "title": "Average CPU Utilization by Hostname",
-            "width": 3
+            ], 
+            "process_as": "faceted_line_chart", 
+            "row": 3
         }
-    ]
+    ], 
+    "owner": {
+        "email": "ayathirajadasan@newrelic.com"
+    }, 
+    "icon": "bar-chart"
 }
